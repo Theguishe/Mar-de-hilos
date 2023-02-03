@@ -1,2 +1,14 @@
 
 /* Esto es una prueba */
+
+:root {
+    --f-font--: 'Kaisei Tokumin', serif;
+    --s-font--: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: var(--f-font--);
+    background-color: #000;
+    color: #999;
+}
+
