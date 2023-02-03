@@ -8,7 +8,17 @@
 
 body {
     font-family: var(--f-font--);
-    background-color: #000;
-    color: #999;
+    background: #000;
 }
 
+.navbar {
+    background: #e3f2fd;
+}
+
+form input {
+    
+}
+
+.nav-link i {
+    font-size: 25px;
+}
