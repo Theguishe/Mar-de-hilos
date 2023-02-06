@@ -23,6 +23,9 @@
     <!-- Tailwind cdn -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
+    <link rel="stylesheet" href="/app/resources/splide-4.1.3/dist/css/splide.min.css">
+    <script src="/app/resources/splide-4.1.3/dist/js/splide.min.js"></script>
+
 </head>
 <body>
     
@@ -40,12 +43,15 @@
           <ul>
             <li>
               <a href="#"><span class="fas fa-user"></span></a>
+              <a href="#" class="navbar-user-text">User</a>
             </li>
             <li>
               <a href="#"><span class="fas fa-cart-shopping"></span></a>
+              <a href="#" class="navbar-cart-text">Cart</a>
             </li>
             <li>
               <a href="#"><span class="fas fa-heart"></span></a>
+              <a href="#" class="navbar-like-text">Like</a>
             </li>
           </ul>
         </div>
@@ -67,7 +73,16 @@
       </nav>
     </header>
 
-    <section></section>
+    <section class="carousel">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <li class="splide__slide"><img src="/app/resources/imgs/carousel1.jpg" alt="wool-hats"></li>
+          <li class="splide__slide"><img src="/app/resources/imgs/carousel2.jpg" alt="wool-rugs"></li>
+          <li class="splide__slide"><img src="/app/resources/imgs/carousel3.jpg" alt=""></li>
+          <li class="splide__slide"><img src="/app/resources/imgs/carousel4.jpg" alt=""></li>
+        </ul>
+      </div>
+    </section>
 
     <aside></aside>
 

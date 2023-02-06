@@ -1,1 +1,4 @@
-console.log('prueba')
+// console.log('prueba')
+
+var splide = new Splide( '.splide' );
+splide.mount();
