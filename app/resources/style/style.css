@@ -22,6 +22,7 @@ header .f-nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 1px 1px 10px #000;
 }
 
 .brand {
@@ -113,6 +114,7 @@ header .s-nav {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    box-shadow: 1px 1px 10px #000;
 }
 
 .s-nav ul {
@@ -142,22 +144,40 @@ header .s-nav {
 
 .splide__track {
     width: 100%;
-    height: 400px;
-    padding: 5px;
-    background: #333;
+    height: 524px;
+    background: #fff;
 }
 
 .splide__track img {
-    width: 100%;
-    height: 400px;
-    object-fit:cover;  
+    width: 50%;
+    height: 524px;
+    object-fit:contain;
+    margin-left: 25%;
 }
 
+.pre-s-container {
+    background: transparent;
+    width: 300px;
+    height: 460px;
+    position: absolute;
+    margin: 35px;
+    top: 0;
+    left: 0;
+    box-shadow: 1px 1px 8px #000;
+}
 
+.pre-f-container{
+    background: transparent;
+    width: 300px;
+    height: 460px;
+    position: absolute;
+    top: 0px;
+    right: 0;
+    margin: 35px;
+    box-shadow: 1px 1px 8px #000;
+}
 
-
-
-
+/* IDK the way to present the page, like informal marketing images besides it own style */
 
 
 
