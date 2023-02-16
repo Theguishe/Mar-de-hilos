@@ -140,13 +140,11 @@ header {
     margin: 15px;
 }
 
-.card {
-    min-width: 250px;
-    min-height: 300px;
-    margin-top: 30px;
+.cards .splide__list .splide__slide .card{
+    width: 225px;
+    height: 300px;
+    font-size: 12px;
 }
-
-
 
 
 
