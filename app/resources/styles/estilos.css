@@ -1,6 +1,7 @@
 
 :root {
     --f_font--: 'Poppins', sans-serif;
+    --p_color--: #999;
 }
 
 * {
@@ -87,12 +88,12 @@ header {
 
 .splide__track {
     width: 100%;
-    height: 515px;
+    height: 525px;
 }
 
 .splide__track img {
     width: 100%;
-    height: 515px;
+    height: 525px;
     object-fit: cover;
 }
 
@@ -119,3 +120,57 @@ header {
     from { transform: translate3d(0, 0, 0);}
     to { transform: translate3d(0, 10px, 0);}
 }
+
+/* 
+.most-bought-products {
+    
+} */
+
+.cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.this-banner-s {
+    color: #000;
+    font-size: 32px;
+    text-indent: 12px;
+    padding: 12px;
+    margin: 15px;
+}
+
+.card {
+    min-width: 250px;
+    min-height: 300px;
+    margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Auto scroll splidejs extension for comments and client's opinion */
