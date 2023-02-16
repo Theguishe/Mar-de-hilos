@@ -46,6 +46,9 @@ CREATE TABLE reseñas(
 
 CREATE TABLE reseña_detalles(
 	id_reseña_detalle serial not null primary key,
+	imagen_producto bytea null,
+	fecha date null, 
+	hora time null,
 	id_reseña int not null,
 	id_valoracion int not null,
 	id_cliente int not null
@@ -212,10 +215,10 @@ VALUES (4),
 		(5),
 		(5);
 
-INSERT INTO reseña_detalles(id_reseña, id_valoracion, id_cliente)
-VALUES (3,2,1),
-		(2,3,2),
-		(1,1,3);
+INSERT INTO reseña_detalles(imagen_producto, fecha, hora, id_reseña, id_valoracion, id_cliente)
+VALUES ('imagen producto','2023-01-01','03:00PM',3,2,1),
+		('imagen producto','2023-01-12','01:00PM',2,3,2),
+		('imagen producto','2023-02-14','11:00AM',1,1,3);
 		
 INSERT INTO categorias(categoria)
 VALUES ('plantas'),
