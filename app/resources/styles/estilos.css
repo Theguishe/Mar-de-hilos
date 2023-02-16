@@ -1,0 +1,121 @@
+
+:root {
+    --f_font--: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: var(--f_font--);
+}
+
+body {
+    overflow: hidden
+}
+
+header {
+    margin-top: 12px;
+}
+
+.navbar-start {
+    width: 75%;
+}
+
+.navbar-logo {
+    width: 30px;
+    height: auto;
+}
+
+.buttons a svg{
+    margin: 0 18px 0 18px;
+}
+
+.user-icon {
+    margin-right: 12px;
+}
+
+.navbar-end .navbar-dropdown{
+    border: none;
+    outline: none;
+    width: 80px;
+}
+
+.navbar-end .navbar-dropdown .navbar-item {
+    padding: 8px;
+}
+
+.s-navbar {
+    margin-top: 15px;
+    padding: 6px;
+    background: #ccc;
+}
+
+.s-navbar ul li a span:nth-child(2){
+    color: #000;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.s-navbar ul li a span:nth-child(2):hover {
+    padding-bottom: 5px;
+    border-bottom: .4px solid #000;
+}
+
+.search-bar {
+    width: 100%;
+    position: relative;
+    height: 38px;
+    padding: 12px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid #221;
+    text-indent: 10px;
+    margin: 8px 8px 8px 100px; 
+}
+
+.search-icon {
+    width: 20px;
+    position: relative;
+    margin-top: 16px;
+    cursor: pointer;
+    left: -48px;
+}
+
+.search-icons {
+    padding: 0 8px 0 8px;
+}
+
+.splide__track {
+    width: 100%;
+    height: 515px;
+}
+
+.splide__track img {
+    width: 100%;
+    height: 515px;
+    object-fit: cover;
+}
+
+.down-indicator {
+    background: #112;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 85%;
+    left: 60px;
+    border-radius: 50px;
+    cursor: pointer;
+    animation: smoothbouncearrow 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+.down-indicator svg {
+    width: 22px;
+    margin: 12px 18px 10px 18px;
+}
+
+@keyframes smoothbouncearrow{
+    from { transform: translate3d(0, 0, 0);}
+    to { transform: translate3d(0, 10px, 0);}
+}

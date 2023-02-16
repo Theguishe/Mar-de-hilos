@@ -1,115 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mar de hilos</title>
+    <link rel="stylesheet" href="/app/resources/styles/estilos.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
-    <!-- Css file -->
-    <link rel="stylesheet" href="/app/resources/style/style.css">
-
-    <!-- Bootstrap css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- Font to be used -->
+    <!--Google Font link-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 
-    <!-- Font awesome link -->
-    <script src="https://kit.fontawesome.com/7b154f7544.js" crossorigin="anonymous"></script>
+    <!--Bulma cdn carousel link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
 
-    <!-- Tailwind cdn -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-
-    <link rel="stylesheet" href="/app/resources/splide-4.1.3/dist/css/splide.min.css">
-
-</head>
-<body>
-    
+    <link rel="stylesheet" href="/app/resources/splide-4.1.3/dist/css/splide.min.css"> 
+  </head>
+  <body>
     <header>
-      <nav class="f-nav">
-        <div class="brand">
-          <a href="index.html"><span class="fas fa-copyright"></span></a>
-          <a href="index.html"><h2>Mar de hilos</h2></a>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="#">
+                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                  <input type="text" placeholder="looking for something?" class="search-bar">
+          
+                <div class="search-icons">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#555" class="navbar-logo search-icon"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                </div>
+
+          
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    More
+                  </a>
+          
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                      About
+                    </a>
+                    <a class="navbar-item">
+                      Language
+                    </a>
+                    <a class="navbar-item">
+                      Contact
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                      UwU
+                    </a>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                      <a href="#" class="user-icon">
+                        <!-- <img src="imgs/user-solid.svg" alt="user-logo" class="user-logo"> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="navbar-logo user-logo" fill="#555"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                      </a>
+                      <div class="navbar-dropdown">
+                        <a href="#" class="navbar-item">
+                          Login
+                        </a>
+                        <a href="#" class="navbar-item">
+                          Sign up
+                        </a>
+                      </div>
+                    </div>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="navbar-logo cart-logo" fill="#555"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="navbar-logo love-logo" fill="#555"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </nav>
+        <div class="s-navbar">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="#">
+                      <span class="icon is-small">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                      </span>
+                      <span>Ofertas</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="icon is-small">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                      </span>
+                      <span>Hombres</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="icon is-small">
+                        <i class="fas fa-puzzle-piece" aria-hidden="true"></i>
+                      </span>
+                      <span>Mujeres</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="icon is-small">
+                        <i class="fas fa-puzzle-piece" aria-hidden="true"></i>
+                      </span>
+                      <span>Nuevo</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span class="icon is-small">
+                        <i class="fas fa-puzzle-piece" aria-hidden="true"></i>
+                      </span>
+                      <span>Viejo</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
         </div>
-        <div class="navbar">
-          <div class="search-box">
-            <input type="text" placeholder="looking for something?">
-            <span class="fas fa-search search-icon"></span>
-          </div>
-          <ul>
-            <li>
-              <a href="#"><span class="fas fa-user"></span></a>
-              <a href="#" class="navbar-user-text">User</a>
-            </li>
-            <li>
-              <a href="#"><span class="fas fa-cart-shopping"></span></a>
-              <a href="#" class="navbar-cart-text">Cart</a>
-            </li>
-            <li>
-              <a href="#"><span class="fas fa-heart"></span></a>
-              <a href="#" class="navbar-like-text">Like</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <nav class="s-nav">
-        <div class="s-nav-options user-options">
-          <ul>
-            <li>
-              <a href="index.html">Home</a>
-            </li>
-            <li>
-              <a href="#">Oferts</a>
-            </li>
-            <li>
-              <a href="#">Contact us!</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
     </header>
 
-    <section class="carousel">
-      <div class="splide">
-        <div class="splide__track">
-          <ul class="splide__list">
-            <li class="splide__slide"><img src="/app/resources/imgs/carousel1.jpg" alt="wool-hats">
-              <div class="pre-f-container"></div>
-              <div class="pre-s-container"></div>
-            </li>
-            <li class="splide__slide"><img src="/app/resources/imgs/carousel2.jpg" alt="wool-rugs">
-              <div class="pre-f-container"></div>
-              <div class="pre-s-container"></div>
-            </li>
-            <li class="splide__slide"><img src="/app/resources/imgs/carousel3.jpg" alt="">
-              <div class="pre-f-container"></div>
-              <div class="pre-s-container"></div>
-            </li>
-            <li class="splide__slide"><img src="/app/resources/imgs/carousel4.jpg" alt="">
-              <div class="pre-f-container"></div>
-              <div class="pre-s-container"></div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+        <section class="carousel">
+          <div class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                  <li class="splide__slide">
+                    <img src="/app/resources/imgs/imagen1.jpg" alt="paisaje1">
+                  </li>
+                  <li class="splide__slide">
+                    <img src="/app/resources/imgs/imagen2.jpg" alt="paisaje2">
+                  </li>
+                  <li class="splide__slide">
+                    <img src="/app/resources/imgs/imagen3.jpg" alt="paisaje3">
+                  </li>
+                  <li class="splide__slide">
+                    <img src="/app/resources/imgs/imagen4.jpg" alt="paisaje4">
+                  </li>
+                  <li class="splide__slide">
+                    <img src="/app/resources/imgs/imagen5.jpg" alt="paisaje5">
+                  </li>
+                </ul>
+              </div>
+          </div>
+          <div class="down-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#fff"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M137.4 502.6c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 402.7 192 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 370.7L54.6 329.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128z"/></svg>
+          </div>
+        </section>
 
     <aside></aside>
 
     <footer></footer>
 
-
-    <!-- Bootstrap link -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- jquery file -->
-    <script src="/app/resources/js_/jquery-3.6.3.js"></script>
-
-    <!-- Js file -->
+    <!--splide js file-->
     <script src="/app/resources/splide-4.1.3/dist/js/splide.min.js"></script>
-    <script src="/app/controller/client/index_client.js"></script>
-</body>
+
+    <!--Js file-->
+    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+    <script src="/app/resources/js/index.js"></script>
+  </body>
 </html>
