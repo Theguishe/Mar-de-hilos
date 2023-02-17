@@ -159,6 +159,7 @@ header {
     text-align: left;
     box-shadow: 0 2px 3px #000;
     transition: .5s;
+    margin: 0 7.5px 30px 7.5px;
 }
 
 .cards .card:hover {
@@ -166,8 +167,6 @@ header {
     transform: translate(0, -4px);
     box-shadow: 0  3px 3px #000;
 }
-
-/* Search how to big the image when mouse's hover and how to make the transition in hover effect underline style*/
 
 .cards .card h3{
     font-size: 16px;
@@ -204,11 +203,37 @@ header {
     font-size: 12px;
 }
 
+/* Search how to big the image when mouse's hover and how to make the transition in hover effect underline style*/
 
+.left-arrow, .right-arrow {
+    border: none;
+    width: 5vw;
+    height: 80%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+}
 
+.left-arrow {
+    right: 0;
+}
 
+.right-arrow {
+    left: 0;
+}
 
+.left-arrow svg, .right-arrow svg {
+    opacity: .2;
+}
 
+.left-arrow:hover svg, .right-arrow:hover svg {
+    opacity: 1;
+}
 
 
 
