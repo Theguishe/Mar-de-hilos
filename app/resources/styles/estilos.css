@@ -58,7 +58,7 @@ header {
 .s-navbar {
     margin-top: 15px;
     padding: 6px;
-    background: #ccc;
+    background: hsl(0, 0%, 96%);
 }
 
 .s-navbar ul li a span:nth-child(2){
@@ -67,9 +67,19 @@ header {
     font-size: 14px;
 }
 
-.s-navbar ul li a span:nth-child(2):hover {
-    padding-bottom: 5px;
-    border-bottom: .4px solid #000;
+.s-navbar ul li a:nth-child(2):after {
+    content: "";
+    position: absolute;
+    background: #000;
+    height: 3px;
+    width: 0;
+    left: 0;
+    top: 0;
+    transition: .3s;
+}
+
+.s-navbar ul li a:nth-child(2):hover:after {
+    width: 100%;
 }
 
 .search-bar {
@@ -138,28 +148,31 @@ header {
 
 .cards {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-bottom: 50px
+    width: 94%;
+    height: 400px;
+    margin-bottom: 50px;
 }
 
 .this-banner-s {
+    background-color: #fff;
     color: #000;
     font-size: 32px;
     text-indent: 12px;
     padding: 12px;
     margin: 15px;
+    width: 100%;
 }
 
 .cards .card {
-    max-width: 20%;
-    height: 365px;
+    min-width: 22%;
+    max-width: 22px;
+    height: 390px;
     text-align: left;
     box-shadow: 0 2px 3px #000;
     transition: .5s;
-    margin: 0 7.5px 30px 7.5px;
+    margin-left: 12px;
 }
 
 .cards .card:hover {
@@ -205,48 +218,18 @@ header {
 
 /* Search how to big the image when mouse's hover and how to make the transition in hover effect underline style*/
 
-.left-arrow, .right-arrow {
-    border: none;
-    width: 5vw;
-    height: 80%;
-    position: absolute;
-    top: 0;
+.footer {
+    background: hsl(0, 0%, 96%);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.footer-icon {
+    display: inline-block;
+    width: 25px;
+    margin: 20px;
     cursor: pointer;
-    z-index: 10;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
 }
-
-.left-arrow {
-    right: 0;
-}
-
-.right-arrow {
-    left: 0;
-}
-
-.left-arrow svg, .right-arrow svg {
-    opacity: .2;
-}
-
-.left-arrow:hover svg, .right-arrow:hover svg {
-    opacity: 1;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Auto scroll splidejs extension for comments and client's opinion */
