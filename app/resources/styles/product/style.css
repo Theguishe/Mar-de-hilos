@@ -1,0 +1,100 @@
+
+.product {
+    margin: 45px;
+    width: 70%;
+    height: 500px;
+}
+
+.product-container{
+    display: flex;
+    background: hsl(0, 0%, 90%);
+    height: 50em;
+}
+
+.product-picture {
+    width: 50%;
+    height: auto;
+}
+
+.product-info {
+    width: 50%;
+    text-indent: 12px;
+}
+
+.product-info h3 {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: 12px
+}
+
+.product-info ul {
+    display: flex;
+    list-style: none;
+    margin: 20px 0 10px 15px;
+}
+
+.product-info ul li {
+    display: flex;
+    width: 20px;
+    margin: 0;
+    float: left;
+    cursor: pointer;
+}
+
+.product-info .product-sending {
+    font-size: 12px;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+.product-info .product-sending span {
+    font-size: 12px;
+    color: #a22;
+    font-weight: bolder;
+}
+
+.product-quantity {
+    margin-top: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.product-quantity .plus-icon, .product-quantity .minus-icon {
+    width: 30px;
+    height: 30px;
+    background: hsl(0, 0%, 80%);
+    margin-left: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.product-quantity .plus-icon svg, .product-quantity .minus-icon svg{
+    width: 20px;
+    border-radius: 50px;
+    margin: 3px 0 0 -6px;
+}
+
+.product-buttons {
+    margin-top: 20px;
+}
+
+.product-buttons button {
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    width: 150px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+}
+
+.product-buttons .buy {
+    background: #FD7716;
+}
+
+.product-buttons .s-cart {
+    background: #3484E2;
+    margin-left: 15px
+}
