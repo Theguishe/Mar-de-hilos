@@ -1,6 +1,6 @@
 
 .product {
-    margin: 45px;
+    margin: 45px 1px 100px 45px;
     width: 70%;
     height: 500px;
 }
@@ -8,7 +8,6 @@
 .product-container{
     display: flex;
     background: hsl(0, 0%, 90%);
-    height: 50em;
 }
 
 .product-picture {
@@ -97,4 +96,150 @@
 .product-buttons .s-cart {
     background: #3484E2;
     margin-left: 15px
+}
+
+.comment-card {
+    margin-bottom: 50px
+}
+
+.comment-container {
+    height: 45em;
+    max-height: 45em;
+    overflow: auto;
+}
+
+.comment-container .content {
+    margin-top: -20px
+}
+
+.comment-title h2 {
+    background-color: #fff;
+    color: #000;
+    font-size: 32px;
+    text-indent: 12px;
+    padding: 12px;
+    margin: 15px;
+    width: 100%;
+}
+
+.comments {
+    width: 70%;
+}
+
+.comment-container {
+    margin: 45px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.comment-reviews ul {
+    display: flex;
+    list-style: none;
+    margin: 20px 0 10px 0;
+}
+
+.comment-reviews ul li {
+    display: flex;
+    width: 12px;
+    margin: 0;
+    float: left;
+    cursor: text;
+}
+
+
+.user-date {
+    margin-top: -12px;
+}
+
+.user-date small:nth-child(2){
+    margin-left: 12px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 94%;
+    height: 400px;
+    margin-bottom: 50px;
+}
+
+.this-banner-s {
+    background-color: #fff;
+    color: #000;
+    font-size: 32px;
+    text-indent: 12px;
+    padding: 12px;
+    margin: 15px;
+    width: 100%;
+}
+
+.cards {
+    margin-bottom: 25px
+}
+
+.cards .card {
+    min-width: 22%;
+    max-width: 22px;
+    height: 390px;
+    text-align: left;
+    box-shadow: 0 2px 3px #000;
+    transition: .5s;
+    margin-left: 12px;
+}
+
+.cards .card:hover {
+    cursor: pointer;
+    transform: translate(0, -4px);
+    box-shadow: 0  3px 3px #000;
+}
+
+.cards .card h3{
+    font-size: 16px;
+    text-indent: 12px;    
+}
+
+.cards .card p {
+    font-size: 12px;
+    text-align: justify;
+    margin: 10px;   
+}
+
+.cards .card h6 {
+    font-size: 14px;
+    text-align: left;
+    text-indent: 14px;
+}
+
+.cards .card ul {
+    display: flex;
+    list-style: none;
+    margin-left: 10px
+}
+
+.cards .card ul li {
+    display: flex;
+    width: 15px;
+    margin: 0;
+    float: left;
+}
+
+.cards .card ul li span {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.footer {
+    background: hsl(0, 0%, 96%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-icon {
+    display: inline-block;
+    width: 25px;
+    margin: 20px;
+    cursor: pointer;
 }
