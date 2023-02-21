@@ -65,20 +65,25 @@ header {
     color: #000;
     padding: 10px;
     font-size: 14px;
+    position: relative;
 }
 
-.s-navbar ul li a:nth-child(2):after {
+.s-navbar ul li a span:nth-child(2)::after {
     content: "";
     position: absolute;
     background: #000;
-    height: 3px;
+    height: 1.5px;
     width: 0;
     left: 0;
-    top: 0;
-    transition: .3s;
+    bottom: 2px;
+    transition: .4s;
 }
 
-.s-navbar ul li a:nth-child(2):hover:after {
+.navbar-dropdown a{
+    font-size: 14px;
+}
+
+.s-navbar ul li a span:nth-child(2):hover::after {
     width: 100%;
 }
 
