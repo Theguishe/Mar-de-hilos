@@ -6,6 +6,10 @@
     justify-content: center;
 } */
 
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
 .user-acces-container {
     width: 100%;
     height: 100vh;
@@ -16,8 +20,55 @@
     transition: all .5s ease;
 }
 
+.scene {
+    display: inline-block;
+    width: 35%;
+    height: 510px;
+  /*   border: 1px solid #CCC; */
+    margin: 40px 0;
+    perspective: 600px;
+  }
+  
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform-origin: center right;
+    transition: transform 1s;
+    border-radius: 20px;
+  }
+  
+  .card.is-flipped {
+    transform: translateX(-100%) rotateY(-180deg);
+  }
+  
+  .card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 260px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    backface-visibility: hidden;
+  }
+  
+  .card__face--front {
+    background: crimson;
+  }
+  
+  .card__face--back {
+    background: slateblue;
+    transform: rotateY(180deg);
+  }
+
+
+
 .login-container {
-    min-width: 35%;
+    min-width: 40%;
     max-width: 40%;
     height: 510px;
     padding: 15px;
@@ -34,8 +85,9 @@
 }
 
 .logo-container img {
-    width: 175px;
-    opacity: 75%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
 }
 
 .login-title {
@@ -89,6 +141,10 @@
     justify-content: center;
 }
 
+.login-options {
+    font-size: 13px;
+}
+
 .login-options .f-pwd {
     display: flex;
     justify-content: center;
@@ -112,7 +168,7 @@
 /* ----------------- */
 
 .register-container {
-    min-width: 35%;
+    min-width: 40%;
     max-width: 40%;
     height: 510px;
     padding: 15px;
@@ -201,9 +257,8 @@
 /* Flip effect */
 
 .user-acces-container {
-    position: relative;
+    position: absolute;
     transform-style: preserve-3d;
-    cursor: pointer;
     transition: all .5s ease-in-out;
     z-index: 100;
 }
@@ -224,7 +279,4 @@
 .user-acces-container .register-container {
     transform: rotateY(180deg)
 }
-
-:checked + .user-acces-container {
-    transform: rotateX(175)
-}
+  
