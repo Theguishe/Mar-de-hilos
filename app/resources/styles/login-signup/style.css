@@ -24,12 +24,12 @@
     display: inline-block;
     width: 35%;
     height: 510px;
-  /*   border: 1px solid #CCC; */
+    /*   border: 1px solid #CCC; */
     margin: 40px 0;
     perspective: 600px;
-  }
-  
-  .card {
+}
+
+.card {
     position: relative;
     width: 100%;
     height: 100%;
@@ -38,13 +38,13 @@
     transform-origin: center right;
     transition: transform 1s;
     border-radius: 20px;
-  }
-  
-  .card.is-flipped {
+}
+
+.card.is-flipped {
     transform: translateX(-100%) rotateY(-180deg);
-  }
-  
-  .card__face {
+}
+
+.card__face {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -54,16 +54,16 @@
     font-weight: bold;
     font-size: 40px;
     backface-visibility: hidden;
-  }
-  
-  .card__face--front {
+}
+
+.card__face--front {
     background: crimson;
-  }
-  
-  .card__face--back {
+}
+
+.card__face--back {
     background: slateblue;
     transform: rotateY(180deg);
-  }
+}
 
 
 
@@ -118,7 +118,7 @@
     font-size: 13px;
 }
 
-.inputs button{
+.inputs button {
     text-indent: 0;
     text-align: center;
     min-width: 40%;
@@ -198,7 +198,8 @@
     font-size: 13px;
 }
 
-.register-container form .name input, .register-container form .last-name input {
+.register-container form .name input,
+.register-container form .last-name input {
     width: 100%;
 }
 
@@ -206,7 +207,7 @@
     width: 49%;
 }
 
-.register-container form .dui-date input:nth-child(2){
+.register-container form .dui-date input:nth-child(2) {
     text-indent: 4px;
 }
 
@@ -224,7 +225,7 @@
     margin-bottom: 1.5em;
 }
 
-.register-container .signup-btn button{
+.register-container .signup-btn button {
     text-indent: 0;
     text-align: center;
     min-width: 40%;
@@ -263,12 +264,14 @@
     z-index: 100;
 }
 
-.user-acces-container .login-container, .user-acces-container .register-container {
+.user-acces-container .login-container,
+.user-acces-container .register-container {
     position: absolute;
     backface-visibility: hidden;
 }
 
-.login-container, .register-container {
+.login-container,
+.register-container {
     backface-visibility: hidden;
 }
 
@@ -279,4 +282,3 @@
 .user-acces-container .register-container {
     transform: rotateY(180deg)
 }
-  

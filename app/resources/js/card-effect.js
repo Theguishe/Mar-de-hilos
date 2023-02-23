@@ -1,5 +1,5 @@
-var splide = new Splide( '.splide', {
-    type : 'loop',
+var splide = new Splide('.splide', {
+    type: 'loop',
 });
 splide.mount();
 
@@ -10,5 +10,5 @@ var swiper = new Swiper(".swiper", {
     navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
-      },
-  });
+    },
+});
