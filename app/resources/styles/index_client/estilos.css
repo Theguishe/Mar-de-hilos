@@ -1,3 +1,4 @@
+
 :root {
     --f_font--: 'Poppins', sans-serif;
     --p_color--: #999;
@@ -44,12 +45,12 @@ header {
     height: auto;
 }
 
-.navbar .has-dropdown .navbar-link {
+.navbar .has-dropdown .navbar-link{
     outline: none;
     border: none;
 }
 
-.buttons a svg {
+.buttons a svg{
     margin: 0 18px 0 18px;
 }
 
@@ -57,7 +58,7 @@ header {
     margin-right: 12px;
 }
 
-.navbar-end .navbar-dropdown {
+.navbar-end .navbar-dropdown{
     border: none;
     outline: none;
     width: 80px;
@@ -95,7 +96,7 @@ header {
     transition: .4s;
 }
 
-.navbar-dropdown a {
+.navbar-dropdown a{
     font-size: 14px;
 }
 
@@ -112,7 +113,7 @@ header {
     outline: none;
     border: 1px solid #221;
     text-indent: 10px;
-    margin: 8px 8px 8px 100px;
+    margin: 8px 8px 8px 100px; 
 }
 
 .search-icon {
@@ -157,14 +158,9 @@ header {
     margin: 12px 18px 10px 18px;
 }
 
-@keyframes smoothbouncearrow {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(0, 10px, 0);
-    }
+@keyframes smoothbouncearrow{
+    from { transform: translate3d(0, 0, 0);}
+    to { transform: translate3d(0, 10px, 0);}
 }
 
 /* 
@@ -204,18 +200,18 @@ header {
 .cards .card:hover {
     cursor: pointer;
     transform: translate(0, -4px);
-    box-shadow: 0 3px 3px #000;
+    box-shadow: 0  3px 3px #000;
 }
 
-.cards .card h3 {
+.cards .card h3{
     font-size: 16px;
-    text-indent: 12px;
+    text-indent: 12px;    
 }
 
 .cards .card p {
     font-size: 12px;
     text-align: justify;
-    margin: 10px;
+    margin: 10px;   
 }
 
 .cards .card h6 {

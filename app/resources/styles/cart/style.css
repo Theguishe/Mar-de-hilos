@@ -1,3 +1,4 @@
+
 .card-container {
     width: 65%;
     margin: 45px;
@@ -17,8 +18,7 @@
     display: inline-block;
 }
 
-.card .title,
-.card .price {
+.card .title, .card .price {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,8 +34,7 @@
     margin-right: 25px;
 }
 
-.product-quantity .plus-icon,
-.product-quantity .minus-icon {
+.product-quantity .plus-icon, .product-quantity .minus-icon {
     width: 30px;
     height: 30px;
     background: hsl(0, 0%, 80%);
@@ -44,8 +43,7 @@
     cursor: pointer;
 }
 
-.product-quantity .plus-icon svg,
-.product-quantity .minus-icon svg {
+.product-quantity .plus-icon svg, .product-quantity .minus-icon svg{
     width: 20px;
     border-radius: 50px;
     margin: 3px 0 0 5px;
@@ -65,7 +63,7 @@
     text-align: center;
 }
 
-.card .price .disc .input-disc {
+.card .price .disc .input-disc{
     display: flex;
 }
 
@@ -113,8 +111,7 @@
     margin-top: 20px
 }
 
-.card .last-part p,
-.card .last-part p span {
+.card .last-part p, .card .last-part p span {
     font-weight: bolder;
 }
 
