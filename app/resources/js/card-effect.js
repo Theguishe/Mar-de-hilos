@@ -5,7 +5,7 @@ splide.mount();
 
 // Swiper
 var swiper = new Swiper(".swiper", {
-    slidesPerView: 3,
+    slidesPerView: 5,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
