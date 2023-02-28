@@ -266,6 +266,7 @@ header {
     }
 
     .navbar-menu {
+        width: 100%;
         position: absolute;
     }
 
@@ -338,6 +339,34 @@ header {
 
     .user-extra-opts {
         display: flex;
+    }
+
+    .user-extra-opts .user-container .navbar-dropdown .navbar-item{
+        color: #000;
+        font-size: 15px;
+    }
+
+    .user-extra-opts .user-container .navbar-dropdown .navbar-item:hover {
+        background: hsl(0, 0%, 96%);
+    }
+
+    .user-extra-opts .user-container .navbar-dropdown{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-opts-titles {
+        display: block;
+    }
+
+    .user-opts-titles a {
+        padding: 10px 0 10px 0;
+        color: #000;
+    }
+
+    .user-opts-titles a:hover {
+        background: hsl(0, 0%, 96%);
     }
 
     .search-icons {
