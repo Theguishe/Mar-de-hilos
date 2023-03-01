@@ -155,3 +155,38 @@
     margin: 20px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 768px){
+    .card-container {
+        margin: 3px;
+        min-width: 60%;
+    }
+
+    .card-container .card .media {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .card-container .card .media .media-left p {
+        width: 100%;
+    }
+
+    .card-container .title h2{
+        display: block;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .card-container .media-content .content .product-quantity {
+        width: 100%;
+        font-size: 8px;
+    }
+
+    .footer .content svg{
+        width: 20px;
+    }
+
+    .footer .content {
+        font-size: 12px;
+    }
+}

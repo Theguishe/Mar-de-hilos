@@ -314,20 +314,20 @@ header {
     .navbar-end .user-container {
         display: flex;
         width: 100%;
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .navbar-end .cart {
         display: flex;
         width: 100%;
-        font-size: 15px;
+        font-size: 10px;
         padding: 15px 0 2px 0;
     }
 
     .navbar-end .favs {
         display: flex;
         width: 100%;
-        font-size: 15px;
+        font-size: 10px;
         padding: 15px 0 2px 0;
     }
 
@@ -343,7 +343,7 @@ header {
 
     .user-extra-opts .user-container .navbar-dropdown .navbar-item{
         color: #000;
-        font-size: 15px;
+        font-size: 10px;
     }
 
     .user-extra-opts .user-container .navbar-dropdown .navbar-item:hover {

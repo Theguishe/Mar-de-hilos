@@ -264,7 +264,7 @@
     }
 
     .product {
-        margin: 5px 0 25px 0;
+        margin: 5px 0 -50px 0;
         width: 65%;
     }
 
@@ -335,10 +335,14 @@
 
     .product-container .product-info .product-characteristics .product-list ul li {
         font-size: 7px;
+    }   
+    
+    .product-container .product-info h3, .product-container .product-info .product-sending, .product-container .product-info ul, .product-container .product-info .product-quantity, .product-container .product-info .product-buttons {
+        margin-bottom: -12px;
     }
 
     .comments {
-        width: 65%;
+        width: 80%;
         padding: 0;
     }
 
@@ -360,7 +364,11 @@
     }
 
     .comment-container .comment-card {
-        font-size: 8px;
+        font-size: 6px;
+    }
+
+    .comment-container .comment-reviews ul li{
+        width: 8px;
     }
 
 
@@ -433,10 +441,10 @@
     }
 
     .footer .content svg{
-        width: 20px;
+        width: 15px;
     }
 
     .footer .content {
-        font-size: 12px;
+        font-size: 8px;
     }
 }
