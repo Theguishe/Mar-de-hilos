@@ -12,18 +12,6 @@
     width: 500px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .footer {
     background: hsl(0, 0%, 96%);
     display: flex;
@@ -36,4 +24,10 @@
     width: 25px;
     margin: 20px;
     cursor: pointer;
+}
+
+@media screen and (min-width: 1200px){
+
+    
+   
 }
