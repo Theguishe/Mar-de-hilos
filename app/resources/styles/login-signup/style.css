@@ -65,7 +65,7 @@
     transform: rotateY(180deg);
   }
 
-
+ /* ------------------ */
 
 .login-container {
     min-width: 40%;
@@ -268,15 +268,73 @@
     backface-visibility: hidden;
 }
 
-.login-container, .register-container {
-    backface-visibility: hidden;
-}
-
 .user-acces-container .register-container {
     transform: rotateY(180deg);
 }
 
-.user-acces-container .register-container {
-    transform: rotateY(180deg)
+
+@media screen and (min-width: 1200px){
+    .scene {
+        width: 60%;
+        height: 60%;
+    }
+
+    .scene .card {
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    .login-container {
+        max-width: 50%;
+        min-width: 45%;
+        height: 100%;
+    }
+
+    .register-container {
+        max-width: 50%;
+        min-width: 45%;
+        height: 100%;
+    }
+
+    .login-container div{
+        margin: 20px 0 2px 0;
+    }
+
+    .register-container div {
+        margin: 20px 0 8px 0;
+    }
 }
-  
+
+@media screen and (max-width: 1200px){
+    .scene {
+        min-width: 60%;
+        min-height: 60%;
+    }
+
+    .scene .card {
+        min-width: 100%;
+        min-height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .login-container {
+        min-width: 50%;
+        min-height: 100%;
+    }
+
+    .register-container {
+        min-width: 50%;
+        height: 100%;
+    }
+
+    .login-container div{
+        margin: 20px 0 2px 0;
+    }
+
+    .register-container div {
+        margin: 20px 0 8px 0;
+    }
+}
