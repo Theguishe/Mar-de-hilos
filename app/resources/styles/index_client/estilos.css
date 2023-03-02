@@ -15,6 +15,8 @@ body {
     overflow: hidden
 }
 
+/* Header section */
+
 header {
     margin-top: 12px;
 }
@@ -164,9 +166,8 @@ header {
 }
 
 /* 
-.most-bought-products {
-    
-} */
+.most-bought-products
+*/
 
 .cards {
     display: flex;
@@ -238,7 +239,7 @@ header {
     font-size: 12px;
 }
 
-/* Search how to big the image when mouse's hover and how to make the transition in hover effect underline style*/
+/* Footer section*/
 
 .footer {
     background: hsl(0, 0%, 96%);
@@ -257,8 +258,6 @@ header {
 /* Auto scroll splidejs extension for comments and client's opinion */
 
 /* Responsive design */
-
-
 
 @media screen and (max-width: 768px) {
     .body {
