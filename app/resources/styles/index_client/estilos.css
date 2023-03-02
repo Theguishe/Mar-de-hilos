@@ -239,6 +239,38 @@ header {
     font-size: 12px;
 }
 
+/* Mision and vision section*/
+
+.mision-vision {
+    width: 100%;
+    background-color: hsl(0, 0%, 95%);
+}
+
+.sm-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.sm-container div {
+    padding: 12px;
+    width: 50%;
+    margin-top: -25px;
+}
+
+.sm-container div h3 {
+    font-size: 25px;
+    margin-bottom: 12px;
+    background-color: hsl(0, 100%, 80%);
+    color: #fff;
+    padding: 5px;
+    text-indent: 12px;
+    font-weight: bolder;
+}
+
+.sm-container div p {
+    text-align: justify;
+}
+
 /* Footer section*/
 
 .footer {
