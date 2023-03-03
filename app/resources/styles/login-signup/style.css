@@ -21,12 +21,25 @@
 }
 
 .scene {
-    display: inline-block;
+    display: flex;
     width: 50%;
     height: 510px;
   /*   border: 1px solid #CCC; */
     margin: 40px 0;
     perspective: 600px;
+  }
+
+  .scene .card {
+    background: hsl(0, 0%, 95%)
+  }
+
+  .scene .card .pres-image {
+    position: absolute;
+    right: 0;
+    width: 60%;
+    height: 510px;
+    object-fit: cover;
+    border-radius: 0 12px 12px 0;
   }
   
   .card {
@@ -273,15 +286,21 @@
 }
 
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 768px){
     .scene {
         width: 60%;
         height: 60%;
     }
 
     .scene .card {
+        display: inline-block;
         min-width: 100%;
         min-height: 100%;
+    }
+
+    .scene .card .pres-image {
+        display: inline-block;
+        width: 100%;
     }
 
     .login-container {
