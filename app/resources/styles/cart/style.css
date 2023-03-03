@@ -6,6 +6,7 @@
 }
 
 .card article {
+    height: 225px;
     padding: 12px;
 }
 
@@ -13,9 +14,10 @@
     width: 200px;
 }
 
-.card .content .title strong span {
-    font-size: 20px;
+.card .content .title {
+    font-size: 10px;
     display: inline-block;
+    font-weight: bolder;
 }
 
 .card .title, .card .price {
@@ -26,8 +28,8 @@
 }
 
 .product-quantity {
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 6px;
+    font-size: 10px;
     display: flex;
     align-items: center;
     justify-content: left;
@@ -35,8 +37,8 @@
 }
 
 .product-quantity .plus-icon, .product-quantity .minus-icon {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background: hsl(0, 0%, 80%);
     margin-left: 12px;
     border-radius: 50%;
@@ -44,22 +46,22 @@
 }
 
 .product-quantity .plus-icon svg, .product-quantity .minus-icon svg{
-    width: 20px;
+    width: 12px;
     border-radius: 50px;
     margin: 3px 0 0 5px;
 }
 
 .card .price {
-    margin-top: -25px
+    margin-top: -50px
 }
 
 .card .price strong span {
-    font-size: 18px;
+    font-size: 12px;
     margin-left: 12px;
 }
 
 .card .price .disc h4 {
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
 }
 
@@ -68,7 +70,7 @@
 }
 
 .card .price .disc .input-disc input {
-    font-size: 14px;
+    font-size: 12px;
     text-indent: 12px;
     border-radius: 50px 0 0 50px;
     border: none;
@@ -82,16 +84,16 @@
     border-radius: 0px 50px 50px 0;
     padding: 3px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .card .price .desc h4 {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .card .sending {
     margin-left: 20px;
-    font-size: 14px;
+    font-size: 12px;
     width: 100%;
 }
 
@@ -106,7 +108,7 @@
 .card .last-part {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 20px;
     margin-top: 20px
 }

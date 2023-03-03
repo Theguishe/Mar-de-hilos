@@ -174,7 +174,7 @@ header {
     justify-content: center;
     align-items: center;
     width: 94%;
-    height: 400px;
+    height: 425px;
     margin-bottom: 50px;
 }
 
@@ -191,7 +191,7 @@ header {
 .cards .card {
     min-width: 22%;
     max-width: 22px;
-    height: 390px;
+    height: 410px;
     text-align: left;
     box-shadow: 0 2px 3px #000;
     transition: .5s;
@@ -239,6 +239,20 @@ header {
     font-size: 12px;
 }
 
+.cards .card .view-more {
+    position: absolute;
+    font-size: 12px;
+    padding: 5px;
+    margin: auto;
+    right: 5px;
+    color: #000;
+}
+
+.cards .card .view-more:hover {
+    padding: 5px;
+    text-decoration: underline;
+}
+
 /* Mision and vision section*/
 
 .mision-vision {
@@ -269,6 +283,8 @@ header {
 
 .sm-container div p {
     text-align: justify;
+    width: 75%;
+    margin: auto;
 }
 
 /* Footer section*/

@@ -22,7 +22,7 @@
 
 .scene {
     display: inline-block;
-    width: 35%;
+    width: 50%;
     height: 510px;
   /*   border: 1px solid #CCC; */
     margin: 40px 0;
@@ -81,7 +81,7 @@
     justify-content: center;
     width: 100%;
     height: 18%;
-    margin-bottom: 1.5em
+    margin-bottom: 1em
 }
 
 .logo-container img {
@@ -273,7 +273,7 @@
 }
 
 
-@media screen and (min-width: 1200px){
+@media screen and (max-width: 1200px){
     .scene {
         width: 60%;
         height: 60%;
@@ -305,7 +305,7 @@
     }
 }
 
-@media screen and (max-width: 1200px){
+/* @media screen and (max-width: 1200px){
     .scene {
         min-width: 60%;
         min-height: 60%;
@@ -337,38 +337,4 @@
     .register-container div {
         margin: 20px 0 8px 0;
     }
-}
-
-@media screen and (max-width: 700px){
-    /* Design still in progress */
-    .scene {
-        min-width: 60%;
-        min-height: 60%;
-    }
-
-    .scene .card {
-        min-width: 100%;
-        min-height: 100%;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .login-container {
-        display: inline-block;
-        min-width: 50%;
-        min-height: 100%;
-    }
-
-    .register-container {
-        min-width: 50%;
-        height: 100%;
-    }
-
-    .login-container div{
-        margin: 20px 0 2px 0;
-    }
-
-    .register-container div {
-        margin: 20px 0 8px 0;
-    }
-}
+} */
