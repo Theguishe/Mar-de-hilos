@@ -98,7 +98,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={'../../'}
+                  src={'app/resources/imgs/MyPhoto.jpg'}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -149,14 +149,14 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Profits and Gains"
+              title="Manage Users"
               to="/profit"
               icon={<PaidOutlinedIcon/>}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
+              title="Customized Orders"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}

@@ -105,6 +105,11 @@ CREATE TABLE estados_clientes(
 	estado_cliente varchar(21) not null
 );
 
+CREATE TABLE productos_p_notificaciones(
+        id_producto_p_not serial not null primary key,
+        notificacion varchar(300)
+);
+
 -- Relaciones
 
 ALTER TABLE usuarios
@@ -304,3 +309,35 @@ VALUES (1,1),
         (5,5);
 
 -- Consultas
+
+SELECT * FROM pedidos_catalogo;
+
+
+-- Consultas Dinamicas
+SELECT usuarios.id_usuario, usuarios.nombre_usuario, estados_usuarios.estado_usuario
+FROM usuarios
+INNER JOIN estados_usuarios ON  usuarios.id_estadousuario = estados_usuarios.id_estadousuario;
+
+SELECT id_usuario, nombre_usuario, dui, telefono, correo, id_nivelusuario
+FROM usuarios
+ORDER BY id_nivelusuario ASC, id_nivelusuario DESC;
+
+SELECT id_producto, nombre_producto, MAX(precio), cantidad
+FROM productos
+WHERE precio > 10
+GROUP BY id_producto, nombre_producto, cantidad
+HAVING id_producto > 1;
+
+-- Obtener los productos entregados
+SELECT a.correo, b.fecha, b.hora, c.nombre_producto, c.cantidad
+FROM clientes a, pedidos_catalogo b, productos c, estados_pedidos d
+WHERE a.id_cliente = b.id_cliente AND b.id_producto = c.id_producto AND b.id_estadopedido = d.id_estadopedido AND d.estado_pedido = 'Entregado';
+
+-- Consultas sencillas con operadores aritmeticos
+
+SELECT id_producto, nombre_producto, precio, id_usuario FROM productos WHERE precio <= 12;
+
+SELECT id_producto, nombre_producto, precio, id_usuario FROM productos WHERE precio <= 12 AND precio >= 5;
+
+
+-- Trigger para notificar sobre las nuevas solicitudes de pedidos personalizados
