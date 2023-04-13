@@ -61,9 +61,9 @@ CREATE TABLE pedidos_catalogo(
 	id_pedido_c serial not null primary key,
 	fecha date NULL,
 	hora time NULL,
-    id_estadopedido int not null,
+        id_estadopedido int not null,
 	id_producto int not null,
-    id_cliente int not null
+        id_cliente int not null
 );
 
 CREATE TABLE pedidos_personalizados(
@@ -96,6 +96,7 @@ CREATE TABLE clientes(
 	contrasenia varchar(12) not null,
 	dui varchar(10) not null UNIQUE,
 	direccion varchar(100) not null,
+        telefono varchar(12) NOT NULL UNIQUE,
 	fecha_nacimiento date not null,
 	id_estadocliente int not null
 );
@@ -259,17 +260,17 @@ VALUES ('Macrame de Solesito','','Bonito muniequito de macrame con forma de sole
         ('Macrame de BEMO','','Bonito munieco de macrame de BEMO, especial para regalar',12.00,2,2,4,4),
         ('Collar de Capitan America','','Creativo collar hecho a bordado, perfecto para ocasiones con amigos',8.00,1,3,5,3);
 
-INSERT INTO clientes(correo, contrasenia, dui, direccion, fecha_nacimiento, id_estadocliente)
-VALUES ('EamP@gmail.com','123456','98765432-1','Mejicanos','2001-04-12',1),
-        ('Chelos@gmail.com','123456','98765432-0','Mejicanos','2001-01-12',1),
-        ('Fernan@gmail.com','123456','98765432-2','Mejicanos','2001-05-12',1),
-        ('malcom23@gmail.com','123456','98765432-3','Mejicanos','2001-02-12',1),
-        ('Setch@gmail.com','123456','98765432-4','Mejicanos','2000-04-12',1),
-        ('Tilin@gmail.com','123456','98765432-5','Mejicanos','2001-04-20',1),
-        ('elPepe@gmail.com','123456','98765432-6','Mejicanos','2001-10-12',1),
-        ('Phone@gmail.com','123456','98765432-7','Mejicanos','2001-05-12',3),
-        ('xxx@gmail.com','123456','98765432-8','Mejicanos','2004-04-18',1),
-        ('Telos@gmail.com','123456','98765432-9','Mejicanos','2001-06-12',1);
+INSERT INTO clientes(correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente)
+VALUES ('EamP@gmail.com','123456','98765432-1','Mejicanos','7211-1212','2001-04-12',1),
+        ('Chelos@gmail.com','123456','98765432-0','Mejicanos','7211-1211','2001-01-12',1),
+        ('Fernan@gmail.com','123456','98765432-2','Mejicanos','7211-1213','2001-05-12',1),
+        ('malcom23@gmail.com','123456','98765432-3','Mejicanos','7211-1214','2001-02-12',1),
+        ('Setch@gmail.com','123456','98765432-4','Mejicanos','7211-1215','2000-04-12',1),
+        ('Tilin@gmail.com','123456','98765432-5','Mejicanos','7211-1216','2001-04-20',1),
+        ('elPepe@gmail.com','123456','98765432-6','Mejicanos','7211-1217','2001-10-12',1),
+        ('Phone@gmail.com','123456','98765432-7','Mejicanos','7211-1218','2001-05-12',3),
+        ('xxx@gmail.com','123456','98765432-8','Mejicanos','7211-1219','2004-04-18',1),
+        ('Telos@gmail.com','123456','98765432-9','Mejicanos','7210-1212','2001-06-12',1);
 
 INSERT INTO pedidos_catalogo(fecha, hora, id_estadopedido, id_producto, id_cliente)
 VALUES ('2023-01-12','7:59AM',1,1,1),
@@ -308,6 +309,16 @@ VALUES (1,1),
         (4,4),
         (5,5);
 
+
+
+
+
+
+
+
+
+
+
 -- Consultas
 
 SELECT * FROM pedidos_catalogo;
@@ -320,16 +331,18 @@ INNER JOIN estados_usuarios ON  usuarios.id_estadousuario = estados_usuarios.id_
 
 SELECT id_usuario, nombre_usuario, dui, telefono, correo, id_nivelusuario
 FROM usuarios
-ORDER BY id_nivelusuario ASC, id_nivelusuario DESC;
+WHERE id_nivelusuario = 3
+ORDER BY id_usuario DESC;
 
-SELECT id_producto, nombre_producto, MAX(precio), cantidad
+SELECT id_producto, nombre_producto, MAX(precio) AS "Precio maximo", cantidad
 FROM productos
-WHERE precio > 10
+WHERE precio > 10 AND cantidad > 1
 GROUP BY id_producto, nombre_producto, cantidad
 HAVING id_producto > 1;
 
--- Obtener los productos entregados
-SELECT a.correo, b.fecha, b.hora, c.nombre_producto, c.cantidad
+-- Vista para obtener los productos entregados
+CREATE VIEW AS
+SELECT a.correo, b.fecha, b.hora, c.nombre_producto, c.descripcion, c.cantidad 
 FROM clientes a, pedidos_catalogo b, productos c, estados_pedidos d
 WHERE a.id_cliente = b.id_cliente AND b.id_producto = c.id_producto AND b.id_estadopedido = d.id_estadopedido AND d.estado_pedido = 'Entregado';
 
@@ -337,7 +350,59 @@ WHERE a.id_cliente = b.id_cliente AND b.id_producto = c.id_producto AND b.id_est
 
 SELECT id_producto, nombre_producto, precio, id_usuario FROM productos WHERE precio <= 12;
 
-SELECT id_producto, nombre_producto, precio, id_usuario FROM productos WHERE precio <= 12 AND precio >= 5;
+SELECT id_producto, nombre_producto, precio, id_usuario FROM productos WHERE precio < 12 AND precio > 5;
+
+SELECT nombre_producto, precio, cantidad, id_usuario
+FROM productos
+WHERE precio = (SELECT MAX(precio) FROM productos);
 
 
 -- Trigger para notificar sobre las nuevas solicitudes de pedidos personalizados
+
+
+
+
+
+-- Consultas parametrizadas
+
+SELECT * FROM pedidos_catalogo
+WHERE EXTRACT(HOUR from hora) >= 10;
+
+SELECT * FROM pedidos_personalizados
+WHERE id_cliente = 2;
+
+SELECT * FROM productos
+WHERE precio > 10 AND cantidad > 1;
+
+SELECT * FROM usuarios
+WHERE EXTRACT(YEAR from fecha_nacimiento) < 2003 AND
+EXTRACT(DAY from fecha_nacimiento) > 20;
+
+SELECT * FROM clientes
+WHERE id_estadocliente = 3;
+
+
+
+
+-- Consultas parametrizadas con fechas
+
+SELECT * FROM usuarios
+WHERE EXTRACT(YEAR from fecha_nacimiento) < 2003 AND
+EXTRACT(YEAR from fecha_nacimiento) > 2000;
+
+SELECT * FROM clientes
+WHERE EXTRACT(YEAR from fecha_nacimiento) < 2001;
+
+SELECT * FROM pedidos_catalogo
+WHERE EXTRACT(DAY from fecha) >= 12;
+
+SELECT * FROM pedidos_catalogo;
+
+
+
+
+INSERT INTO Table_name() VALUES (), (), (), ();
+
+UPDATE Table_name SET field_name WHERE id_field = 1
+
+DELETE FROM Table_name WHERE id_field = 1

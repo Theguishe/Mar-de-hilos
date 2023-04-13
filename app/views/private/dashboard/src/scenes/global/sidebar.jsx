@@ -17,7 +17,10 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+
+import me from '../../assets/imgs/MyPhoto.jpg';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -98,8 +101,8 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={'app/resources/imgs/MyPhoto.jpg'}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                  src= { me }
+                  style={{ cursor: "auto", borderRadius: "50%" }}
                 />
               </Box>
               <Box textAlign="center">
@@ -135,13 +138,6 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Manage Products"
-              to="/team"
-              icon={<InventoryOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
               title="Manage Clients"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
@@ -151,7 +147,14 @@ const Sidebar = () => {
             <Item
               title="Manage Users"
               to="/profit"
-              icon={<PaidOutlinedIcon/>}
+              icon={<PeopleAltIcon/>}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Products"
+              to="/team"
+              icon={<InventoryOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -159,6 +162,13 @@ const Sidebar = () => {
               title="Customized Orders"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Shopping cart"
+              to="/invoices"
+              icon={<ShoppingCartIcon />}
               selected={selected}
               setSelected={setSelected}
             />
