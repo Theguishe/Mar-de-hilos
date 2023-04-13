@@ -8,7 +8,7 @@
         {
             "type": "db2DevExtSqlSpDbg",
             "request": "launch",
-            "name": "Db2 Developer Extension Stored Procedure Debug",
+            "name": "PostgreSQL debuger",
             "program": "${file}"
         }
     ]
