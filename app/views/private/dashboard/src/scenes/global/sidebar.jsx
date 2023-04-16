@@ -99,7 +99,7 @@ const Sidebar = () => {
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
-                  width="100px"
+                  width="120px"
                   height="100px"
                   src= { me }
                   style={{ cursor: "auto", borderRadius: "50%" }}
@@ -159,7 +159,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Customized Orders"
+              title="Orders"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}

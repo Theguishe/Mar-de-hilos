@@ -49,7 +49,8 @@ CREATE TABLE resenias_detalles(
 	hora time null,
 	resenia varchar(300) null,
 	valoracion int null,
-	id_cliente int not null
+	id_cliente int not null,
+        id_producto int not null
 );
 
 CREATE TABLE estados_pedidos(
@@ -59,10 +60,9 @@ CREATE TABLE estados_pedidos(
 
 CREATE TABLE pedidos_catalogo(
 	id_pedido_c serial not null primary key,
-	fecha date NULL,
-	hora time NULL,
+	fecha date null,
+	hora time null,
         id_estadopedido int not null,
-	id_producto int not null,
         id_cliente int not null
 );
 
@@ -74,15 +74,15 @@ CREATE TABLE pedidos_personalizados(
 );
 
 CREATE TABLE carrito(
-    cantidad int null DEFAULT 1,
+        cantidad int null DEFAULT 1,
 	id_pedido_c int not null,
-	id_resenia_detalle int not null,
-    id_producto int not null
+        id_resenia_detalle int not null,
+        id_producto int not null
 );
 
 CREATE TABLE favoritos(
-	id_producto int not null,
-    id_cliente int not null
+        id_producto int not null,
+        id_cliente int not null
 );
 
 CREATE TABLE tipos_productos(
@@ -114,12 +114,12 @@ CREATE TABLE productos_p_notificaciones(
 -- Relaciones
 
 ALTER TABLE usuarios
-ADD CONSTRAINT fk_nivelusuario
+ADD CONSTRAINT fk_nivel_usuario
 FOREIGN KEY (id_nivelusuario)
 REFERENCES niveles_usuarios(id_nivelusuario) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE usuarios
-ADD CONSTRAINT fk_estadousuario
+ADD CONSTRAINT fk_estado_usuario
 FOREIGN KEY (id_estadousuario)
 REFERENCES estados_usuarios(id_estadousuario) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -143,15 +143,15 @@ ADD CONSTRAINT fk_cliente_detalle
 FOREIGN KEY (id_cliente)
 REFERENCES clientes(id_cliente) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE resenias_detalles
+ADD CONSTRAINT fk_producto_detalle
+FOREIGN KEY (id_producto)
+REFERENCES productos(id_producto) ON DELETE CASCADE ON UPDATE CASCADE;
+
 ALTER TABLE pedidos_catalogo
 ADD CONSTRAINT fk_estado_pedido
 FOREIGN KEY (id_estadopedido)
 REFERENCES estados_pedidos(id_estadopedido) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE pedidos_catalogo
-ADD CONSTRAINT fk_producto_pedido
-FOREIGN KEY (id_producto)
-REFERENCES productos(id_producto) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE pedidos_catalogo
 ADD CONSTRAINT fk_cliente_pedido
@@ -169,7 +169,7 @@ FOREIGN KEY (id_resenia_detalle)
 REFERENCES resenias_detalles(id_resenia_detalle) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE carrito
-ADD CONSTRAINT fk_producto_pedido
+ADD CONSTRAINT fk_producto_carrito
 FOREIGN KEY (id_producto)
 REFERENCES productos(id_producto) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -183,32 +183,29 @@ ADD CONSTRAINT fk_cliente_favorito
 FOREIGN KEY (id_cliente)
 REFERENCES clientes(id_cliente) ON DELETE CASCADE ON UPDATE CASCADE;
 
-
 ALTER TABLE clientes
 ADD CONSTRAINT fk_estado_cliente
 FOREIGN KEY (id_estadocliente)
 REFERENCES estados_clientes(id_estadocliente) ON DELETE CASCADE ON UPDATE CASCADE;
-
 
 ALTER TABLE pedidos_personalizados
 ADD CONSTRAINT fk_cliente_personalizado
 FOREIGN KEY (id_cliente)
 REFERENCES clientes(id_cliente) ON DELETE CASCADE ON UPDATE CASCADE;
 
-
 -- Insersiones
 
 INSERT INTO niveles_usuarios(nivel_usuario)
 VALUES ('Root'),
-		('Administrador'),
-		('Programador'),
-		('Vendedor'),
-		('Soporte');
+	('Administrador'),
+	('Programador'),
+	('Vendedor'),
+	('Soporte');
 		
 INSERT INTO estados_usuarios(estado_usuario)
 VALUES ('Activo'),
-		('Inactivo'),
-		('Suspendido');
+	('Inactivo'),
+	('Suspendido');
 		
 INSERT INTO usuarios(nombre_usuario, contrasenia, dui, fecha_nacimiento, telefono, correo, direccion, id_nivelusuario, id_estadousuario)
 VALUES ('EamP','contra123','12345678-9','2002-12-12','7612-0845','email@gmail.com','San Salvador',1,1),
@@ -307,22 +304,22 @@ VALUES ('EamP@gmail.com','123456','98765432-1','Mejicanos','7211-1212','2001-04-
         ('Coca@gmail.com','123456','89765432-8','Volcan de San Salvador','7008-1219','2004-04-18',1),
         ('Suburban@gmail.com','123456','89765432-9','Mejicanos','7210-0112','2001-06-12',1);
 
-INSERT INTO pedidos_catalogo(fecha, hora, id_estadopedido, id_producto, id_cliente)
+INSERT INTO pedidos_catalogo(fecha, hora, id_estadopedido, id_cliente, id_producto)
 VALUES ('2023-01-12','7:59AM',1,1,1),
-        ('2023-01-12','10:30AM',1,1,2),
-        ('2023-01-12','2:01PM',1,1,3),
-        ('2023-01-12','7:59AM',1,1,4),
-        ('2023-01-12','4:00PM',3,4,1),
-        ('2023-02-03','8:59PM',1,1,1),
-        ('2023-03-01','10:45AM',1,1,2),
-        ('2023-04-12','2:01PM',1,1,3),
-        ('2023-01-28','7:59AM',1,1,4),
-        ('2023-01-30','2:23PM',3,4,1),
-        ('2022-12-12','7:59AM',1,1,1),
-        ('2023-02-21','10:30AM',1,1,2),
-        ('2023-01-13','2:01PM',1,1,3),
-        ('2023-03-15','7:59AM',1,1,4),
-        ('2023-04-12','4:00PM',3,4,1);
+        ('2023-01-12','10:30AM',1,2,2),
+        ('2023-01-12','2:01PM',1,3,3),
+        ('2023-01-12','7:59AM',1,4,4),
+        ('2023-01-12','4:00PM',3,1,5),
+        ('2023-02-03','8:59PM',1,1,6),
+        ('2023-03-01','10:45AM',1,2,7),
+        ('2023-04-12','2:01PM',1,3,8),
+        ('2023-01-28','7:59AM',1,4,9),
+        ('2023-01-30','2:23PM',3,1,10),
+        ('2022-12-12','7:59AM',1,1,11),
+        ('2023-02-21','10:30AM',1,2,12),
+        ('2023-01-13','2:01PM',1,3,1),
+        ('2023-03-15','7:59AM',1,4,3),
+        ('2023-04-12','4:00PM',3,1,5);
 
 INSERT INTO pedidos_personalizados(solicitud, id_cliente)
 VALUES ('Quisiera un munieco de macrame con forma de JAKE  de hora de aventura',1),
@@ -353,29 +350,29 @@ VALUES ('Quisiera un munieco de macrame con forma de JAKE  de hora de aventura',
         ('Pulsera de lana con diseño minimalista en colores fríos y cálidos contrastantes , parecido a esta imagen ',9),
         ('Bordado de lana con diseño contemporáneo en colores vivos y neón ,parecido a esta imagen ',6);
 
-INSERT INTO resenias_detalles(imagen_producto, fecha, hora, resenia, valoracion, id_cliente)
-VALUES ('','2023-02-12','2:00PM','Buen producto, entregado en exelentes condiciones, proporciones iguales a las de las imagenes, bonito BEMO',5,1),
-        ('','2023-02-12','2:00PM','Exelente producto, solo el senior del pedido es un poco pendejo, pero se va',5,2),
-        ('','2023-02-12','2:00PM','Bonita carterita, entregada en exelentes condiciones, el pedido se demoro un poco, pero esta bien',5,3),
-        ('','2023-02-12','2:00PM','Bonito producto, entregado despues de la fecha estipulada, pero llego es lo importante',4,4),
-        ('','2023-02-12','2:00PM','Muy bonito muenieco, precioso les quedo, esta muy bonito justo como lo queria, gracias Mar de hilos',5,5),
-        ('','2023-04-11','4:00PM','Buen producto, entregado en exelentes condiciones, proporciones iguales a las de las imagenes, bonito BEMO',5,6),
-        ('','2023-03-19','6:30PM','Exelente producto, solo el senior del pedido es un poco pendejo, pero se va',5,7),
-        ('','2023-01-12','1:15PM','Bonita carterita, entregada en exelentes condiciones, el pedido se demoro un poco, pero esta bien',5,8),
-        ('','2023-02-08','9:00AM','Bonito producto, entregado despues de la fecha estipulada, pero llego es lo importante',4,9),
-        ('','2023-01-01','12:15PM','Muy bonito muenieco, precioso les quedo, esta muy bonito justo como lo queria, gracias Mar de hilos',5,10);
+INSERT INTO resenias_detalles(imagen_producto, fecha, hora, resenia, valoracion, id_cliente, id_producto)
+VALUES ('','2023-02-12','2:00PM','Buen producto, entregado en exelentes condiciones, proporciones iguales a las de las imagenes, bonito BEMO',5,1,1),
+        ('','2023-02-12','2:00PM','Exelente producto, solo el senior del pedido es un poco pendejo, pero se va',5,2,3),
+        ('','2023-02-12','2:00PM','Bonita carterita, entregada en exelentes condiciones, el pedido se demoro un poco, pero esta bien',5,3,6),
+        ('','2023-02-12','2:00PM','Bonito producto, entregado despues de la fecha estipulada, pero llego es lo importante',4,4,12),
+        ('','2023-02-12','2:00PM','Muy bonito muenieco, precioso les quedo, esta muy bonito justo como lo queria, gracias Mar de hilos',5,5,8),
+        ('','2023-04-11','4:00PM','Buen producto, entregado en exelentes condiciones, proporciones iguales a las de las imagenes, bonito BEMO',5,6,7),
+        ('','2023-03-19','6:30PM','Exelente producto, solo el senior del pedido es un poco pendejo, pero se va',5,7,10),
+        ('','2023-01-12','1:15PM','Bonita carterita, entregada en exelentes condiciones, el pedido se demoro un poco, pero esta bien',5,8,15),
+        ('','2023-02-08','9:00AM','Bonito producto, entregado despues de la fecha estipulada, pero llego es lo importante',4,9,12),
+        ('','2023-01-01','12:15PM','Muy bonito muenieco, precioso les quedo, esta muy bonito justo como lo queria, gracias Mar de hilos',5,10,2);
 
 INSERT INTO carrito(cantidad, id_pedido_c, id_resenia_detalle, id_producto)
-VALUES (2,1,1,2),
-        (1,2,2,2),
-        (1,3,3,3),
-        (1,4,4,3),
-        (1,5,5,1),
-        (3,4,1,10),
-        (1,5,3,12),
-        (1,5,4,11),
-        (1,6,1,7),
-        (1,7,4,9);
+VALUES (2,17,1,2),
+        (1,19,2,2),
+        (1,20,3,3),
+        (1,21,4,3),
+        (1,22,5,1),
+        (3,23,1,10),
+        (1,24,3,12),
+        (1,25,4,11),
+        (1,26,1,7),
+        (1,27,4,9);
 
 INSERT INTO favoritos(id_producto, id_cliente)
 VALUES (1,1),
@@ -392,12 +389,13 @@ VALUES (1,1),
         (12,12);
 
 
--- Consultas
+-- CONSULTAS
 
 SELECT * FROM pedidos_catalogo;
 
 
--- Consultas Dinamicas
+-- USO DE JOIN | ORDER BY | GROUP BY
+
 SELECT usuarios.id_usuario, usuarios.nombre_usuario, estados_usuarios.estado_usuario
 FROM usuarios
 INNER JOIN estados_usuarios ON  usuarios.id_estadousuario = estados_usuarios.id_estadousuario;
@@ -413,12 +411,13 @@ WHERE precio > 10 AND cantidad > 1
 GROUP BY id_producto, nombre_producto, cantidad
 HAVING id_producto > 1;
 
--- Vista para obtener los productos entregados
+-- CONSULTA PARA VER LOS PRODUCTOS ENTREGADOS
+
 SELECT a.correo, b.fecha, b.hora, c.nombre_producto, c.descripcion, c.cantidad 
 FROM clientes a, pedidos_catalogo b, productos c, estados_pedidos d
 WHERE a.id_cliente = b.id_cliente AND b.id_producto = c.id_producto AND b.id_estadopedido = d.id_estadopedido AND d.estado_pedido = 'Entregado';
 
--- Consultas sencillas con operadores aritmeticos
+-- CONSULTAS CON OPERADORES ARITMETICOS
 
 SELECT id_producto, nombre_producto, precio, id_usuario FROM productos WHERE precio <= 12;
 
@@ -429,7 +428,7 @@ FROM productos
 WHERE precio = (SELECT MAX(precio) FROM productos);
 
 
--- Trigger para notificar sobre las nuevas solicitudes de pedidos personalizados
+-- TRIGGER PARA NOTIFICAR SOBRE LAS NUEVAS SOLICITUDES DE PEDIDOS PERSONALIZADOS
 
 
 CREATE FUNCTION productos_notificacion() RETURNS TRIGGER
@@ -454,8 +453,7 @@ INSERT INTO pedidos_personalizados(id_cliente, solicitud) VALUES (2, 'Quisiera u
 SELECT * FROM productos_p_notificaciones
 
 
-
--- Consultas parametrizadas
+-- CONSULTAS PARAMETRIZADAS
 
 SELECT * FROM pedidos_catalogo
 WHERE EXTRACT(HOUR from hora) >= 10;
@@ -463,8 +461,8 @@ WHERE EXTRACT(HOUR from hora) >= 10;
 SELECT * FROM pedidos_personalizados
 WHERE id_cliente = 2;
 
-SELECT * FROM productos
-WHERE precio > 10 AND cantidad > 1;
+SELECT id_producto, nombre_producto, precio, cantidad, id_tipoproducto, id_categoria FROM productos
+WHERE precio > 10 AND cantidad <> 1;
 
 SELECT * FROM usuarios
 WHERE EXTRACT(YEAR from fecha_nacimiento) < 2003 AND
@@ -473,10 +471,7 @@ EXTRACT(DAY from fecha_nacimiento) > 20;
 SELECT * FROM clientes
 WHERE id_estadocliente = 3;
 
-
-
-
--- Consultas parametrizadas con fechas
+-- CONSULTAS PARAMETRIZADAS CON FECHA
 
 SELECT * FROM usuarios
 WHERE EXTRACT(YEAR from fecha_nacimiento) < 2003 AND
@@ -486,17 +481,65 @@ SELECT * FROM clientes
 WHERE EXTRACT(YEAR from fecha_nacimiento) < 2001;
 
 SELECT * FROM pedidos_catalogo
-WHERE EXTRACT(DAY from fecha) >= 12;
-
-SELECT * FROM pedidos_catalogo;
+WHERE EXTRACT(DAY from fecha) BETWEEN 15 AND 28;
 
 
-SELECT * FROM clientes
+-- INSERT -> Guillermo  # MUESTRA SIEMPRE LOS PEDIDOS DEL CATALOGO, CON LA DIFERENCIA QUE SE OMITE EL CAMPO id_producto DEBIDO A QUE YA NO EXISTE
 
--- Practica de mis compas
+INSERT INTO clientes(correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente) 
+VALUES ('guilleacc26@gmail.com','26122631','83432124-0','Planes de Renderos','7633-5320','2002-08-26',1);
+        -- id_cliente 16
 
-INSERT INTO Table_name() VALUES (), (), (), ();
+INSERT INTO pedidos_catalogo(fecha, hora, id_estadopedido, id_cliente)
+VALUES ('2023-01-12','12:15PM',1,16),
+        ('2023-01-12','2:15PM',1,16);
 
-UPDATE clientes SET id_estadocliente = 2 WHERE id_cliente = 10
 
-DELETE FROM clientes WHERE id_cliente = 10;
+-- UPDATE -> David
+
+UPDATE productos set id_categoria='2' where id_tipoproducto = 1 OR id_tipoproducto = 4 and id_producto>= 1 AND id_producto<=12
+
+
+-- DELETE -> Chan Chan
+
+SELECT * FROM favoritos
+DELETE FROM pedidos_catalogo  WHERE id_pedido_c  in (1,2,3,4,5,6,7);
+
+
+
+-- Anotaciones
+        -- Agregar id_producto a tabla resenia_detalles
+        -- Eliminar el campo id_producto de tabla pedidos_catalogo
+        -- Agregar ID a tabla carrito
+        -- Agregar ID a tabla favoritos
+        -- Agregar fecha a pedidos_personalizados
+        -- Agregar hora a pedidos_personalizados
+
+
+
+
+
+
+
+
+SELECT d.correo AS "Customer", b.nombre_producto AS "Product Name", b.imagen AS "Image", a.cantidad, a.id_pedido_c AS "ORDER ID", a.id_resenia_detalle AS "REVIEW ID" 
+FROM carrito a, productos b, pedidos_catalogo c, clientes d
+WHERE b.id_producto = a.id_producto AND a.id_pedido_c = c.id_pedido_c AND c.id_cliente = c.id_cliente
+ORDER BY b.nombre_producto, d.correo;
+
+
+SELECT b.nombre_producto AS "Product Name", a.cantidad AS "Quantity", a.id_pedido_c AS "ORDER ID", a.id_resenia_detalle AS "REVIEW ID"
+FROM carrito a, productos b
+WHERE a.id_producto = b.id_producto
+ORDER BY b.nombre_producto;
+
+SELECT * FROM carrito WHERE id_carrito = 1
+
+SELECT a.fecha AS "Order Date", a.hora AS "Order Times", b.estado_pedido AS "Order Status", c.correo AS "Customer"
+FROM pedidos_catalogo a, estados_pedidos b, clientes c
+WHERE b.id_estadopedido = a.id_estadopedido AND a.id_cliente = c.id_cliente
+
+SELECT b.nombre_producto AS "Product Name", a.cantidad AS "Quantity", a.id_pedido_c AS "ORDER ID", a.id_resenia_detalle AS "REVIEW ID"
+            FROM carrito a, productos b
+            WHERE a.id_producto = b.id_producto
+            ORDER BY b.nombre_producto
