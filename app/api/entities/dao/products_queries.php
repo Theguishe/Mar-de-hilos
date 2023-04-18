@@ -2,9 +2,12 @@
 
 require_once('../../helpers/database.php');
 
-class Products_Queries extends Products{
+class Products_Queries extends Products
+{
 
-    public function searchRows($value) {
+    # Method to search data
+    public function searchRows($value)
+    {
         $sql = 'SELECT a.nombre_producto AS "Product Name", a.image AS "Image", a.descripcion AS "Description", a.precio AS "Price", a.cantidad AS "Quantity", b.tipo_producto AS "PRODUCT TYPE", d.categoria AS "Category" 
                 FROM productos a, tipos_productos b, categorias c
                 WHERE a.id_tipoproducto = b.id_tipoproducto AND c.id_categoria = a.id_categoria AND a.nombre_producto ILIKE ? OR c.categoria ILIKE ?
@@ -14,7 +17,9 @@ class Products_Queries extends Products{
         return Database::getRows($sql, $params);
     }
 
-    public function createRow() {
+    # Method to create a row 
+    public function createRow()
+    {
         $sql = 'INSERT INTO productos(nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
@@ -22,7 +27,9 @@ class Products_Queries extends Products{
         return Database::executeRow($sql, $params);
     }
 
-    public function readAll() {
+    # Method to read all data
+    public function readAll()
+    {
         $sql = 'SELECT a.nombre_producto AS "Product Name", a.image AS "Image", a.descripcion AS "Description", a.precio AS "Price", a.cantidad AS "Quantity", b.tipo_producto AS "PRODUCT TYPE", d.categoria AS "Category" 
                 FROM productos a, tipos_productos b, categorias c
                 WHERE a.id_tipoproducto = b.id_tipoproducto AND c.id_categoria = a.id_categoria
@@ -31,14 +38,18 @@ class Products_Queries extends Products{
         return Database::getRows($sql);
     }
 
-    public function readOne() {
+    # Method to read just one row of data
+    public function readOne()
+    {
         $sql = 'SELECT * FROM productos WHERE id_producto = ?'; #ID to be implemented
 
         $params = array($this->id_producto);
         return Database::getRow($sql, $params);
     }
 
-    public function updateRow($current_image) {
+    # Method to update a row
+    public function updateRow($current_image)
+    {
         ($this->imagen) ? Validator::deleteFile($this->getPath(), $current_image) : $this->imagen = $current_image;
 
         $sql = 'UPDATE productos SET nombre_producto = ?, imagen = ?, descripcion = ?, precio = ?, cantidad = ?, id_tipoproducto = ?, id_usuario = ?, id_categoria = ?
@@ -48,7 +59,9 @@ class Products_Queries extends Products{
         return Database::ExecuteRow($sql, $params);
     }
 
-    public function deleteRow() {
+    # Method to delete a row
+    public function deleteRow()
+    {
         $sql = 'DELETE FROM productos WHERE id_producto = ?';
         $params = array($this->id_producto);
         return Database::executeRow($sql, $params);

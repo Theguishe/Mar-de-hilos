@@ -12,6 +12,7 @@ class Reviews_Details {
     protected $valoracion = null;
     protected $id_cliente = null;
     protected $id_producto = null;
+    protected $path = '../../imgs/reviews';
 
     public function setID($value)
     {
@@ -124,5 +125,9 @@ class Reviews_Details {
 
     public function getID_Producto() {
         return $this->id_producto;
+    }
+
+    public function getImage_Path() {
+        return $this->path;
     }
 }

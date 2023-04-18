@@ -13,7 +13,7 @@ class Products{
     protected $id_tipoproducto = null;
     protected $id_usuario = null;
     protected $id_categoria = null;
-    protected $image_path = null;
+    protected $image_path = '../../imgs/products/';
 
     # 
 
