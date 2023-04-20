@@ -1,8 +1,9 @@
  <?php 
 
-require('../../helpers/validator.php');
+require_once('../../helpers/validator.php');
+require_once('../../entities/dao/clients_queries.php');
 
- class Clients {
+ class Clients extends Clients_Queries {
 
     # Declaring attributes
     protected $id_cliente = null;

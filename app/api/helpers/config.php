@@ -1,6 +1,6 @@
 <?php
     define('SERVER', 'localhost');
-    define('DATABASE', 'mar-de-hilos');
+    define('DATABASE', 'mardehilos');
     define('USERNAME', 'postgres');
     define('PASSWORD', 'postgre/password123');
 ?>

@@ -4,12 +4,13 @@ require_once('../../helpers/database.php');
 
 class Clients_Queries extends Clients {
 
-    public function searchRow($value) {
+    public function searchRows($value) {
         $sql = 'SELECT a.correo AS "Email", a.contrasenia AS "Password", a.dui AS "DUI", a.direccion AS "Address", a.telefono AS "Phone Number", a.fecha_nacimiento AS "BirthDate", b.estado_cliente AS "Customer Status"
                 FROM clientes a, estados_clientes b
                 WHERE a.id_cliente = b.id_cliente AND a.correo ILIKE ? OR a.dui ILIKE ?';
 
         $params = array("%$value%", "%$value%");
+        return Database::getRows($sql, $params);
     }
 
     public function createRow() {
