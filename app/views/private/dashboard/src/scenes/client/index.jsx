@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import { mockDataClients } from "../../data/mockData";
@@ -7,8 +7,15 @@ import Header from "../../components/header";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import ModalData from "../../modals/client";
+import Modal from "@mui/material/Modal";
+
 
 const Clients = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -118,12 +125,53 @@ const Clients = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer": {
+            float: "right"
+          },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
           },
         }}
       >
+        <Button
+        onClick={handleOpen}
+        sx={{
+          background: `${colors.blueAccent[700]}`,
+          color: "#fff",
+          fontSize: "16px",
+          padding: "5px 30px 5px 30px",
+          textTransform: "capitalize",
+          "&:hover": {
+            background: `${colors.blueAccent[800]}`, // Here continues
+          }
+        }}
+        >Add client</Button>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{ 
+          background: "#222", 
+          color: "#fff", 
+          position: "absolute", 
+          right: "0",
+          left: "0",
+          margin: "auto",
+          top: "0",
+          bottom: "0",
+          width: "60vw", 
+          height: "75vh",
+          borderRadius: "12px",
+          padding: "25px"
+          }}>
+          <ModalData /> {/* We charge the inputs we are gonna use to insert data */} 
+        </Box>
+      </Modal>
+        
         <DataGrid
+          checkboxSelection
           rows={mockDataClients}
           columns={columns}
           components={{ Toolbar: GridToolbar }}

@@ -43,11 +43,6 @@ const Login = () => {
   return (
     <Box
       className="container"
-      sx={
-        {
-          // background: `${colors.blueAccent[100]}`
-        }
-      }
     >
       <Box className="login-title-container">
         <span className="login-title">Log in to Mar de hilos</span>

@@ -44,7 +44,7 @@ const Invoices = () => {
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header title="USERS" subtitle="Manage your users here !!" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -77,7 +77,7 @@ const Invoices = () => {
         <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
       </Box>
     </Box>
-  );
+  );  
 };
 
 export default Invoices;
