@@ -7,9 +7,8 @@ import Header from "../../components/header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import Modal from "@mui/material/Modal";
 import ModalData from "../../modals/client";
-// import handleOpen from "../../modals/client";
+import Modal from "@mui/material/Modal";
 
 const Clients = () => {
   const [open, setOpen] = React.useState(false);
@@ -160,7 +159,38 @@ const Clients = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <ModalData />
+          <Box
+            sx={{
+              background: "#141b2d",
+              color: "#fff",
+              position: "absolute",
+              right: "0",
+              left: "0",
+              margin: "auto",
+              top: "0",
+              bottom: "0",
+              width: "60vw",
+              height: "70vh",
+              borderRadius: "12px",
+              padding: "25px",
+              boxShadow: "rgba(255, 255, 255, 0) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0) 0px 20px 40px -30px",
+            }}
+          >
+            <div
+              sx={{
+                width: "100%",
+                color: "#fff",
+                fontSize: "16px",
+                textAlign: "left",
+                marginBottom: "30px",
+                backgroundColor: "#000",
+              }}
+            >
+              <h1>Register a client</h1>
+            </div>
+            <ModalData />
+            {/* We charge the inputs we are gonna use to insert data */}
+          </Box>
         </Modal>
 
         <DataGrid
