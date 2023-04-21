@@ -6,7 +6,7 @@ import Topbar from "../scenes/global/topbar";
 import Sidebar from "../scenes/global/sidebar";
 import Dashboard from "../scenes/dashboard/";
 import Orders from "../scenes/orders/";
-import Invoices from "../scenes/users/";
+import Users from "../scenes/users/";
 import Cart from "../scenes/cart";
 import Clients from "../scenes/client/index";
 import Products from "../scenes/products";
@@ -45,7 +45,7 @@ const DashboardPage = () => {
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="clients" element={<Clients />} />
-                <Route path="users" element={<Invoices />} />
+                <Route path="users" element={<Users />} />
                 <Route path="products" element={<Products />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="cart" element={<Cart />} />

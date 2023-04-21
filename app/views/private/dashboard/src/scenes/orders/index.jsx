@@ -4,7 +4,11 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import { mockDataInvoices } from "../../data/mockData";
 import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import ModalData from "../../modals/orders";
 import React from "react";
+
+
 const Orders = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -49,7 +53,8 @@ const Orders = () => {
 
   return (
     <Box m="20px">
-      <Header title="ORDERS" subtitle="Here is clients orders !!" />
+      <Header title="CATALOG ORDERS" subtitle="Here is clients orders !!" />
+      
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -99,6 +104,47 @@ const Orders = () => {
         >
           Add Order
         </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              background: "#141b2d",
+              color: "#fff",
+              position: "absolute",
+              right: "0",
+              left: "0",
+              margin: "auto",
+              top: "0",
+              bottom: "0",
+              width: "60vw",
+              height: "80vh",
+              borderRadius: "12px",
+              padding: "25px",
+              boxShadow:
+                "rgba(255, 255, 255, 0) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0) 0px 20px 40px -30px",
+            }}
+          >
+            <div
+              sx={{
+                width: "100%",
+                color: "#fff",
+                fontSize: "16px",
+                textAlign: "left",
+                marginBottom: "30px",
+                backgroundColor: "#000",
+              }}
+            >
+              <h1>Register a client</h1>
+            </div>
+            <ModalData />
+            {/* We charge the inputs we are gonna use to insert data */}
+          </Box>
+        </Modal>
+
         <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} components={{ Toolbar: GridToolbar }} />
       </Box>
     </Box>
