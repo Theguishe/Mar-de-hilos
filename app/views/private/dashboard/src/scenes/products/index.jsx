@@ -87,6 +87,7 @@ const Products = () => {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        
       >
         <Button
           onClick={handleOpen}
@@ -101,7 +102,7 @@ const Products = () => {
             },
           }}
         >
-          Add client
+          Add Products
         </Button>
 
         <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} components={{ Toolbar: GridToolbar }} />

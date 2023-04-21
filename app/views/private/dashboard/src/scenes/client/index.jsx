@@ -87,6 +87,7 @@ const Clients = () => {
             p="5px"
             display="flex"
             justifyContent="space-around"
+            
           >
             <IconButton>
               <EditIcon />

@@ -1,11 +1,17 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import Header from "../../components/header";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import { mockDataInvoices } from "../../data/mockData";
+import React from "react";
+import Button from "@mui/material/Button";
 
 
 const Cart = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -72,10 +78,30 @@ const Cart = () => {
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
+          },  "& .MuiDataGrid-toolbarContainer": {
+            float: "right",
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <Button
+          onClick={handleOpen}
+          sx={{
+            background: `${colors.blueAccent[700]}`,
+            color: "#fff",
+            fontSize: "16px",
+            padding: "5px 30px 5px 30px",
+            textTransform: "capitalize",
+            "&:hover": {
+              background: `${colors.blueAccent[800]}`, // Here continues
+            },
+          }}
+        >
+          Add Shopping cart
+        </Button>
+        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} components={{ Toolbar: GridToolbar }} />
       </Box>
     </Box>
   );
