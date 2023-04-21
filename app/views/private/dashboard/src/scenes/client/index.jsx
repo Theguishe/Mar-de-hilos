@@ -174,7 +174,8 @@ const Clients = () => {
               height: "70vh",
               borderRadius: "12px",
               padding: "25px",
-              boxShadow: "rgba(255, 255, 255, 0) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0) 0px 20px 40px -30px",
+              boxShadow:
+                "rgba(255, 255, 255, 0) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0) 0px 20px 40px -30px",
             }}
           >
             <div

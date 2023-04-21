@@ -110,8 +110,38 @@ const ModalData = () => {
             marginBottom: "15px",
           }}
         />
+        <TextField
+          className="register-inputs"
+          id="user-email"
+          label="Enter the user email"
+          placeholder="example@gmail.com"
+          variant="filled"
+          sx={{
+            fontSize: "15px",
+            width: "38.5%",
+            marginBottom: "15px",
+          }}
+        />
+
         <FormControl variant="filled" sx={{ width: "38.5%", fontSize: "15px" }}>
-          <InputLabel id="demo-simple-select-filled-label">Client status</InputLabel>
+          <InputLabel id="demo-simple-select-filled-label">User level</InputLabel>
+          <Select
+            labelId="demo-simple-select-filled-label"
+            id="demo-simple-select-filled"
+            value={age}
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Admin</MenuItem>
+            <MenuItem value={20}>Root</MenuItem>
+            <MenuItem value={30}>Seller</MenuItem>
+            <MenuItem value={30}>Developer</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl variant="filled" sx={{ width: "38.5%", fontSize: "15px" }}>
+          <InputLabel id="demo-simple-select-filled-label">User status</InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
@@ -123,7 +153,7 @@ const ModalData = () => {
             </MenuItem>
             <MenuItem value={10}>Active</MenuItem>
             <MenuItem value={20}>Inactive</MenuItem>
-            <MenuItem value={30}>Visitor</MenuItem>
+            <MenuItem value={30}>Suspended</MenuItem>
           </Select>
         </FormControl>
 

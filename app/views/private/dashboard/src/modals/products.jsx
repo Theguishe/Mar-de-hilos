@@ -26,9 +26,8 @@ const ModalData = () => {
       <form style={{ marginTop: "30px" }}>
         <TextField
           className="register-inputs"
-          id="user-email"
-          label="Enter the email"
-          placeholder="example@gmail.com"
+          id="product-name"
+          label="Enter the name of product"
           variant="filled"
           sx={{
             fontSize: "15px",
@@ -111,7 +110,7 @@ const ModalData = () => {
           }}
         />
         <FormControl variant="filled" sx={{ width: "38.5%", fontSize: "15px" }}>
-          <InputLabel id="demo-simple-select-filled-label">Client status</InputLabel>
+          <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
