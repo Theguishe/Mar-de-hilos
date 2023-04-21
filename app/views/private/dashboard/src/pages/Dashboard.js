@@ -5,10 +5,11 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Topbar from "../scenes/global/topbar";
 import Sidebar from "../scenes/global/sidebar";
 import Dashboard from "../scenes/dashboard/";
-import Team from "../scenes/team/";
-import Invoices from "../scenes/invoices/";
+import Orders from "../scenes/orders/";
+import Invoices from "../scenes/users/";
+import Cart from "../scenes/cart";
 import Clients from "../scenes/client/index";
-import Form from "../scenes/form/";
+import Products from "../scenes/products";
 import Line from "../scenes/line/";
 import Pie from "../scenes/pie/";
 import FAQ from "../scenes/faq/";
@@ -45,9 +46,9 @@ const DashboardPage = () => {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="clients" element={<Clients />} />
                 <Route path="users" element={<Invoices />} />
-                <Route path="products" element={<Form />} />
-                <Route path="orders" element={<Team />} />
-                <Route path="cart" element={<Team />} />
+                <Route path="products" element={<Products />} />
+                <Route path="orders" element={<Orders />} />
+                <Route path="cart" element={<Cart />} />
                 <Route path="pie" element={<Pie />} />
                 <Route path="line" element={<Line />} />
                 <Route path="faq" element={<FAQ />} />
