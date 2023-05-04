@@ -1,5 +1,7 @@
+// We import db file where is all the settings for connection
 const pool = require("../db");
 
+// Function to get the list to show in MUI datagrid
 const getAllTasks = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT * FROM productosView");
@@ -10,6 +12,7 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+// Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -30,6 +33,7 @@ const getSingleTask = async (req, res, next) => {
   // res.send("Retrieving a single task");
 };
 
+// Functions to populate the comboboxes
 const getProductTypeTable = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT * FROM tipos_productos");
@@ -39,7 +43,6 @@ const getProductTypeTable = async (req, res, next) => {
     console.log(error);
   }
 };
-
 
 const getUsersTable = async (req, res, next) => {
   try {
@@ -61,37 +64,8 @@ const getCategoriesTable = async (req, res, next) => {
   }
 };
 
-const getProductType = async (req, res, next) => {
-  try {
-    const result = await pool.query("SELECT * FROM tipos_productos");
-    res.json(result.rows);
-  } catch (error) {
-    next(error);
-    console.log(error);
-  }
-};
 
-const getCategory = async (req, res, next) => {
-  try {
-    const result = await pool.query("SELECT * FROM categorias");
-    res.json(result.rows);
-  } catch (error) {
-    console.log(error)
-  }
-};
-
-const getUser = async (req, res, next) => {
-  try {
-    const result = await pool.query(
-      "SELECT id_usuario, nombre_usuario FROM usuarios"
-    );
-    res.json(result.rows);
-  } catch (error) {
-    next(error);
-    console.log(error);
-  }
-};
-
+// Function to insert a product
 const creatingTask = async (req, res, next) => {
   const { nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria } = req.body;
 
@@ -107,6 +81,7 @@ const creatingTask = async (req, res, next) => {
   }
 };
 
+// Function to update a product
 const updatingTask = async (req, res, next) => {
   try {
     const { id_producto } = req.params;
@@ -129,6 +104,7 @@ const updatingTask = async (req, res, next) => {
   }
 };
 
+// Function to delete a product
 const deletingTask = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -155,9 +131,6 @@ module.exports = {
   getCategoriesTable,
   getProductTypeTable,
   getUsersTable,
-  getProductType,
-  getCategory,
-  getUser,
   creatingTask,
   updatingTask,
   deletingTask,

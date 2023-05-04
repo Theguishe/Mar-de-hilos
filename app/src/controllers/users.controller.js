@@ -1,5 +1,7 @@
+// We import db file where is all the settings for connection
 const pool = require("../db");
 
+// Function to get the list to show in MUI datagrid
 const getAllTasks = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT * FROM usuariosView");
@@ -10,6 +12,7 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+// Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -30,6 +33,7 @@ const getSingleTask = async (req, res, next) => {
   // res.send("Retrieving a single task");
 };
 
+// Functions to populate the comboboxes
 const getUserLevel = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT * FROM niveles_usuarios");
@@ -51,6 +55,7 @@ const getUserStatus = async (req, res, next) => {
   };
   
 
+  // Function to insert a user
 const creatingTask = async (req, res, next) => {
   const { nombre_usuario, contrasenia, dui, fecha_nacimiento, telefono, correo, direccion, id_nivelusuario, id_estadousuario } = req.body;
 
@@ -66,6 +71,7 @@ const creatingTask = async (req, res, next) => {
   }
 };
 
+// Function to update a user
 const updatingTask = async (req, res, next) => {
   try {
     const { id_producto } = req.params;
@@ -88,6 +94,7 @@ const updatingTask = async (req, res, next) => {
   }
 };
 
+// Function to delete a user
 const deletingTask = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -108,6 +115,7 @@ const deletingTask = async (req, res, next) => {
   }
 };
 
+// We export here the functions to be used
 module.exports = {
   getAllTasks,
   getSingleTask,
