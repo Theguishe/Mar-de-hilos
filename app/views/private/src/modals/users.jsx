@@ -1,3 +1,5 @@
+// Imports to be used for frontend development
+
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField } from "@mui/material";
@@ -7,8 +9,10 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 
 const ModalData = () => {
+// INSERT PROCESS
 
-  const [nombre_usuario, setNombreUsuario] = useState("");
+// We define the variables to be used based on the table
+const [nombre_usuario, setNombreUsuario] = useState("");
   const [contrasenia, setContrasenia] = useState("");
   const [dui, setDui] = useState("");
   const [fecha_nacimiento, setFechaNac] = useState("");
@@ -20,6 +24,7 @@ const ModalData = () => {
   const [NivelesUsuarios, setNivelesUsuarios] = useState([]);
   const [EstadosUsuarios, setEstadoUsuario] = useState([]);
 
+  // Event handlers that will help to get users answer on the inputs
   const handleNameChange = (e) => {
     setNombreUsuario(e.target.value);
   };
@@ -48,21 +53,27 @@ const ModalData = () => {
     setDireccion(e.target.value);
   };
 
+  // Functions that allow us to populate the lists
+
+  // Populating NivelesUsuarios list with it API
   useEffect(() => {
     fetch("http://localhost:5000/userL")
       .then((response) => response.json())
       .then((data) => setNivelesUsuarios(data));
   }, []);
 
+  // Populating EstadoUsuario list with it API
   useEffect(() => {
     fetch("http://localhost:5000/userStatus")
       .then((response) => response.json())
       .then((data) => setEstadoUsuario(data));
   }, []);
 
+  // Event handlers submit the data to database
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // We compare table fields with user's reponse
     const formData = {
       nombre_usuario: nombre_usuario,
       contrasenia: contrasenia,
@@ -75,6 +86,7 @@ const ModalData = () => {
       id_estadousuario: id_estadousuario,
     };
 
+    // Api to insert our Data using POST
     const res = await fetch("http://localhost:5000/Cusers", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -85,6 +97,7 @@ const ModalData = () => {
     console.log(data);
   };
 
+  // We return here all elements
   return (
     <Box
       sx={{

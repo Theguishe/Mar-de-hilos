@@ -1,3 +1,5 @@
+// Imports to be used for frontend development
+
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField } from "@mui/material";
@@ -7,7 +9,10 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 
 const ModalData = () => {
-  const [fecha, setFecha] = useState("");
+// INSERT PROCESS
+  
+// We define the variables to be used based on the table
+const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
   const [id_estadopedido, setId_estadopedido] = useState("");
   const [id_producto, setId_producto] = useState("");
@@ -17,6 +22,7 @@ const ModalData = () => {
   const [Productos, setProductos] = useState([]);
   const [Clientes, setClientes] = useState([]);
 
+  // Event handlers that will help to get users answer on the inputs
   const handleFecha = (e) => {
     setFecha(e.target.value);
   };
@@ -25,27 +31,35 @@ const ModalData = () => {
     setHora(e.target.value);
   };
 
+  // Functions that allow us to populate the lists
+
+
+  // Populating EstadosPedidos list with it API
   useEffect(() => {
     fetch("http://localhost:5000/pedidosCS")
       .then((response) => response.json())
       .then((data) => setEstadosPedidos(data));
   }, []);
 
+  // Populating Productos list with it API
   useEffect(() => {
     fetch("http://localhost:5000/pedidosCP")
       .then((response) => response.json())
       .then((data) => setProductos(data));
   }, []);
 
+  // Populating Clientes list with it API
   useEffect(() => {
     fetch("http://localhost:5000/pedidosCC")
       .then((response) => response.json())
       .then((data) => setClientes(data));
   }, []);
 
+  // Event handlers submit the data to database
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // We compare table fields with user's reponse
     const formData = {
       fecha: fecha,
       hora: hora,
@@ -54,6 +68,7 @@ const ModalData = () => {
       id_cliente: id_cliente,
     };
 
+    // Api to insert our Data using POST
     const res = await fetch("http://localhost:5000/CpedidosC", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -64,6 +79,7 @@ const ModalData = () => {
     console.log(data);
   };
 
+  // We return here all elements
   return (
     <Box
       sx={{

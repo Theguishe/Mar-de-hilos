@@ -1,3 +1,5 @@
+// Imports to be used for frontend development
+
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField } from "@mui/material";
@@ -7,23 +9,26 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 
 const ModalData = () => {
+// INSERT PROCESS
 
-  const [correo, setCorreo] = useState("");
+// We define the variables to be used based on the table
+const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
   const [dui, setDui] = useState("");
   const [direccion, setDireccion] = useState("");
   const [telefono, setTelefono] = useState("");
   const [fecha_nacimiento, setFecha_nacimiento] = useState("");
   const [id_estadocliente, setId_estadocliente] = useState("");
-
   const [estadosClientes, setEstadosClientes] = useState([]);
 
+  // Populating EstadoCliente list with it API
   useEffect(() => {
     fetch("http://localhost:5000/clienteS")
       .then((respone) => respone.json())
       .then((data) => setEstadosClientes(data));
   }, []);
 
+  // Event handlers that will help to get users answer on the inputs
   const handleCorreo = (e) => {
     setCorreo(e.target.value);
   }
@@ -51,6 +56,8 @@ const ModalData = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // We compare table fields with user's reponse
+
     const formData = {
       correo: correo,
       contrasenia: contrasenia,
@@ -61,6 +68,7 @@ const ModalData = () => {
       id_estadocliente: id_estadocliente,
     };
 
+    // Api to insert our Data using POST
     const res = await fetch("http://localhost:5000/Cclients", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -72,6 +80,7 @@ const ModalData = () => {
   };
 
 
+  // We return here all elements
   return (
     <Box
       sx={{
