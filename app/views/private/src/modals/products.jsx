@@ -1,3 +1,5 @@
+// Imports to be used for frontend development
+
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import "../pages/style/gstyle.css";
@@ -10,6 +12,8 @@ import { FilledInput, InputAdornment } from "@mui/material";
 
 const ModalData = () => {
   // INSERT PROCESS
+
+  // We define the variables to be used based on the table
   const [nombre_producto, setNombreProducto] = useState("");
   const [imagen, setImagen] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -22,6 +26,7 @@ const ModalData = () => {
   const [Usuarios, setUsuarios] = useState([]);
   const [Categorias, setCategorias] = useState([]);
 
+  // Event handlers that will help to get users answer on the inputs
   const handleNameChange = (e) => {
     setNombreProducto(e.target.value);
   };
@@ -38,27 +43,36 @@ const ModalData = () => {
     setCantidad(e.target.value);
   };
 
+
+  // Functions that allow us to populate the lists
+
+  // Populating TiposProductos list with it API
   useEffect(() => {
     fetch("http://localhost:5000/tipoP")
       .then((respone) => respone.json())
       .then((data) => setTiposProductos(data));
   }, []);
 
+  // Populating Usuarios list with it API
   useEffect(() => {
     fetch("http://localhost:5000/usuarios")
       .then((response) => response.json())
       .then((data) => setUsuarios(data));
   }, []);
 
+  // Populating Categorias list with it API
   useEffect(() => {
     fetch("http://localhost:5000/categorias")
       .then((response) => response.json())
       .then((data) => setCategorias(data));
   }, []);
 
+
+  // Event handlers submit the data to database
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // We compare table fields with user's reponse
     const formData = {
       nombre_producto: nombre_producto,
       imagen: imagen,
@@ -70,6 +84,7 @@ const ModalData = () => {
       id_categoria: id_categoria,
     };
 
+    // Api to insert our Data using POST
     const res = await fetch("http://localhost:5000/cproducts", {
       method: "POST",
       body: JSON.stringify(formData),

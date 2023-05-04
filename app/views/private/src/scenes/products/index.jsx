@@ -1,3 +1,5 @@
+// Imports to be used for frontend development
+
 import React, { useEffect, useState } from "react";
 import { Box, Tooltip, useTheme, Button, Modal } from "@mui/material";
 import Header from "../../components/header";
@@ -10,12 +12,15 @@ import ModalData from "../../modals/products";
 
 const Products = () => {
 
+  // Variable to be used on the UPDATE process
   const products = ModalData();
 
+  // Handles to open and close Modals
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // This code allow us to show our data on MUI Datagrids
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -29,6 +34,7 @@ const Products = () => {
       });
   }, []);
 
+  // Handle event to delete a row
   const handleDelete = async (id) => {
     const response = await fetch(`http://localhost:5000/productD/${id}`, {
       method: 'DELETE',
@@ -38,7 +44,7 @@ const Products = () => {
     setRows(rows.filter(row => row.id !== id));
   }
 
-
+  // Function for populate fields for update process and capture its ID
   const loadSingle = async (id) => {
     handleOpen();
     const response = await fetch(`http://localhost:5000/productsList/${id}`)
@@ -52,6 +58,7 @@ const Products = () => {
 
   const colors = tokens(theme.palette.mode);
 
+  // Columns to show on the MUI Datagrid
   const columns = [
     { field: "ID", headerName: "ID" },
     {
@@ -120,6 +127,7 @@ const Products = () => {
     },
   ];
 
+  // To be returned and showed
   return (
     <Box m="20px">
       <Header title="PRODUCTS" subtitle="Manage the products here !!" />
