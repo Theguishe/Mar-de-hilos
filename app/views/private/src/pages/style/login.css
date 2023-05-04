@@ -1,0 +1,36 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.login-title-container {
+    margin-bottom: 50px;
+}
+
+.login-title {
+    font-size: 30px;
+    color: #fff;
+    font-weight: -900;
+}
+
+.container {
+    /* background-image: linear-gradient(to bottom, #1a2d69, #2a2d64, #6870cc); */
+    background: #080b12;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-container {
+    border: 1px solid #30363D;
+    width: 23vw;
+    height: 50vh;
+    max-width: 50vw;
+    background: #0D1117;
+    border-radius: 10px;
+    padding: 25px;
+}
