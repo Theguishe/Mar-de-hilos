@@ -30,13 +30,11 @@ const Clients = () => {
       });
   }, []);
 
-  const getRowId = (row) => row.id;
-
   const handleDelete = async (id) => {
     const response = await fetch(`http://localhost:5000/clientD/${id}`, {
       method: "DELETE",
     });
-
+    console.log(response);
     // This code allows me to delete the row in the frontend too
     setRows(rows.filter((row) => row.id !== id));
   };

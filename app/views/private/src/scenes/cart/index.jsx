@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 const Cart = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

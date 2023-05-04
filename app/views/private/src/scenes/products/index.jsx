@@ -13,7 +13,7 @@ import ModalData from "../../modals/products";
 const Products = () => {
 
   // Variable to be used on the UPDATE process
-  const products = ModalData();
+  // const products = ModalData();
 
   // Handles to open and close Modals
   const [open, setOpen] = React.useState(false);
@@ -51,7 +51,6 @@ const Products = () => {
     const data = await response.json();
     console.log(data);
 
-    
   }
 
   const theme = useTheme();
