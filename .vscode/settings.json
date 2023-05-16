@@ -8,8 +8,5 @@
         "**/Thumbs.db": true,
         "app/.env": true,
         "app/node_modules": true,
-        "app/views/private/node_modules": true,
-        "app/views/clients/node_modules": false
-
     }
 }
