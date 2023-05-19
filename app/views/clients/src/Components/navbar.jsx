@@ -32,30 +32,28 @@ function BarraDeBusqueda() {
 */
 		<form className="flex" onSubmit={handleBuscarChange}>
 			<input
-				className="border rounded-l px-2 py-1"
 				type="text"
-				placeholder="Buscar..."
+				placeholder="Busca un articulo de tu interes"
 				value={Buscar}
 				onChange={(event) => setBuscar(event.target.value)}
-			/>
-			<button className="border rounded-r px-2 py-1 bg-blue-500 text-white" type="submit">
-				<FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />
-			</button>
+				className=" text-start rounded-5 w-96"
+				/>
+			<button className="border rounded-r px-1 py-1 bg-white" type="submit">
+				<FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#000000", }} />			</button>
 		</form>
 	);
 };
 
 const Navbar = () => {
 	return (
-		<nav className="flex justify-between items-center p-4">
-
+		<nav className="flex justify-between items-center p-4 bg-blue-500" >
+			<a className="mr-5" href="/Home"><FontAwesomeIcon icon={faUser} size="xl" /></a>
 			<BarraDeBusqueda />
 			<ul className="flex">
 				<li ><a className="mr-5" href="/Usuario"><FontAwesomeIcon icon={faUser} size="xl" /></a></li>
 				<li ><a className="mr-5" href="/Carrito" ><FontAwesomeIcon icon={faCartShopping} size="xl" /></a></li>
-				<li><a className="mr-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl"  /></a></li>
+				<li><a className="mr-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></a></li>
 			</ul>
-
 		</nav>
 	);
 };
