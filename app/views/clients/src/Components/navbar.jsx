@@ -36,9 +36,9 @@ function BarraDeBusqueda() {
 				placeholder="Busca un articulo de tu interes"
 				value={Buscar}
 				onChange={(event) => setBuscar(event.target.value)}
-				className=" text-start rounded-5 w-96"
-				/>
-			<button className="border rounded-r px-1 py-1 bg-white" type="submit">
+				className="w-80 py-2 px-3 rounded-l-lg"
+				/>	
+			<button className="border rounded-r-lg px-1 py-1 bg-white" type="submit">
 				<FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#000000", }} />			</button>
 		</form>
 	);
@@ -46,13 +46,13 @@ function BarraDeBusqueda() {
 
 const Navbar = () => {
 	return (
-		<nav className="flex justify-between items-center p-4 bg-blue-500" >
+		<nav className="flex justify-around items-center p-4 bg-blue-1000 my-2">
 			<a className="mr-5" href="/Home"><FontAwesomeIcon icon={faUser} size="xl" /></a>
 			<BarraDeBusqueda />
 			<ul className="flex">
-				<li ><a className="mr-5" href="/Usuario"><FontAwesomeIcon icon={faUser} size="xl" /></a></li>
-				<li ><a className="mr-5" href="/Carrito" ><FontAwesomeIcon icon={faCartShopping} size="xl" /></a></li>
-				<li><a className="mr-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></a></li>
+				<li ><a className="mx-8"  href="/Usuario"><FontAwesomeIcon icon={faUser} size="2xl" /></a></li>
+				<li ><a className="mx-8" href="/Carrito" ><FontAwesomeIcon icon={faCartShopping} size="2xl" /></a></li>
+				<li><a className="mx-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="2xl" /></a></li>
 			</ul>
 		</nav>
 	);
