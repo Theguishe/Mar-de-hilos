@@ -5,6 +5,27 @@ import { faCartShopping, faUser, faHeart, faMagnifyingGlass } from "@fortawesome
 import "../index.css";
 import React, { useState } from 'react';
 
+/*const Usuario = () => {
+	const [open, setOpen] = useState(false)
+	const Menu = ["Iniciar sesión", "Configuración", "Pedidos personalizados"];
+	return (
+		<div className="relative">
+			<a onClick={() => setOpen(!open)} className="mx-8"><FontAwesomeIcon icon={faUser} size="2xl" /></a>
+			<div className="shadow-lg bg-white p-4 w-52  absolute -left-14 top-24 ">
+				{open && (
+					<div className="">
+						<ul>
+							{
+								Menu.map((menu) => (
+									<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)} key={menu}>{menu}</li>
+								))}
+						</ul>
+					</div>
+				)}
+			</div>
+		</div>
+	);
+}*/
 
 function BarraDeBusqueda() {
 	const [Buscar, setBuscar] = useState('');
@@ -37,7 +58,7 @@ function BarraDeBusqueda() {
 				value={Buscar}
 				onChange={(event) => setBuscar(event.target.value)}
 				className="w-80 py-2 px-3 rounded-l-lg"
-				/>	
+			/>
 			<button className="border rounded-r-lg px-1 py-1 bg-white" type="submit">
 				<FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#000000", }} />			</button>
 		</form>
@@ -45,18 +66,41 @@ function BarraDeBusqueda() {
 };
 
 const Navbar = () => {
+	const [open, setOpen] = useState(false)
+	const Sesion = <a href="/login" >Iniciar sesión</a>
+	const Configuracion = <a href="/configuracion" >Configuracion</a>
+	const Personalizado = <a href="/Personalizado" >Pedidos personalizados</a>
+	const Menu = [ Sesion, Configuracion, Personalizado];
 	return (
-		<nav className="flex justify-around items-center p-4 bg-blue-1000 my-2">
-			<a className="mr-5" href="/Home"><FontAwesomeIcon icon={faUser} size="xl" /></a>
+		<nav className="flex justify-around items-center p-4 bg-gray-400 mb-2">
+
+			<a className="" href="/Home"><FontAwesomeIcon icon={faUser} size="xl" /></a>
+
 			<BarraDeBusqueda />
 			<ul className="flex">
-				<li ><a className="mx-8"  href="/Usuario"><FontAwesomeIcon icon={faUser} size="2xl" /></a></li>
-				<li ><a className="mx-8" href="/Carrito" ><FontAwesomeIcon icon={faCartShopping} size="2xl" /></a></li>
-				<li><a className="mx-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="2xl" /></a></li>
+				<div className="relative">
+					<a onClick={() => setOpen(!open)} className="m-8"><FontAwesomeIcon icon={faUser} size="xl" /></a>
+					<div className=" bg-slate-50 w-52  absolute -left-12 top-16 ">
+						{open && (
+							<div className="">
+								<ul>
+									{
+										Menu.map((menu) => (
+											<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)} key={menu}>{menu}</li>
+										))}
+								</ul>
+							</div>
+						)}
+					</div>
+				</div>
+				<li ><a className="m-8" href="/Carrito" ><FontAwesomeIcon icon={faCartShopping} size="xl" /></a></li>
+				<li><a className="m-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></a></li>
 			</ul>
 		</nav>
 	);
 };
+
+/**/
 
 
 /*
