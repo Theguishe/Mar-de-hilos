@@ -1,10 +1,11 @@
+import React from "react";
 import { Carousel } from "react-carousel-minimal";
 
-function carrusel() {
+function Carrusel() {
     const data = [
         {
             image:
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg"
+                ""
         },
         {
             image:
@@ -41,18 +42,18 @@ function carrusel() {
     ];
 
     return (
-        <div>
+        <div >
             <div>
-                <div>
+                <div className=" pt-10">
                     <Carousel
                         //llamado de los datos
                         data={data}
                         // tiempo de duracion
-                        time={2000}
+                        time={4000}
                         //propiedades de tamaño
-                        width="850px"
-                        height="500px"
-                        radius="10px"
+                        width="5000px"
+                        height="800px"
+                        radius="0px"
                         //numero de imagenes
                         slideNumber={true}
                         //si es o no automatico
@@ -69,4 +70,4 @@ function carrusel() {
     );
 }
 
-export default carrusel;
+export default Carrusel;
