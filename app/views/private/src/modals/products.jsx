@@ -9,8 +9,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { FilledInput, InputAdornment } from "@mui/material";
+import Products from "../scenes/products/index";
 
 const ModalData = () => {
+  const productsTableData = require('../scenes/products/index');
   // INSERT PROCESS
 
   // We define the variables to be used based on the table
@@ -25,6 +27,8 @@ const ModalData = () => {
   const [TiposProductos, setTiposProductos] = useState([]);
   const [Usuarios, setUsuarios] = useState([]);
   const [Categorias, setCategorias] = useState([]);
+
+  const [updatedData, setUpdatedData] = useState({});
 
   // Event handlers that will help to get users answer on the inputs
   const handleNameChange = (e) => {
@@ -69,7 +73,7 @@ const ModalData = () => {
 
 
   // Event handlers submit the data to database
-  const handleSubmit = async (e) => {
+  const handleInsert = async (e) => {
     e.preventDefault();
 
     // We compare table fields with user's reponse
@@ -95,6 +99,33 @@ const ModalData = () => {
     console.log(data);
   };
 
+  const handleUpdate = async (e, id) => {
+    e.preventDefault();
+
+    const formDataUpdated = {
+      nombre_producto: nombre_producto,
+      imagen: imagen,
+      descripcion: descripcion,
+      precio: precio,
+      cantidad: cantidad,
+      id_tipoproducto: id_tipoproducto,
+      id_usuario: id_usuario,
+      id_categoria: id_categoria,
+    }
+    
+    try {
+      await fetch(`http://localhost:5000/productU/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(formDataUpdated),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+    } catch (error) {
+      console.error('error: ', error);
+    }
+  }
+
   // We return here all elements
   return (
     <Box
@@ -107,7 +138,7 @@ const ModalData = () => {
       }}
     >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleInsert}
         style={{ marginTop: "30px", display: "flex", justifyContent: "center" }}
       >
         <Box

@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import ModalData from "../../modals/products";
 
 const Products = () => {
-
   // Variable to be used on the UPDATE process
   // const products = ModalData();
 
@@ -24,7 +23,7 @@ const Products = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("http://localhost:5000/products") //How to make an update process opening a modal by using PERN stack if I have a PERN stack project while using a postgreSql database ?
       .then((response) => response.json())
       .then((data) => {
         setRows(data);
@@ -37,21 +36,47 @@ const Products = () => {
   // Handle event to delete a row
   const handleDelete = async (id) => {
     const response = await fetch(`http://localhost:5000/productD/${id}`, {
-      method: 'DELETE',
-    })
-    console.log(response)
+      method: "DELETE",
+    });
+    console.log(response);
     // This code allows me to delete the row in the frontend too
-    setRows(rows.filter(row => row.id !== id));
-  }
+    setRows(rows.filter((row) => row.id !== id));
+  };
 
   // Function for populate fields for update process and capture its ID
-  const loadSingle = async (id) => {
-    handleOpen();
-    const response = await fetch(`http://localhost:5000/productsList/${id}`)
-    const data = await response.json();
-    console.log(data);
+  // const loadSingle = async (id) => {
+  //   handleOpen();
+  //   const capture = await fetch(`http://localhost:5000/productsList/${id}`);
+  //   const data = await capture.json();
+  //   console.log(data);
+  // };
 
+  const [rowData, setRowData] = useState({});
+  const [updatedData, setUpdatedData] = useState({});
+
+  const fetchRowData = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/productList/${id}`);
+      const data = await response.json();
+      setRowData(data);
+      setUpdatedData(data);
+
+    } catch (error) {
+      console.error('Error fetching row data: ', error);
+    }
   }
+
+  useEffect(() => {
+    fetchRowData();
+  }, []);
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setUpdatedData((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
 
   const theme = useTheme();
 
@@ -111,12 +136,21 @@ const Products = () => {
             justifyContent="space-around"
           >
             <Tooltip title="Edit this client">
-              <IconButton onClick={() => {loadSingle(row.id)}}>
+              <IconButton
+                onClick={() => {
+                  handleOpen();
+                  fetchRowData(row.id);
+                }}
+              >
                 <EditIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="Remove this client">
-              <IconButton onClick={() => {handleDelete(row.id)}}>
+              <IconButton
+                onClick={() => {
+                  handleDelete(row.id);
+                }}
+              >
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -224,6 +258,7 @@ const Products = () => {
 
         <DataGrid
           rows={rows}
+          
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           pageSize={8}
