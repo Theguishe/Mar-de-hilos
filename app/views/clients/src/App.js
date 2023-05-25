@@ -1,15 +1,18 @@
 import React from 'react';
 import Navbar from './Components/navbar';
-import Carrusel from './Components/carrusel';
-import Inicio from './interface/home';
-
-
+import { Route, Routes } from 'react-router-dom';
+import Inicio from './interface/home/home';
 function App() {
 	return (
-		<React.Fragment>
-			<Navbar/>
-			<Inicio />
-		</React.Fragment>
+		<div>
+			<Routes>
+				<Route path='/' element={<Inicio />}>
+					<Route path='Carrito' element={""} />
+				</Route>
+			</Routes>
+		</div>
+
+
 	);
 }
 

@@ -4,28 +4,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faUser, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import "../index.css";
 import React, { useState } from 'react';
+import { Outlet, Link } from "react-router-dom";
+function Usuario() {
 
-/*const Usuario = () => {
 	const [open, setOpen] = useState(false)
-	const Menu = ["Iniciar sesión", "Configuración", "Pedidos personalizados"];
+	const Sesion = <a >LinkIniciar sesión</a>
+	const Configuracion = <a href="/configuracion" >Configuracion</a>
+	const Personalizado = <a href="/Personalizado" >Pedidos personalizados</a>
+	const Menu = [Sesion, Configuracion, Personalizado];
 	return (
 		<div className="relative">
-			<a onClick={() => setOpen(!open)} className="mx-8"><FontAwesomeIcon icon={faUser} size="2xl" /></a>
-			<div className="shadow-lg bg-white p-4 w-52  absolute -left-14 top-24 ">
+			<a onClick={() => setOpen(!open)} className="m-8"><FontAwesomeIcon icon={faUser} size="xl" /></a>
+			<div className=" bg-slate-50 w-52  absolute -left-12 top-16 z-50">
 				{open && (
 					<div className="">
 						<ul>
-							{
-								Menu.map((menu) => (
-									<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)} key={menu}>{menu}</li>
-								))}
+							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}>Iniciar sesión</li>
+							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}>Configuración</li>
+							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}>Pedido Personalizado</li>
 						</ul>
+						<hr />
 					</div>
 				)}
 			</div>
 		</div>
-	);
-}*/
+	)
+}
 
 function BarraDeBusqueda() {
 	const [Buscar, setBuscar] = useState('');
@@ -33,24 +37,9 @@ function BarraDeBusqueda() {
 	const handleBuscarChange = (event) => {
 		event.preventDefault();
 		console.log(Buscar);
-		/*function BarraDeBusqueda() {
-	const [Buscar, setBuscar] = useState('');
-
-	const handleBuscarChange = (event) => {
-	}; 
-*/
 	};
 
 	return (
-		/*
-		<input
-			type="text"
-			placeholder="Search"
-			value={Buscar}
-			onChange={handleBuscarChange}
-		/>
-}
-*/
 		<form className="flex" onSubmit={handleBuscarChange}>
 			<input
 				type="text"
@@ -66,75 +55,31 @@ function BarraDeBusqueda() {
 };
 
 const Navbar = () => {
-	const [open, setOpen] = useState(false)
-	const Sesion = <a href="/login" >Iniciar sesión</a>
-	const Configuracion = <a href="/configuracion" >Configuracion</a>
-	const Personalizado = <a href="/Personalizado" >Pedidos personalizados</a>
-	const Menu = [ Sesion, Configuracion, Personalizado];
+
 	return (
-		<nav className="flex justify-around items-center p-4 bg-gray-400 mb-2">
-
-			<a className="" href="/Home"><FontAwesomeIcon icon={faUser} size="xl" /></a>
-
-			<BarraDeBusqueda />
-			<ul className="flex">
-				<div className="relative">
-					<a onClick={() => setOpen(!open)} className="m-8"><FontAwesomeIcon icon={faUser} size="xl" /></a>
-					<div className=" bg-slate-50 w-52  absolute -left-12 top-16 ">
-						{open && (
-							<div className="">
-								<ul>
-									{
-										Menu.map((menu) => (
-											<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)} key={menu}>{menu}</li>
-										))}
-								</ul>
-							</div>
-						)}
-					</div>
-				</div>
-				<li ><a className="m-8" href="/Carrito" ><FontAwesomeIcon icon={faCartShopping} size="xl" /></a></li>
-				<li><a className="m-8" href="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></a></li>
-			</ul>
-		</nav>
+		<div>
+			<nav className="flex justify-around items-center p-4 bg-gray-400 mb-2">
+				<Link className="" to="/"><FontAwesomeIcon icon={faUser} size="xl" /></Link>
+				<BarraDeBusqueda />
+				<ul className="flex">
+					<li>
+						<Usuario /></li>
+					<li >
+						<Link className="m-8" to="/Carrito"><FontAwesomeIcon icon={faCartShopping} size="xl" /></Link>
+					</li>
+					<li>
+						<Link className="m-8" to="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></Link>
+					</li>
+				</ul>
+			</nav>
+			<Outlet />
+		</div>
 	);
 };
 
-/**/
-
-
-/*
-function Navbar() {
-	const navRef = useRef();
-
-	const showNavbar = () => {
-		navRef.current.classList.toggle(
-			"responsive_nav"
-		);
-	};
-
-	return (
-		<header>
-			<h3>LOGO</h3>
-			<nav className="flex justify-between items-center p-4">
-				<button>
-				<BarraDeBusqueda />
-				</button>
-				<a className="mr-4" href="/#"><FontAwesomeIcon icon={faHeart} size="xl" style={{ color: "#ffffff", }} /></a>
-				<a className="mr-4" href="/#">About me</a>
-				<button
-					className="nav-btn nav-close-btn"
-					onClick={showNavbar}>
-					<FaTimes />
-				</button>
-			</nav>
-			<button
-				className="nav-btn"
-				onClick={showNavbar}>
-			</button>
-		</header>
-	);
-}
-*/
-
 export default Navbar;
+
+
+
+
+

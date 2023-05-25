@@ -1,12 +1,14 @@
 import React from "react";
 import Carousel from "../../Components/carrusel";
+import Navbar from "../../Components/navbar";
 
 const Inicio = () => {
 
 	return ( 
-        <React.Fragment >
-			<Carousel />
-		</React.Fragment>
+		<div>
+			<Navbar/>
+			<div><Carousel/></div>
+		</div>
     );
 };
 
