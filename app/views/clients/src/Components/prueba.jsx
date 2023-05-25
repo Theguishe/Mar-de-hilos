@@ -1,24 +1,38 @@
-import React from "react";
-import Carousel  from "@material-tailwind/react";
+import React, { useRef, useState, useEffect } from 'react'
 
-export default function Prueba() {
+const Carrusel = () => {
+    const slider = useRef()
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const images = [...Array(25).keys()];
+
+    const nextSlide = () => {
+        if (currentSlide >= images.length - 1) {
+            setCurrentSlide(0);
+        } else {
+            setCurrentSlide(currentSlide + 1);
+        }
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            nextSlide();
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [currentSlide]);
+
     return (
-        <Carousel className="rounded-xl">
-            <img
-                src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-                alt="image 1"
-                className="h-full w-full object-cover"
-            />
-            <img
-                src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-                alt="image 2"
-                className="h-full w-full object-cover"
-            />
-            <img
-                src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-                alt="image 3"
-                className="h-full w-full object-cover"
-            />
-        </Carousel>
-    );
+        <div className='mx-24'>
+            <div className='flex items-center justify-center w-full h-full '>
+                <div ref={slider} class='snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start'>
+                    {images.map((e, i) => (
+                        <div key={i} className={`snap-start flex flex-shrink-0 w-auto mx-4 ${currentSlide === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
+                            <img src={`https://picsum.photos/id/${i}/300/300`} alt={`images${i}`} className='object-cover object-center w-full h-full' />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
 }
+
+export default Carrusel

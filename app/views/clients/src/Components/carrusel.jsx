@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-carousel-minimal";
 
-function Carrusel() {
+function Carruselx() {
     const data = [
         {
             image:
@@ -70,4 +70,4 @@ function Carrusel() {
     );
 }
 
-export default Carrusel;
+export default Carruselx;
