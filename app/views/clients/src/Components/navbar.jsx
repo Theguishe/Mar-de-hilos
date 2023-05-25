@@ -8,10 +8,6 @@ import { Outlet, Link } from "react-router-dom";
 function Usuario() {
 
 	const [open, setOpen] = useState(false)
-	const Sesion = <a >LinkIniciar sesión</a>
-	const Configuracion = <a href="/configuracion" >Configuracion</a>
-	const Personalizado = <a href="/Personalizado" >Pedidos personalizados</a>
-	const Menu = [Sesion, Configuracion, Personalizado];
 	return (
 		<div className="relative">
 			<a onClick={() => setOpen(!open)} className="m-8"><FontAwesomeIcon icon={faUser} size="xl" /></a>
@@ -19,9 +15,9 @@ function Usuario() {
 				{open && (
 					<div className="">
 						<ul>
-							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}>Iniciar sesión</li>
-							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}>Configuración</li>
-							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}>Pedido Personalizado</li>
+							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}><Link to="/Login">Iniciar sesión</Link></li>
+							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}><Link>Configuración</Link></li>
+							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}><Link to="/Personalizados">Pedido Personalizado</Link></li>
 						</ul>
 						<hr />
 					</div>
