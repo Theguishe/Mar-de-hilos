@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faUser, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
-import "../index.css";
 import React, { useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
 

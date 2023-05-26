@@ -2,9 +2,7 @@
 
 module.exports = {
   content: [
-    "./src/Components/navbar.jsx",
-    "./src/Components/carrusel.jsx",
-    "./src/Components/prueba.jsx",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {},
