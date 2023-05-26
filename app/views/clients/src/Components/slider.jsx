@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft,faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft, faChevronRight, faCircle } from "@fortawesome/free-solid-svg-icons"
 import { RxDotFilled } from 'react-icons/rx';
 
 function Componentes() {
+    
+    let time = setTimeout(() => {nextSlide()}, 4000);
+
 
     const slides = [
         {
@@ -30,13 +33,17 @@ function Componentes() {
         const isFirstSlide = currentIndex === 0;
         const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
+        clearTimeout(time);
     };
 
     const nextSlide = () => {
         const isLastSlide = currentIndex === slides.length - 1;
         const newIndex = isLastSlide ? 0 : currentIndex + 1;
         setCurrentIndex(newIndex);
+        clearTimeout(time);
     };
+    
+    
 
     const goToSlide = (slideIndex) => {
         setCurrentIndex(slideIndex);
@@ -54,7 +61,7 @@ function Componentes() {
             </div>
             {/* Right Arrow */}
             <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-            <FontAwesomeIcon icon={faChevronRight} onClick={prevSlide} />
+                <FontAwesomeIcon icon={faChevronRight} onClick={prevSlide} />
             </div>
             <div className='flex top-4 justify-center py-2'>
                 {slides.map((slide, slideIndex) => (
@@ -63,8 +70,8 @@ function Componentes() {
                         onClick={() => goToSlide(slideIndex)}
                         className='text-2xl cursor-pointer'
                     >
-                        
-                        <FontAwesomeIcon icon={faCircle} size='2xs' className=' p-1 '/>
+
+                        <FontAwesomeIcon icon={faCircle} size='2xs' className=' p-1 ' />
                     </div>
                 ))}
             </div>
