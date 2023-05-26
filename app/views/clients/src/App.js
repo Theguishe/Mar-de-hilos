@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from './Components/navbar';
 import { Route, Routes } from 'react-router-dom';
 import Inicio from './interface/home/home';
 function App() {

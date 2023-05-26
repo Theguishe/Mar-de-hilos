@@ -8,8 +8,6 @@ const {
     getAllTasks,
     getSingleTask, 
     creatingTask,
-    updatingTask, 
-    deletingTask,
     getOrderStatus,
     getProduct,
     getClient,
@@ -32,9 +30,9 @@ router.get('/pedidosCC', getClient);
 
 router.post('/CpedidosC', creatingTask); // To create a register
 
-router.put('/pedidosCU/:id', updatingTask); // To update a register
+// router.put('/pedidosCU/:id', updatingTask); // To update a register
 
-router.delete('/pedidosCD/:id', deletingTask); // To delete a register
+// router.delete('/pedidosCD/:id', deletingTask); // To delete a register
 
 
 // We export our  request variable

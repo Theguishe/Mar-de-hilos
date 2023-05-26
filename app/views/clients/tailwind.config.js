@@ -4,7 +4,7 @@ module.exports = {
   content: [
     "./src/Components/navbar.jsx",
     "./src/Components/carrusel.jsx",
-    "./src/Components/prueba.jsx"
+    "./src/Components/prueba.jsx",
   ],
   theme: {
     extend: {},
