@@ -5,8 +5,10 @@ import { faCartShopping, faUser, faHeart, faMagnifyingGlass } from "@fortawesome
 import "../index.css";
 import React, { useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
-function Usuario() {
 
+
+function Usuario() {
+	
 	const [open, setOpen] = useState(false)
 	return (
 		<div className="relative">

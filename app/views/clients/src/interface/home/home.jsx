@@ -1,18 +1,23 @@
 import React from "react";
 import Navbar from "../../Components/navbar";
-import Carrusel from "../../Components/prueba";
 import Carruselx from "../../Components/carrusel";
+import Card from "../../Components/prueba";
+import Example from "../../Components/prueba";
 
 const Inicio = () => {
 
-	return ( 
+	return (
 		<div>
-			<Navbar/>
-			<Carrusel/>
-			<Carruselx/>
+			<div>
+				<Navbar />
+				<Card />
 
+			</div>
+			<Example/>
 		</div>
-    );
+
+
+	);
 };
 
 export default Inicio;
