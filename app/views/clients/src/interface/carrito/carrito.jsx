@@ -2,20 +2,16 @@ import React from "react";
 import Navbar from "../../Components/navbar";
 import Componentes from "../../Components/slider";
 import Producto from "../../Components/producto";
-import Carpro from "../../Components/carpro";
 
-const Inicio = () => {
+const Carrito = () => {
 
 	return (
 		<div>
-			<div>
-				<Componentes/>
-			</div>
-			<Carpro/>
+			<Producto/>
 		</div>
 
 
 	);
 };
 
-export default Inicio;
+export default Carrito;
