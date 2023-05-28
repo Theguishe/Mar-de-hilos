@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Inicio from './interface/home/home';
+import ProductPage from './interface/product/'
+
 function App() {
 	return (
 		<div>

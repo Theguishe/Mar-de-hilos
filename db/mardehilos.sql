@@ -99,6 +99,8 @@ CREATE TABLE clientes(
 	fecha_nacimiento date not null,
 	estadocliente boolean not null
 );
+
+
 -- Relaciones
 
 ALTER TABLE usuarios
