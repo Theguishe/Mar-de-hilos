@@ -6,13 +6,13 @@ import { RxDotFilled } from 'react-icons/rx';
 function Componentes() {
     const slides = [
         {
-            url: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80',
+            url: 'https://humanidades.com/wp-content/uploads/2018/10/lane-7-e1580441176858.jpg',
         },
         {
-            url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            url: 'https://www.legambiente.it/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2022/04/giornata-della-lana.jpg.webp',
         },
         {
-            url: 'https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80',
+            url: 'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/09/como-blanquear-lana-ha-vuelto-amarillenta-2819653.jpg?tf=1200x',
         },
         {
             url: 'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80',
@@ -44,7 +44,8 @@ function Componentes() {
     };
 
     let time = setTimeout(() => {
-        nextSlide();
+        nextSlide()
+        ;
     }, 4000);
 
     return (
