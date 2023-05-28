@@ -1,40 +1,59 @@
-import { useRef } from "react";
-//import { FaBars, FaShopify, FaTimes } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faUser, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import "../index.css";
-import React, { useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
 
+const Usuario = () => {
+	const [open, setOpen] = useState(false);
+	const dropdownRef = useRef(null);
 
-function Usuario() {
-	
-	const [open, setOpen] = useState(false)
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+				setOpen(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
+
 	return (
 		<div className="relative">
-			<a onClick={() => setOpen(!open)} className="m-8"><FontAwesomeIcon icon={faUser} size="xl" /></a>
-			<div className=" bg-slate-50 w-52  absolute -left-12 top-16 z-50">
+			<a onClick={() => setOpen(!open)} className="m-8">
+				<FontAwesomeIcon icon={faUser} size="xl" />
+			</a>
+			<div className="bg-slate-50 w-52 absolute -left-12 top-16 z-50" ref={dropdownRef}>
 				{open && (
 					<div className="">
 						<ul>
-							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}><Link to="/Login">Iniciar sesión</Link></li>
-							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}><Link>Configuración</Link></li>
-							<li className=" p-2 text-lg cursor-pointer rounded hover:bg-blue-100" onClick={() => setOpen(false)}><Link to="/Personalizados">Pedido Personalizado</Link></li>
+							<li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
+								<Link to="/Login">Iniciar sesión</Link>
+							</li>
+							<li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
+								<Link>Configuración</Link>
+							</li>
+							<li className="p-2 text-lg cursor-pointer rounded hover:bg-blue-100">
+								<Link to="/Personalizados">Pedido Personalizado</Link>
+							</li>
 						</ul>
 						<hr />
 					</div>
 				)}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
 function BarraDeBusqueda() {
 	const [Buscar, setBuscar] = useState('');
 
 	const handleBuscarChange = (event) => {
 		event.preventDefault();
-		console.log(Buscar);
+
 	};
 
 	return (
@@ -44,7 +63,7 @@ function BarraDeBusqueda() {
 				placeholder="Busca un articulo de tu interes"
 				value={Buscar}
 				onChange={(event) => setBuscar(event.target.value)}
-				className="w-80 py-2 px-3 rounded-l-lg"
+				className=" max-w-screen-xl w-96 flex px-3 rounded-l-lg border bg-white"
 			/>
 			<button className="border rounded-r-lg px-1 py-1 bg-white" type="submit">
 				<FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#000000", }} />			</button>
@@ -56,7 +75,7 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav className="flex justify-around items-center p-4 bg-gray-400 mb-2">
+			<nav className="flex justify-around items-center p-4  bg-white mb-2">
 				<Link className="" to="/"><FontAwesomeIcon icon={faUser} size="xl" /></Link>
 				<BarraDeBusqueda />
 				<ul className="flex">
@@ -71,7 +90,9 @@ const Navbar = () => {
 				</ul>
 			</nav>
 			<Outlet />
+			<hr />
 		</div>
+
 	);
 };
 

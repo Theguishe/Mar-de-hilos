@@ -1,7 +1,7 @@
 import React from "react";
 import Producto from "../../Components/producto";
 
-const Favorito = () => {
+const Carrito = () => {
 
 	return (
 		<div>
@@ -12,4 +12,4 @@ const Favorito = () => {
 	);
 };
 
-export default Favorito;
+export default Carrito;
