@@ -7,6 +7,7 @@ import {
   faChevronRight,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../../Components/footer";
 
 const sections = [
   {
@@ -321,6 +322,7 @@ const ProductPage = () => {
           </Box>
         </Box>
       </view>
+      <Footer />
     </view>
   );
 };
