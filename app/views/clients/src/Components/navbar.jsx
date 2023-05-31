@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faUser, faHeart, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import { faCartShopping, faUser, faHeart, faSearch, faFontAwesome } from "@fortawesome/free-solid-svg-icons"
 import "../index.css";
 import { Outlet, Link } from "react-router-dom";
 
@@ -53,52 +53,65 @@ function BarraDeBusqueda() {
 
 	const handleBuscarChange = (event) => {
 		event.preventDefault();
-
 	};
 
 	return (
 		<form className="flex" onSubmit={handleBuscarChange}>
 			<input
 				type="text"
-				placeholder="Busca un articulo de tu interes"
+				placeholder="Busca un artículo de tu interés"
 				value={Buscar}
 				onChange={(event) => setBuscar(event.target.value)}
-				className=" max-w-screen-xl w-96 flex px-3 rounded-l-lg border bg-white"
+				className="max-w-screen-xl w-96 flex px-3 rounded-l-lg border bg-white"
 			/>
 			<button className="border rounded-r-lg px-1 py-1 bg-white" type="submit">
-				<FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={{ color: "#000000", }} />			</button>
+				<FontAwesomeIcon icon={faSearch} size="xl" style={{ color: "#000000", }} />
+			</button>
 		</form>
 	);
 };
 
 const Navbar = () => {
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 780);
+		};
+
+		handleResize(); // Ejecutar una vez al inicio
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
 	return (
 		<div>
-			<nav className="flex justify-around items-center p-4  bg-white mb-2">
-				<Link className="" to="/"><FontAwesomeIcon icon={faUser} size="xl" /></Link>
-				<BarraDeBusqueda />
+			<nav className="flex justify-around items-center p-4 bg-white mb-2">
+				<Link to="/"><FontAwesomeIcon icon={faFontAwesome} size="xl" /></Link>
+				{!isMobile && <BarraDeBusqueda />}
 				<ul className="flex">
-					<li>
-						<Usuario /></li>
-					<li >
-						<Link className="m-8" to="/Carrito"><FontAwesomeIcon icon={faCartShopping} size="xl" /></Link>
-					</li>
-					<li>
-						<Link className="m-8" to="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></Link>
-					</li>
+					{!isMobile && (
+						<>
+							<li className="hidden md:block">
+								<Usuario />
+							</li>
+							<li className="hidden md:block ">
+								<Link className="m-8" to="/Carrito"><FontAwesomeIcon icon={faCartShopping} size="xl" /></Link>
+							</li>
+							<li className="hidden md:block ">
+								<Link className="m-8" to="/Favoritos"><FontAwesomeIcon icon={faHeart} size="xl" /></Link>
+							</li>
+						</>
+					)}
 				</ul>
 			</nav>
 			<Outlet />
 			<hr />
 		</div>
-
 	);
 };
 
 export default Navbar;
-
-
-
-
-

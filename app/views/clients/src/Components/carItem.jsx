@@ -58,19 +58,19 @@ const CarItem = () => {
     };
 
     return (
-        <div className="bg-white border border-gray-600 rounded-md">
+        <div className="bg-white rounded-md">
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Carrito</h2>
                 <div className="mt-6 grid gap-6">
                     {products.map((item) => (
-                        <div key={item.id} className="bg-white rounded-md overflow-hidden group hover:opacity-75">
+                        <div key={item.id} className="bg-white rounded-md overflow-hidden group hover:opacity-75 border border-gray-600">
                             <div className="flex flex-col sm:flex-row">
                                 <img
                                     src={item.imageSrc}
                                     alt={item.imageAlt}
                                     style={{ height: '200px', width: '200px', objectFit: 'cover', objectPosition: 'center' }}
                                 />
-                                <div className="p-4 flex flex-col justify-between">
+                                <div className="p-4 flex flex-col justify-between ">
                                     <div>
                                         <h3 className="text-lg font-bold text-gray-900">{item.name}</h3>
                                         <p className="text-2xl font-bold text-gray-900">{item.price}</p>
