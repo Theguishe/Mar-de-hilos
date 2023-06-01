@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faUser, faHeart, faSearch, faFontAwesome } from "@fortawesome/free-solid-svg-icons"
 import "../index.css";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 
 const Usuario = () => {
 	const [open, setOpen] = useState(false);
@@ -20,6 +20,11 @@ const Usuario = () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, []);
+
+	const location = useLocation();
+	if(location.pathname === '/Login'){
+		return null;
+	} else {
 
 	return (
 		<div className="relative">
@@ -46,6 +51,7 @@ const Usuario = () => {
 			</div>
 		</div>
 	);
+				}
 };
 
 function BarraDeBusqueda() {
@@ -90,7 +96,7 @@ const Navbar = () => {
 	return (
 		<div>
 			<nav className="flex justify-around items-center p-5 bg-gray-100 fixed w-full z-10 shadow-lg">
-				<Link to="/"><FontAwesomeIcon icon={faFontAwesome} size="xl" /></Link>
+				<Link to="/Login"><FontAwesomeIcon icon={faFontAwesome} size="xl" /></Link>
 				{!isMobile && <BarraDeBusqueda />}
 				<ul className="flex">
 					{!isMobile && (

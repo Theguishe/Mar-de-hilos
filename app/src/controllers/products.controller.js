@@ -14,13 +14,30 @@ const getAllTasks = async (req, res, next) => {
 
 const getProductCard = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos");
+    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos ORDER BY id_producto ASC");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
     console.log(error);
   }
 };
+
+const getOneProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos WHERE id_producto = $1 ORDER BY id_producto ASC");
+    res.json(allTasks.rows);
+    if (result.rows.length === 0)
+    return res.status(404).json({
+      message: "Task not found",
+    });
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    next(error);
+    console.log(error);
+};
+}
 
 const getNewProducts = async (req, res, next) => {
   try {

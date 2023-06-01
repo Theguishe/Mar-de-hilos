@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import img from '../assets/imgs/img1.jpg';
 import img1 from '../assets/Azl.jpg';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function RatingStars({ rating }) {
   const stars = Array.from({ length: 5 }, (_, index) => index + 1);
