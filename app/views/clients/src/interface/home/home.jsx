@@ -13,7 +13,6 @@ const Inicio = () => {
 				<Componentes/>
 			</div>
 			<Carpro/>
-			<Footer />
 		</div>
 
 

@@ -6,16 +6,18 @@ import Navbar from './Components/navbar';
 import Favorito from './interface/favoritos';
 import ProductPage from './interface/product';
 import CarlItem from './Components/carItem';
+import Footer from './Components/footer';
 
 function App() {
 	return (
 		<div>
 			<Routes>
 				<Route path="/" element={<Navbar />}>
-					<Route path='/' element={<CarlItem/>} />
+					<Route path='/' element={<Inicio/>} />
 					<Route path='/Favoritos' element={<Favorito/>} />
 				</Route>
 			</Routes>
+			<Footer />
 		</div>
 
 

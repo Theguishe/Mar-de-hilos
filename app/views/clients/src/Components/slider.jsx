@@ -49,10 +49,10 @@ function Componentes() {
     }, 4000);
 
     return (
-        <div className='h-[780px] w-full py-8 px-4 relative group '>
+        <div className='h-[780px] w-full py-8 px-4 relative group'>
             <div
                 style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-                className='w-full h-full bg-center bg-cover'
+                className='w-full h-full bg-center bg-cover mt-14'
             ></div>
             <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
                 <FontAwesomeIcon icon={faChevronLeft} onClick={prevSlide} />

@@ -546,3 +546,17 @@ WHERE EXTRACT(DAY from fecha) BETWEEN 15 AND 28;
   UPDATE productos SET valoracion = 4 WHERE id_producto in(6,7,13)
 
   SELECT id_producto FROM productos WHERE nombre = 'Collar crochet'
+
+  SELECT * FROM pedidos_catalogo
+
+
+  SELECT p.id_pedido_c, p.fecha, pro.nombre, pro.imagen, pro.descripcion, pro.precio, pro.valoracion, pro.id_cliente
+  FROM pedidos_catalogo p
+  INNER JOIN productos pro ON p.id_cliente = pro.id_cliente
+  ORDER BY p.fecha DESC
+
+  CREATE VIEW newProducts AS 
+  SELECT pro.nombre, pro.imagen, pro.descripcion, pro.precio, pro.valoracion
+  FROM productos pro, carrito car, pedidos_catalogo pe
+  WHERE pro.id_producto = car.id_producto AND car.id_pedido_c = pe.id_pedido_c
+  ORDER BY pe.fecha DESC
