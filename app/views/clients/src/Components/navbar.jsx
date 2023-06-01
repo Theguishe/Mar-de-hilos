@@ -89,7 +89,7 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav className="flex justify-around items-center p-4 bg-white mb-2">
+			<nav className="flex justify-around items-center p-5 bg-gray-100 mb-2">
 				<Link to="/"><FontAwesomeIcon icon={faFontAwesome} size="xl" /></Link>
 				{!isMobile && <BarraDeBusqueda />}
 				<ul className="flex">

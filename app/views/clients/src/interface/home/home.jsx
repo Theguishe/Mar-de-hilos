@@ -3,6 +3,7 @@ import Navbar from "../../Components/navbar";
 import Componentes from "../../Components/slider";
 import Producto from "../../Components/producto";
 import Carpro from "../../Components/carpro";
+import Footer from "../../Components/footer";
 
 const Inicio = () => {
 
@@ -12,6 +13,7 @@ const Inicio = () => {
 				<Componentes/>
 			</div>
 			<Carpro/>
+			<Footer />
 		</div>
 
 

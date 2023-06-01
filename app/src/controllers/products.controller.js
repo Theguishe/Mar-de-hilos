@@ -12,6 +12,16 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+const getProductCard = async (req, res, next) => {
+  try {
+    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos");
+    res.json(allTasks.rows);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
 // Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
   try {
@@ -128,6 +138,7 @@ const deletingTask = async (req, res, next) => {
 module.exports = {
   getAllTasks,
   getSingleTask,
+  getProductCard,
   getCategoriesTable,
   getProductTypeTable,
   getUsersTable,

@@ -542,3 +542,7 @@ WHERE EXTRACT(DAY from fecha) BETWEEN 15 AND 28;
     niveles_usuarios b,
     estados_usuarios c
   WHERE b.id_nivelusuario = a.id_nivelusuario AND a.id_estadousuario = c.id_estadousuario;
+
+  UPDATE productos SET valoracion = 4 WHERE id_producto in(6,7,13)
+
+  SELECT id_producto FROM productos WHERE nombre = 'Collar crochet'
