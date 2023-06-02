@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -8,7 +8,11 @@ const Login = () => {
   const [authenticated, setauthenticated] = useState(
     localStorage.getItem(localStorage.getItem("authenticated") || false)
   );
-  const users = [{ username: "guillermogacc05@gmail.com", password: "contra123" }];
+  const users = [
+    { username: "guillermogacc05@gmail.com", password: "contra123" },
+    { username: "daviddg@gmail.com", password: "123456789"},
+    { username: "20210451@ricaldone.edu.sv", password: "pwd123456"}
+  ];
   const handleSubmit = (e) => {
     e.preventDefault();
     const account = users.find((user) => user.username === username);
@@ -52,7 +56,7 @@ const Login = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
               placeholder="Enter your password"
               name="password"
-              onChange={e => setpassword(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
             />
           </div>
           <button
@@ -61,6 +65,14 @@ const Login = () => {
           >
             Log in
           </button>
+          <p className="mt-4 text-sm text-center text-gray-600">
+            Don't have an account?{" "}
+            <Link to="/Signup">
+              <p className="text-blue-500 hover:text-blue-600 text-sm">
+                Sign up
+              </p>
+            </Link>
+          </p>
         </form>
       </div>
     </div>

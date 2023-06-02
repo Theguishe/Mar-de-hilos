@@ -1,82 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import Navbar from "../../Components/navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import {
   faChevronLeft,
   faChevronRight,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../../Components/footer";
-
-const sections = [
-  {
-    id: 1,
-    title: "Productos Recomendados",
-    products: [
-      {
-        id: 1,
-        name: "Basic Tee",
-        href: "#",
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: "$35",
-        color: "Black",
-        rating: 4, // Rating from 1 to 5
-      },
-      {
-        id: 2,
-        name: "Basic Tee",
-        href: "#",
-        imageSrc: "",
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: "$35",
-        color: "Black",
-      },
-      {
-        id: 3,
-        name: "Basic Tee",
-        href: "#",
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: "$35",
-        color: "Black",
-      },
-      {
-        id: 4,
-        name: "Basic Tee",
-        href: "#",
-        imageSrc: "",
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: "$35",
-        color: "Black",
-      },
-      {
-        id: 5,
-        name: "Basic Tee",
-        href: "#",
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: "$35",
-        color: "Black",
-      },
-      {
-        id: 6,
-        name: "Basic Tee",
-        href: "#",
-        imageSrc: "",
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: "$35",
-        color: "Black",
-      },
-      // Products data...
-    ],
-    currentPage: 0, // Agrega la propiedad currentPage a cada sección
-  },
-];
+import { useParams } from "react-router-dom";
+import img from "../../assets/imgs/img1.jpg";
 
 function RatingStars({ rating }) {
   const stars = Array.from({ length: 5 }, (_, index) => index + 1);
@@ -95,19 +28,6 @@ function RatingStars({ rating }) {
 }
 
 const ProductPage = () => {
-  const productData = {
-    id: "",
-    nombre: "",
-    imagen: "",
-    descripcion: "",
-    precio: "",
-    cantidad: "",
-    cliente: null,
-    tipo_producto: "",
-    categoria: "",
-  };
-
-  const [sectionStates, setSectionStates] = useState(sections);
   const [productsPerPage, setProductsPerPage] = useState(2);
 
   const handlePrevPage = (sectionId) => {
@@ -163,61 +83,247 @@ const ProductPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // To return the same product page ID
+  const { id } = useParams();
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/singleProduct/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data);
+      })
+      .catch((error) => {
+        console.log("There exists an error: ", error);
+      });
+  }, [id]);
+
+  useEffect(() => {
+    const sections = [
+      {
+        id: 1,
+        products: product.map((product) => ({
+          id: product.id_producto,
+          name: product.nombre,
+          href: "#",
+          imageSrc: img,
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: `$${product.precio}`,
+          quantity: product.cantidad,
+          color: product.descripcion,
+          rating: product.valoracion,
+        })),
+        currentPage: 0, // Agrega la propiedad currentPage a cada sección
+      },
+    ];
+  });
+
+  const sections = [
+    {
+      id: 2,
+      title: "Productos Recomendados",
+      products: [
+        {
+          id: 1,
+          name: "Basic Tee",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: "$35",
+          color: "Black",
+          rating: 4, // Rating from 1 to 5
+        },
+        {
+          id: 2,
+          name: "Basic Tee",
+          href: "#",
+          imageSrc: "",
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: "$35",
+          color: "Black",
+        },
+        {
+          id: 3,
+          name: "Basic Tee",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: "$35",
+          color: "Black",
+        },
+        {
+          id: 4,
+          name: "Basic Tee",
+          href: "#",
+          imageSrc: "",
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: "$35",
+          color: "Black",
+        },
+        {
+          id: 5,
+          name: "Basic Tee",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: "$35",
+          color: "Black",
+        },
+        {
+          id: 6,
+          name: "Basic Tee",
+          href: "#",
+          imageSrc: "",
+          imageAlt: "Front of men's Basic Tee in black.",
+          price: "$35",
+          color: "Black",
+        },
+        // Products data...
+      ],
+      currentPage: 0, // Agrega la propiedad currentPage a cada sección
+    },
+  ];
+  const [sectionStates, setSectionStates] = useState(sections);
+
+  const [cartItems, setCartItems] = useState([]);
+
+  // Obtener los datos del carrito del almacenamiento local al cargar la página
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
+
+  // Actualizar el almacenamiento local cuando se modifica el carrito
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const handleAddToCart = (productId) => {
+    setCartItems((prevCartItems) => [...prevCartItems, productId]);
+  };
+
+  const isItemInCart = (productId) => {
+    return cartItems.includes(productId);
+  };
+
+  if (!product) {
+    return (
+      <div className="text-red-600 text-2xl">
+        404 <span className="text-black text-2xl">NOT FOUND</span>
+      </div>
+    );
+  }
+
+  const incrementQuantity = (id) => {
+    setProduct((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === id
+          ? { ...product, quantity: (product.quantity || 0) + 1 }
+          : product
+      )
+    );
+  };
+
+  const decrementQuantity = (id) => {
+    setProduct((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === id
+          ? { ...product, quantity: Math.max((product.quantity || 0) - 1, 0) }
+          : product
+      )
+    );
+  };
+
   return (
     <view>
       <view className="flex flex-wrap justify-center">
-        <Box className="flex justify-center w-11/12 h-96 bg-transparent">
-          <Box className="flex items-start basis-2/5 mr-8">
-            <img
-              className="w-full h-72"
-              src="https://d22fxaf9t8d39k.cloudfront.net/1b1586d9c0ea6dd45ef6f4837ca222ebf2f1d79d968c51c3c4323a53a7335d08132190.jpeg"
-              alt="img"
-            />
-          </Box>
-          <Box className="flex flex-col justify-between grow text-sm basis-3/12">
-            <h2 className="text-xl">Articulo de compra generico</h2>
-            <Box id="valoracion" className="">
-              <Box className="flex justify-start"></Box>
-              <p>(500)</p>
-            </Box>
-            <p>
-              <span>$</span>30.00
-            </p>
-            <p className="text-black">
-              <span className="text-red-600">Envio: </span>Direccion de envio
-              predeterminada por la empresa (San Salvador)
-            </p>
-            <Box className="flex">
-              <Box className="basis-1/4">
-                <p className="text-red-600">Cantidad:</p>
+        <Box className="flex justify-center w-11/12 h-96 bg-transparent mt-24">
+          {product.map((product) => (
+            <>
+              <Box className="flex items-start basis-2/5 mr-8">
+                <img
+                  className="w-full h-72"
+                  src={product.image}
+                  alt={product.imageAlt}
+                />
               </Box>
-              <Box className="flex justify-center align-middle flex-grow-0">
-                <button className="bg-gray-400 w-6 h-6 rounded-xl"></button>
-                <p className="mx-4">1</p>
-                <button className="bg-gray-400 w-6 h-6 rounded-xl"></button>
+              <Box className="flex flex-col justify-between grow text-md basis-3/12">
+                <h2 className="text-xl">{product.nombre}</h2>
+                <Box
+                  id="valoracion"
+                  className="flex items-center justify-start"
+                >
+                  <Box className="flex items-center justify-start">
+                    <div className="relative bottom-0 left-0 mt-8">
+                      <RatingStars rating={product.valoracion} />
+                    </div>
+                  </Box>
+                  <p>({product.count})</p>
+                </Box>
+                <p>
+                  <span>$</span>
+                  {product.precio}
+                </p>
+                <p className="text-black">
+                  <span className="text-red-600">Envio: </span>
+                  San Salvador
+                </p>
+                <Box className="flex">
+                  <Box className="basis-1/4">
+                    <p className="text-red-600">Cantidad:</p>
+                  </Box>
+                  <Box className="flex justify-center align-middle flex-grow-0">
+                    <button
+                      className="rounded-full bg-gray-400 text-white w-8 h-8 flex items-center justify-center mr-2"
+                      onClick={() => decrementQuantity(product.id)}
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
+                    <span className="text-lg font-bold mx-4">
+                      {product.quantity || 0}
+                    </span>
+                    <button
+                      className="rounded-full bg-gray-400 text-white w-8 h-8 flex items-center justify-center ml-2"
+                      onClick={() => incrementQuantity(product.id)}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </Box>
+                </Box>
+                <Box className="flex justify-around">
+                  <button className="mt-4 text-sm font-medium text-white bg-orange-500 rounded px-3 py-2">
+                    Comprar ahora
+                  </button>
+                  {!isItemInCart(product.id) && (
+                    <button
+                      onClick={() => handleAddToCart(product.id)}
+                      className="mt-4 text-sm font-medium text-white bg-blue-500 rounded px-3 py-2"
+                    >
+                      Agregar al carrito
+                    </button>
+                  )}
+                  {isItemInCart(product.id) && (
+                    <p className="mt-4 text-sm font-medium text-green-500">
+                      Agregado al carrito
+                    </p>
+                  )}
+                </Box>
+                <Box>
+                  <p>{product.descripcion}</p>
+                </Box>
               </Box>
-            </Box>
-            <Box className="flex justify-around">
-              <button className="bg-orange-500 w-40 h-8 text-white rounded-xl">
-                Comprar ahora
-              </button>
-              <button className="bg-blue-500 w-40 h-8 text-white rounded-xl">
-                Agregar al carrito
-              </button>
-            </Box>
-            <Box>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem
-                accusamus voluptatem necessitatibus blanditiis, repellendus
-                architecto aliquid obcaecati deleniti laborum ut, delectus
-                nostrum sunt exercitationem id corporis porro maiores recusandae
-                nihil!
-              </p>
-            </Box>
-          </Box>
+            </>
+          ))}
         </Box>
         <Box className="flex flex-col justify-start w-11/12 box-content mt-12">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">Resenias y Comentarios</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+            Resenias y Comentarios
+          </h2>
           <Box className="flex flex-col mt-8">
             <Box>
               <p>
@@ -251,7 +357,7 @@ const ProductPage = () => {
           </Box>
         </Box>
         <Box className="flex justify-center w-full box-content mt-12">
-          <Box className='w-screen'>
+          <Box className="w-screen">
             {sectionStates.map((section) => (
               <div
                 key={section.id}

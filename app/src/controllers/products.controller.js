@@ -25,7 +25,7 @@ const getProductCard = async (req, res, next) => {
 const getOneProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos WHERE id_producto = $1 ORDER BY id_producto ASC");
+    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos WHERE id_producto = $1 ORDER BY id_producto ASC", [id]);
     res.json(allTasks.rows);
     if (result.rows.length === 0)
     return res.status(404).json({
@@ -168,6 +168,7 @@ module.exports = {
   getSingleTask,
   getProductCard,
   getNewProducts,
+  getOneProduct,
   getCategoriesTable,
   getProductTypeTable,
   getUsersTable,

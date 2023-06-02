@@ -17,7 +17,7 @@ const {
 const router = Router();
 
 // We define the different urls destines for every task to attatch
-router.get('/cart', getAllTasks); // To get all the registers
+router.get('/orders', getAllTasks); // To get all the registers
 
 router.get('/cartList/:id', getSingleTask); // To get a register based on the ID
 

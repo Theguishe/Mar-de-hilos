@@ -47,12 +47,12 @@ const getClientStatus = async (req, res, next) => {
 
 // Function to insert a client
 const creatingTask = async (req, res, next) => {
-  const { correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente } = req.body;
+  const { nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento } = req.body;
 
   try {
     const result = await pool.query(
-      "INSERT INTO clientes( correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [ correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente ]
+      "INSERT INTO clientes( nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [ nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento ]
     );
 
     res.json(result.rows[0]);

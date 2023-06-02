@@ -500,7 +500,7 @@ WHERE EXTRACT(DAY from fecha) BETWEEN 15 AND 28;
     clientes d
   WHERE b.id_estadopedido = a.id_estadopedido AND c.id_producto = a.id_producto AND a.id_cliente = d.id_cliente;
 
-
+CREATE VIEW ordersView AS
    SELECT a.id_pedido_c AS "ID",
     a.fecha AS "Order date",
     a.hora AS "Order Time",
@@ -560,3 +560,10 @@ WHERE EXTRACT(DAY from fecha) BETWEEN 15 AND 28;
   FROM productos pro, carrito car, pedidos_catalogo pe
   WHERE pro.id_producto = car.id_producto AND car.id_pedido_c = pe.id_pedido_c
   ORDER BY pe.fecha DESC
+
+-- To add a default value
+  ALTER TABLE clientes
+  ALTER COLUMN estadocliente SET DEFAULT true
+
+  SELECT * FROM carrito
+

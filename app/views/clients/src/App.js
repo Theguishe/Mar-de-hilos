@@ -9,6 +9,8 @@ import CarlItem from "./Components/carItem";
 import Footer from "./Components/footer";
 import Login from "./interface/login_signup/login";
 import CarItem from "./Components/carItem";
+import SignUpPage from "./interface/login_signup/signup";
+import OrdersPage from "./interface/orders/orders";
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
           <Route path="/Favoritos" element={<Favorito />} />
           <Route path="/Carrito" element={<CarItem />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/Products/:id" element={<ProductPage />} />
+          <Route path="/Signup" element={<SignUpPage />} />
+          <Route path="/Orders" element={<OrdersPage />} />
         </Route>
       </Routes>
     </div>

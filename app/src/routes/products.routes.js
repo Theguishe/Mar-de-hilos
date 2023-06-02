@@ -13,7 +13,8 @@ const {
     getCategoriesTable,
     getUsersTable,
     getProductCard,
-    getNewProducts
+    getNewProducts,
+    getOneProduct
 } = require('../controllers/products.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -40,6 +41,8 @@ router.delete('/productD/:id', deletingTask); // To delete a register
 router.get('/productCard', getProductCard);
 
 router.get('/newProduct', getNewProducts);
+
+router.get('/singleProduct/:id', getOneProduct);
 
 // We export our  request variable
 module.exports = router;
