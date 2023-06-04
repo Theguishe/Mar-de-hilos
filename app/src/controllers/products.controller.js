@@ -12,6 +12,16 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+const getProducts = async (req, res, next) => {
+  try {
+    const allTasks = await pool.query("SELECT * FROM productos");
+    res.json(allTasks.rows);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
 const getProductCard = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos ORDER BY id_producto ASC");
@@ -165,6 +175,7 @@ const deletingTask = async (req, res, next) => {
 
 module.exports = {
   getAllTasks,
+  getProducts,
   getSingleTask,
   getProductCard,
   getNewProducts,

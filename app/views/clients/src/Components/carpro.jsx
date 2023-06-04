@@ -8,6 +8,7 @@ import {
 import img from "../assets/imgs/img1.jpg";
 import img1 from "../assets/Azl.jpg";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Box } from "@mui/material";
 
 function RatingStars({ rating }) {
   const stars = Array.from({ length: 5 }, (_, index) => index + 1);
@@ -22,6 +23,29 @@ function RatingStars({ rating }) {
         />
       ))}
     </div>
+  );
+}
+
+const Filtrers = () => {
+
+  return (
+    <Box className="relative left-0">
+
+      {/* Filtro por categoria */}
+      <div className="">
+        <h3>Categories</h3>
+      </div>
+
+      {/* Filtro por precio */}
+      <div>
+        <h3>Price</h3>
+      </div>
+
+      {/* Filtro por fabricacion de productos */}
+      <div>
+        <h3>Product date</h3>
+      </div>
+    </Box>
   );
 }
 

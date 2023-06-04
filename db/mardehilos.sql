@@ -565,5 +565,13 @@ CREATE VIEW ordersView AS
   ALTER TABLE clientes
   ALTER COLUMN estadocliente SET DEFAULT true
 
-  SELECT * FROM carrito
+        SELECT * FROM ordersView
+        DROP VIEW ordersView
+
+CREATE VIEW ordersView AS
+SELECT a.id_pedido_c AS "ID", c.imagen AS "Image", b.cantidad AS "Quantity", d.estado_pedido AS "Status", c.precio
+FROM pedidos_catalogo a, carrito b, productos c, estados_pedidos d
+WHERE c.id_producto = b.id_producto AND b.id_pedido_c = a.id_pedido_c AND a.id_estadopedido = d.id_estadopedido
+
+DROP VIEW ordersView
 

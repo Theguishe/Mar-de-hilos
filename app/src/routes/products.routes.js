@@ -5,6 +5,7 @@ const pool = require('../db');
 // We import the different functions from products-controller
 const { 
     getAllTasks,
+    getProducts,
     getSingleTask, 
     creatingTask, 
     updatingTask, 
@@ -22,6 +23,8 @@ const router = Router();
 
 // We define the different urls destines for every task to attatch
 router.get('/products', getAllTasks); // To get all the registers
+
+router.get('/priceProducts', getProducts);
 
 router.get('/productsList/:id', getSingleTask); // To get a register based on the ID
 

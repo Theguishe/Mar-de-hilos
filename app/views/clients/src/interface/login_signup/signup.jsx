@@ -17,7 +17,7 @@ const SignUpPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
+  const HandleSignUp = async (e) => {
     e.preventDefault();
 
     // We compare table fields with user's reponse
@@ -62,7 +62,7 @@ const SignUpPage = () => {
         <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
           Sign Up
         </h2>
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={HandleSignUp}>
           <div className="mb-4">
             <label
               htmlFor="name"
