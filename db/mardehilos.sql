@@ -35,8 +35,11 @@ CREATE TABLE productos(
 	cantidad int not null,
 	id_tipoproducto int not null,
 	id_usuario int not null,
-	id_categoria int not null
+	id_categoria int not null,
+        valoracion int not null default 3
 );
+
+SELECT * FROM productos
 
 CREATE TABLE resenia_detalles(
 	id_resenia_detalle serial not null primary key,
@@ -96,6 +99,7 @@ CREATE TABLE clientes(
 	contrasenia varchar(12) not null,
 	dui varchar(10) not null,
 	direccion varchar(100) not null,
+        telefono varchar(12) not null,
 	fecha_nacimiento date not null,
 	estadocliente boolean not null
 );
