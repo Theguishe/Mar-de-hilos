@@ -41,7 +41,7 @@ router.put('/productU/:id', updatingTask); // To update a register
 
 router.delete('/productD/:id', deletingTask); // To delete a register
 
-router.get('/productCard', getProductCard);
+router.get('/productCard', getProductCard); // Para los cards de productos
 
 router.get('/newProduct', getNewProducts);
 

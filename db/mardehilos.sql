@@ -39,9 +39,7 @@ CREATE TABLE productos(
         valoracion int not null default 3
 );
 
-SELECT * FROM productos
-
-CREATE TABLE resenia_detalles(
+CREATE TABLE resenias_detalles(
 	id_resenia_detalle serial not null primary key,
 	imagen_producto varchar(255) not null,
 	fecha date null,
@@ -86,7 +84,7 @@ CREATE TABLE favoritos(
     id_cliente int not null
 );
 
-CREATE TABLE tipo_productos(
+CREATE TABLE tipos_productos(
 	id_tipoproducto serial not null primary key,
 	tipo_producto varchar(21) not null
 );
@@ -110,17 +108,17 @@ CREATE TABLE clientes(
 ALTER TABLE usuarios
 ADD CONSTRAINT fk_nivelusuario
 FOREIGN KEY (id_nivelusuario)
-REFERENCES nivel_usuarios(id_nivelusuario);
+REFERENCES niveles_usuarios(id_nivelusuario);
 
 ALTER TABLE usuarios
 ADD CONSTRAINT fk_estadousuario
 FOREIGN KEY (id_estadousuario)
-REFERENCES estado_usuarios(id_estadousuario);
+REFERENCES estados_usuarios(id_estadousuario);
 
 ALTER TABLE productos
 ADD CONSTRAINT fk_tipoproducto
 FOREIGN KEY (id_tipoproducto)
-REFERENCES tipo_productos(id_tipoproducto);
+REFERENCES tipos_productos(id_tipoproducto);
 
 ALTER TABLE productos
 ADD CONSTRAINT fk_usuarioproducto
@@ -132,12 +130,12 @@ ADD CONSTRAINT fk_categoriaproductos
 FOREIGN KEY (id_categoria)
 REFERENCES categorias(id_categoria);
 
-ALTER TABLE resenia_detalles
+ALTER TABLE resenias_detalles
 ADD CONSTRAINT fk_producto_detalle
 FOREIGN KEY (id_producto)
 REFERENCES productos(id_producto);
 
-ALTER TABLE resenia_detalles
+ALTER TABLE resenias_detalles
 ADD CONSTRAINT fk_cliente_detalle
 FOREIGN KEY (id_cliente)
 REFERENCES clientes(id_cliente);
@@ -160,7 +158,7 @@ REFERENCES pedidos_catalogo(id_pedido_c);
 ALTER TABLE carrito
 ADD CONSTRAINT fk_resenia_detalle
 FOREIGN KEY (id_resenia_detalle)
-REFERENCES resenia_detalles(id_resenia_detalle);
+REFERENCES resenias_detalles(id_resenia_detalle);
 
 ALTER TABLE carrito
 ADD CONSTRAINT fk_carrito_producto
@@ -239,7 +237,7 @@ VALUES ('croche'),
         ('Monederos'),
         ('Mochilitas');
 
-INSERT INTO productos(nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria)
+INSERT INTO productos(nombre, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria)
 VALUES ('Macrame de Solesito','','Bonito muniequito de macrame con forma de solesito, especial para regalar o mantenerlo y tener un amiguito que te acompanie',12.00,1,2,1,6),
         ('Pulsera Girasol','','Bonita pulsera con estilo de girasol, especial para regalar',5.00,3,4,2,1),
         ('Cartera de Elefante','','Accesorio, cartera con estilo de elefante, bonita para llevar con tigo',15.00,1,5,3,2),
@@ -272,21 +270,21 @@ VALUES ('Macrame de Solesito','','Bonito muniequito de macrame con forma de sole
         ('Pulsera heart','', 'tejida a mano con hilo de algodón, ajustable de 16 a 20 cm, rosa y coral, algodón 100%', 7.00,2,1,6,4);
 
 INSERT INTO clientes(nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, estadocliente)
-VALUES ('Guillermo', 'Castillo','EamP@gmail.com','123456','98765432-1','Mejicanos','7211-1212','2001-04-12',1),
-        ('Oscar', 'Rivas','Chelos@gmail.com','123456','98765432-0','Mejicanos','7211-1211','2001-01-12',1),
-        ('Fernando', 'Flores','Fernan@gmail.com','123456','98765432-2','Mejicanos','7211-1213','2001-05-12',1),
-        ('Malcom', 'Tercero','malcom23@gmail.com','123456','98765432-3','Mejicanos','7211-1214','2001-02-12',1),
-        ('Setch', 'Setch','Setch@gmail.com','123456','98765432-4','Mejicanos','7211-1215','2000-04-12',1),
-        ('Tilines', 'Tilin','Tilin@gmail.com','123456','98765432-5','Mejicanos','7211-1216','2001-04-20',1),
-        ('Pepe', 'ElPepe','elPepe@gmail.com','123456','98765432-6','Mejicanos','7211-1217','2001-10-12',1),
-        ('Phone', 'Tenchis','Phone@gmail.com','123456','98765432-7','Mejicanos','7211-1218','2001-05-12',3),
-        ('Jose', 'Ruiz','xxx@gmail.com','123456','98765432-8','Mejicanos','7211-1219','2004-04-18',1),
-        ('Christian', 'Linares','Telos@gmail.com','123456','98765432-9','Mejicanos','7210-1212','2001-06-12',1),
-        ('William', 'Lopez','William@gmail.com','123456','89765432-5','Panchimalco','7011-1216','2001-04-20',1),
-        ('Pepsi', 'Pepsi','Pepsi@gmail.com','123456','89765432-6','San Salvador','7001-1217','2001-10-12',1),
-        ('Mota', 'Figueroa','Mota@gmail.com','123456','89765432-7','Merliot','7112-1218','2001-05-12',3),
-        ('Colacola', 'Frances','Coca@gmail.com','123456','89765432-8','Volcan de San Salvador','7008-1219','2004-04-18',1),
-        ('Chevrolet', 'Suburban','Suburban@gmail.com','123456','89765432-9','Mejicanos','7210-0112','2001-06-12',1);
+VALUES ('Guillermo', 'Castillo','EamP@gmail.com','123456','98765432-1','Mejicanos','7211-1212','2001-04-12',true),
+        ('Oscar', 'Rivas','Chelos@gmail.com','123456','98765432-0','Mejicanos','7211-1211','2001-01-12',true),
+        ('Fernando', 'Flores','Fernan@gmail.com','123456','98765432-2','Mejicanos','7211-1213','2001-05-12',true),
+        ('Malcom', 'Tercero','malcom23@gmail.com','123456','98765432-3','Mejicanos','7211-1214','2001-02-12',true),
+        ('Setch', 'Setch','Setch@gmail.com','123456','98765432-4','Mejicanos','7211-1215','2000-04-12',true),
+        ('Tilines', 'Tilin','Tilin@gmail.com','123456','98765432-5','Mejicanos','7211-1216','2001-04-20',true),
+        ('Pepe', 'ElPepe','elPepe@gmail.com','123456','98765432-6','Mejicanos','7211-1217','2001-10-12',false),
+        ('Phone', 'Tenchis','Phone@gmail.com','123456','98765432-7','Mejicanos','7211-1218','2001-05-12',false),
+        ('Jose', 'Ruiz','xxx@gmail.com','123456','98765432-8','Mejicanos','7211-1219','2004-04-18',true),
+        ('Christian', 'Linares','Telos@gmail.com','123456','98765432-9','Mejicanos','7210-1212','2001-06-12',true),
+        ('William', 'Lopez','William@gmail.com','123456','89765432-5','Panchimalco','7011-1216','2001-04-20',false),
+        ('Pepsi', 'Pepsi','Pepsi@gmail.com','123456','89765432-6','San Salvador','7001-1217','2001-10-12',true),
+        ('Mota', 'Figueroa','Mota@gmail.com','123456','89765432-7','Merliot','7112-1218','2001-05-12',true),
+        ('Colacola', 'Frances','Coca@gmail.com','123456','89765432-8','Volcan de San Salvador','7008-1219','2004-04-18',true),
+        ('Chevrolet', 'Suburban','Suburban@gmail.com','123456','89765432-9','Mejicanos','7210-0112','2001-06-12',true);
 
 INSERT INTO pedidos_catalogo(fecha, hora, id_estadopedido, id_cliente)
 VALUES ('2023-01-12','7:59AM',1,1),
@@ -334,7 +332,7 @@ VALUES ('Quisiera un munieco de macrame con forma de JAKE  de hora de aventura',
         ('Pulsera de lana con diseño minimalista en colores fríos y cálidos contrastantes , parecido a esta imagen ',9),
         ('Bordado de lana con diseño contemporáneo en colores vivos y neón ,parecido a esta imagen ',6);
 
-INSERT INTO resenia_detalles(imagen_producto, fecha, hora, resenia, valoracion, id_cliente, id_producto)
+INSERT INTO resenias_detalles(imagen_producto, fecha, hora, resenia, valoracion, id_cliente, id_producto)
 VALUES ('','2023-02-12','2:00PM','Buen producto, entregado en exelentes condiciones, proporciones iguales a las de las imagenes, bonito BEMO',5,1,1),
         ('','2023-02-12','2:00PM','Exelente producto, solo el senior del pedido es un poco pendejo, pero se va',5,2,3),
         ('','2023-02-12','2:00PM','Bonita carterita, entregada en exelentes condiciones, el pedido se demoro un poco, pero esta bien',5,3,6),
@@ -567,9 +565,9 @@ CREATE VIEW ordersView AS
 
 -- To add a default value
   ALTER TABLE clientes
-  ALTER COLUMN estadocliente SET DEFAULT true
+  ALTER COLUMN estadocliente SET DEFAULT true 
 
-        SELECT * FROM ordersView
+        SELECT * FROM clientes
         DROP VIEW ordersView
 
 CREATE VIEW ordersView AS
