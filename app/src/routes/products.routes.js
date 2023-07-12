@@ -26,7 +26,7 @@ router.get('/products', getAllTasks); // To get all the registers
 
 router.get('/priceProducts', getProducts);
 
-router.get('/productsList/:id', getSingleTask); // To get a register based on the ID
+router.get('/products/:id', getSingleTask); // To get a register based on the ID
 
 // To charge comboboxes
 router.get('/tipoP', getProductTypeTable);
