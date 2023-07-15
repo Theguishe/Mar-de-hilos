@@ -82,13 +82,13 @@ function Carpro(product) {
         title: "Products",
         products: productData.map((product) => ({
           id: product.id_producto,
-          name: product.nombre,
+          name: product.nombre_producto,
           href: "#",
           imageSrc: img,
           imageAlt: "Front of men's Basic Tee in black.",
           price: `$${product.precio}`,
-          color: product.descripcion,
-          rating: product.valoracion,
+          color: product.descripcion_producto,
+          rating: product.valoracion_producto,
         })),
         currentPage: 0, // Agrega la propiedad currentPage a cada sección
       },
@@ -97,13 +97,13 @@ function Carpro(product) {
         title: "Nuevo",
         products: productData.map((product) => ({
           id: product.id_producto,
-          name: product.nombre,
+          name: product.nombre_producto,
           href: "#",
           imageSrc: img1,
           imageAlt: "Front of men's Basic Tee in black.",
           price: `$${product.precio}`,
-          color: product.descripcion,
-          rating: product.valoracion,
+          color: product.descripcion_producto,
+          rating: product.valoracion_producto,
         })),
         currentPage: 0, // Agrega la propiedad currentPage a cada sección
       },

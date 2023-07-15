@@ -4,7 +4,7 @@ const pool = require("../db");
 // Function to get the list to show in MUI datagrid
 const getAllTasks = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT * FROM productosView");
+    const allTasks = await pool.query("SELECT * FROM productos");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
@@ -14,7 +14,7 @@ const getAllTasks = async (req, res, next) => {
 
 const getProducts = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT * FROM productos");
+    const allTasks = await pool.query("SELECT * FROM productos ORDER BY id_producto ASC");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
@@ -24,7 +24,7 @@ const getProducts = async (req, res, next) => {
 
 const getProductCard = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos ORDER BY id_producto ASC");
+    const allTasks = await pool.query("SELECT id_producto, nombre_producto, imagen_producto, descripcion_producto, precio, valoracion_producto FROM productos ORDER BY id_producto ASC");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
