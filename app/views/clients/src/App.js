@@ -16,13 +16,13 @@ function App() {
   return (
     <div>
       <Routes>
+      <Route path="/Login" element={<Login />} />
+      <Route path="/Signup" element={<SignUpPage />} />
         <Route path="/" element={<Navbar />}>
           <Route path="/" element={<Inicio />} />
           <Route path="/Favoritos" element={<Favorito />} />
           <Route path="/Carrito" element={<CarItem />} />
-          <Route path="/Login" element={<Login />} />
           <Route path="/Products/:id" element={<ProductPage />} />
-          <Route path="/Signup" element={<SignUpPage />} />
           <Route path="/Orders" element={<OrdersPage />} />
         </Route>
       </Routes>

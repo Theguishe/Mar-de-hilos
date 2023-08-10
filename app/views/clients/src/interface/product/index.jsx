@@ -29,7 +29,6 @@ function RatingStars({ rating }) {
 
 const ProductPage = () => {
   const [productsPerPage, setProductsPerPage] = useState(2);
-
   const handlePrevPage = (sectionId) => {
     setSectionStates((prevSectionStates) => {
       return prevSectionStates.map((section) => {
@@ -85,24 +84,14 @@ const ProductPage = () => {
 
   // To return the same product page ID
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/singleProduct/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setProduct(data);
-      })
-      .catch((error) => {
-        console.log("There exists an error: ", error);
-      });
-  }, [id]);
-
-  useEffect(() => {
-    const sections = [
-      {
-        id: 1,
-        products: product.map((product) => ({
+        console.log("AAAAAAA", data);
+        const productData = data.map((product) => ({
           id: product.id_producto,
           name: product.nombre,
           href: "#",
@@ -112,81 +101,23 @@ const ProductPage = () => {
           quantity: product.cantidad,
           color: product.descripcion,
           rating: product.valoracion,
-        })),
-        currentPage: 0, // Agrega la propiedad currentPage a cada sección
-      },
-    ];
-  });
+        }));
+        setProductDetails(productData);
+      })
+      .catch((error) => {
+        console.log("There exists an error: ", error);
+      });
+  }, [id]);
 
-  const sections = [
+  
+  const [sectionStates, setSectionStates] = useState([
     {
       id: 2,
       title: "Productos Recomendados",
-      products: [
-        {
-          id: 1,
-          name: "Basic Tee",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-          imageAlt: "Front of men's Basic Tee in black.",
-          price: "$35",
-          color: "Black",
-          rating: 4, // Rating from 1 to 5
-        },
-        {
-          id: 2,
-          name: "Basic Tee",
-          href: "#",
-          imageSrc: "",
-          imageAlt: "Front of men's Basic Tee in black.",
-          price: "$35",
-          color: "Black",
-        },
-        {
-          id: 3,
-          name: "Basic Tee",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-          imageAlt: "Front of men's Basic Tee in black.",
-          price: "$35",
-          color: "Black",
-        },
-        {
-          id: 4,
-          name: "Basic Tee",
-          href: "#",
-          imageSrc: "",
-          imageAlt: "Front of men's Basic Tee in black.",
-          price: "$35",
-          color: "Black",
-        },
-        {
-          id: 5,
-          name: "Basic Tee",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-          imageAlt: "Front of men's Basic Tee in black.",
-          price: "$35",
-          color: "Black",
-        },
-        {
-          id: 6,
-          name: "Basic Tee",
-          href: "#",
-          imageSrc: "",
-          imageAlt: "Front of men's Basic Tee in black.",
-          price: "$35",
-          color: "Black",
-        },
-        // Products data...
-      ],
+      products: [], // Deja el arreglo de productos vacío
       currentPage: 0, // Agrega la propiedad currentPage a cada sección
     },
-  ];
-  const [sectionStates, setSectionStates] = useState(sections);
+  ]);
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -211,7 +142,7 @@ const ProductPage = () => {
     return cartItems.includes(productId);
   };
 
-  if (!product) {
+  if (!productDetails) {
     return (
       <div className="text-red-600 text-2xl">
         404 <span className="text-black text-2xl">NOT FOUND</span>
@@ -220,7 +151,7 @@ const ProductPage = () => {
   }
 
   const incrementQuantity = (id) => {
-    setProduct((prevProducts) =>
+    setProductDetails((prevProducts) =>
       prevProducts.map((product) =>
         product.id === id
           ? { ...product, quantity: (product.quantity || 0) + 1 }
@@ -230,7 +161,7 @@ const ProductPage = () => {
   };
 
   const decrementQuantity = (id) => {
-    setProduct((prevProducts) =>
+    setProductDetails((prevProducts) =>
       prevProducts.map((product) =>
         product.id === id
           ? { ...product, quantity: Math.max((product.quantity || 0) - 1, 0) }
@@ -243,12 +174,12 @@ const ProductPage = () => {
     <view>
       <view className="flex flex-wrap justify-center">
         <Box className="flex justify-center w-11/12 h-96 bg-transparent mt-24">
-          {product.map((product) => (
+          {productDetails.map((product) => (
             <>
               <Box className="flex items-start basis-2/5 mr-8">
                 <img
                   className="w-full h-72"
-                  src={product.image}
+                  src={product.imageSrc}
                   alt={product.imageAlt}
                 />
               </Box>
@@ -263,7 +194,7 @@ const ProductPage = () => {
                       <RatingStars rating={product.valoracion} />
                     </div>
                   </Box>
-                  <p>({product.count})</p>
+                  <p>({product.quantity})</p>
                 </Box>
                 <p>
                   <span>$</span>

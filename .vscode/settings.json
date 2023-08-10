@@ -6,7 +6,7 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "app/.env": true,
+        //"app/.env": true,
         "app/node_modules": true,
     }
 }

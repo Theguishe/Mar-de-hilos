@@ -9,8 +9,9 @@ const Login = () => {
     localStorage.getItem(localStorage.getItem("authenticated") || false)
   );
   const users = [
+    {},
     { username: "guillermogacc05@gmail.com", password: "contra123" },
-    { username: "daviddg@gmail.com", password: "123456789"},
+    { username: "davidghjg@gmail.com", password: "123456789"},
     { username: "20210451@ricaldone.edu.sv", password: "pwd123456"}
   ];
   const handleSubmit = (e) => {

@@ -35,19 +35,21 @@ const getProductCard = async (req, res, next) => {
 const getOneProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, descripcion, precio, valoracion FROM productos WHERE id_producto = $1 ORDER BY id_producto ASC", [id]);
-    res.json(allTasks.rows);
+    const result = await pool.query(
+      "SELECT id_producto, nombre_producto, descripcion_producto, precio, valoracion_producto FROM productos WHERE id_producto = $1",
+      [id]
+    );
+
     if (result.rows.length === 0)
-    return res.status(404).json({
-      message: "Task not found",
-    });
+      return res.status(404).json({
+        message: "Product not found",
+      });
 
     res.json(result.rows[0]);
   } catch (error) {
     next(error);
-    console.log(error);
+  }
 };
-}
 
 const getNewProducts = async (req, res, next) => {
   try {
