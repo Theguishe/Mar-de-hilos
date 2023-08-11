@@ -53,7 +53,7 @@ const getOneProduct = async (req, res, next) => {
 
 const getNewProducts = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT * FROM newProducts");
+    const allTasks = await pool.query("SELECT * FROM productos");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
