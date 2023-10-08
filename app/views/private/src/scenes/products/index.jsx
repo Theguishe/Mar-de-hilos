@@ -233,7 +233,6 @@ const Products = () => {
             }}
           >
             Generate Report
-            <PdfReport title="PRODUCT" data={rows} />
           </Button>
         </Box>
         <Modal
