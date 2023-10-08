@@ -4,7 +4,7 @@ const pool = require("../db");
 // Function to get the list to show in MUI datagrid
 const getAllTasks = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT * FROM clientesView");
+    const allTasks = await pool.query("SELECT * FROM clientes");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
@@ -47,12 +47,12 @@ const getClientStatus = async (req, res, next) => {
 
 // Function to insert a client
 const creatingTask = async (req, res, next) => {
-  const { nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento } = req.body;
+  const { correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente } = req.body;
 
   try {
     const result = await pool.query(
-      "INSERT INTO clientes( nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-      [ nombres, apellidos, correo, contrasenia, dui, direccion, telefono, fecha_nacimiento ]
+      "INSERT INTO clientes( correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [ correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente ]
     );
 
     res.json(result.rows[0]);
