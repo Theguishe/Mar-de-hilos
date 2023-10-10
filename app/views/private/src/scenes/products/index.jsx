@@ -10,9 +10,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import ModalData from "../../modals/products";
-import PdfReport from "../PDF/pdf";
-import { saveAs } from "file-saver";
-import { pdf } from "@react-pdf/renderer";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const Products = () => {
   // Variable to be used on the UPDATE process
@@ -20,7 +19,6 @@ const Products = () => {
 
   // Handles to open and close Modals
   const [open, setOpen] = React.useState(false);
-  const [showPdf, setShowPdf] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -38,16 +36,64 @@ const Products = () => {
       });
   }, []);
 
-  const handleGeneratePdf = () => {
-    setShowPdf(true);
-    const blob = new Blob([PdfReport], { type: "application/pdf" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "product_report.pdf";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
+  const generatePDF = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/products");
+      const data = await response.json();
+
+      //Crear un nuevo doc PDF
+      const doc = new jsPDF();
+      doc.text("Reporte de productos - mardehilos", 15, 10);
+
+      const dateHeader = (data) => {
+        doc.setFontSize(8);
+        doc.setTextColor(170, 170, 170);
+        doc.text(new Date().toLocaleDateString(), 180, 15);
+      };
+
+      // Obtener la fecha actual
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString();
+
+      doc.setTextColor("#444"); // Color gris
+      doc.setFontSize(8);
+      doc.text(formattedDate, 180, 15);
+
+      //Definimos la posicion inicial de la tabla
+      let y = 30;
+
+      // Headers de la tabla
+      const headers = [
+        "ID",
+        "Product Name",
+        "Image",
+        "Description",
+        "Price",
+        "Quantity",
+        "Product Type",
+        "Category",
+      ];
+
+      // Crear la tabla con jsPDF-AutoTable
+      doc.autoTable({
+        head: [headers],
+        body: data.map((row) => Object.values(row)),
+        startY: y,
+        didDrawPage: dateHeader,
+        headStyles: {
+          textColor: [255, 255, 255],
+          fontSize: 12,
+          fontStyle: "bold",
+          textAlign: "center",
+        },
+        styles: { fontSize: 10 },
+      });
+
+      // Guardamos el pdf y lo mostramos en una pestaña nueva
+      doc.save("productos_reporte.pdf");
+    } catch (error) {
+      console.log("Error al generar el PDF", error);
+    }
   };
 
   // Handle event to delete a row
@@ -220,7 +266,7 @@ const Products = () => {
             Add Products
           </Button>
           <Button
-            onClick={handleGeneratePdf}
+            onClick={generatePDF}
             sx={{
               background: `${colors.blueAccent[700]}`,
               color: "#fff",
