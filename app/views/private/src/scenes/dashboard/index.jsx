@@ -12,10 +12,24 @@ import GeographyChart from "../../components/geography";
 import BarChart from "../../components/barChart";
 import StatBox from "../../components/statBox";
 import ProgressCircle from "../../components/progressCircle";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [countUsers, setCountUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/contadorUsuario")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountUsers(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Box m="20px">
@@ -57,7 +71,7 @@ const Dashboard = () => {
           <StatBox
             title="12,361"
             subtitle="Emails Sent"
-            progress="0.75"
+            progress="0.25"
             increase="+14%"
             icon={
               <EmailIcon
@@ -93,7 +107,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
+            title={countUsers}
             subtitle="New Clients"
             progress="0.30"
             increase="+5%"

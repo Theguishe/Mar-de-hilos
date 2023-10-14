@@ -10,8 +10,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import ModalData from "../../modals/products";
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const Products = () => {
   // Variable to be used on the UPDATE process
@@ -45,22 +45,28 @@ const Products = () => {
       const doc = new jsPDF();
       doc.text("Reporte de productos - mardehilos", 15, 10);
 
-      const dateHeader = (data) => {
+      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      doc.addImage(logo, "PNG", 175, 10, 20, 20);
+
+      const mainHeader = (data) => {
         doc.setFontSize(8);
         doc.setTextColor(170, 170, 170);
-        doc.text(new Date().toLocaleDateString(), 180, 15);
+        doc.text(new Date().toLocaleDateString(), 20, 20);
+
+        const currentTime = new Date().toLocaleTimeString();
+        doc.setTextColor("#444");
+        doc.setFontSize(8);
+        doc.text("Hora: " + currentTime, 20, 25);
+
+        // Footer
+        const pageNumber = data.pageNumber;
+        doc.setFontSize(12);
+        doc.setTextColor("#444");
+        doc.text("Página " + pageNumber, 100, 280);
       };
 
-      // Obtener la fecha actual
-      const currentDate = new Date();
-      const formattedDate = currentDate.toLocaleDateString();
-
-      doc.setTextColor("#444"); // Color gris
-      doc.setFontSize(8);
-      doc.text(formattedDate, 180, 15);
-
       //Definimos la posicion inicial de la tabla
-      let y = 30;
+      let y = 40;
 
       // Headers de la tabla
       const headers = [
@@ -74,12 +80,17 @@ const Products = () => {
         "Category",
       ];
 
+      const tableHeight = function (data) {
+        return 100; // Ajusta la altura de la tabla según tus necesidades
+      };
+
       // Crear la tabla con jsPDF-AutoTable
       doc.autoTable({
         head: [headers],
         body: data.map((row) => Object.values(row)),
         startY: y,
-        didDrawPage: dateHeader,
+        didDrawPage: mainHeader,
+        tableHeight: tableHeight(120),
         headStyles: {
           textColor: [255, 255, 255],
           fontSize: 12,

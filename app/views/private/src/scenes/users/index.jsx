@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Box, Tooltip, useTheme, Button, Modal, IconButton } from "@mui/material";
+import {
+  Box,
+  Tooltip,
+  useTheme,
+  Button,
+  Modal,
+  IconButton,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import Header from "../../components/header";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModalData from "../../modals/users";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const Users = () => {
   const [open, setOpen] = React.useState(false);
@@ -28,14 +37,74 @@ const Users = () => {
       });
   }, []);
 
-  const handleDelete = async (id) => {
-    const response = await fetch(`http://localhost:5000/userD/${id}`, {
-      method: 'DELETE',
-    })
-    console.log(response)
-    // This code allows me to delete the row in the frontend too
-    setRows(rows.filter(row => row.id !== id));
-  }
+  const generatePDF = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/users");
+      const data = await response.json();
+
+      //Crear un nuevo doc PDF
+      const doc = new jsPDF();
+      doc.text("Reporte de usuarios - mardehilos", 15, 10);
+
+      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      doc.addImage(logo, "PNG", 175, 10, 20, 20);
+
+      const mainHeader = (data) => {
+        doc.setFontSize(8);
+        doc.setTextColor(170, 170, 170);
+        doc.text(new Date().toLocaleDateString(), 20, 20);
+
+        const currentTime = new Date().toLocaleTimeString();
+        doc.setTextColor("#444");
+        doc.setFontSize(8);
+        doc.text("Hora: " + currentTime, 20, 25);
+
+        // Footer
+        const pageNumber = data.pageNumber;
+        doc.setFontSize(12);
+        doc.setTextColor("#444");
+        doc.text("Página " + pageNumber, 100, 280);
+      };
+
+      //Definimos la posicion inicial de la tabla
+      let y = 40;
+
+      // Headers de la tabla
+      const headers = [
+        "ID",
+        "Username",
+        "DUI",
+        "Fecha nacimiento",
+        "Userlevel",
+        "Userstatus"
+      ];
+
+      const tableHeight = function (data) {
+        return 100; // Ajusta la altura de la tabla según tus necesidades
+      };
+
+      // Crear la tabla con jsPDF-AutoTable
+      doc.autoTable({
+        head: [headers],
+        body: data.map((row) => Object.values(row)),
+        startY: y,
+        didDrawPage: mainHeader,
+        tableHeight: tableHeight(120),
+        headStyles: {
+          textColor: [255, 255, 255],
+          fontSize: 12,
+          fontStyle: "bold",
+          textAlign: "center",
+        },
+        styles: { fontSize: 10 },
+      });
+
+      // Guardamos el pdf y lo mostramos en una pestaña nueva
+      doc.save("usuarios_reporte.pdf");
+    } catch (error) {
+      console.log("Error al generar el PDF", error);
+    }
+  };
 
   const columns = [
     { field: "ID", headerName: "ID" },
@@ -46,23 +115,13 @@ const Users = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "Password",
-      headerName: "Password",
-      flex: 1,
-    },
-    {
       field: "DUI",
       headerName: "DUI",
       flex: 1,
     },
     {
-      field: "BirthDate",
+      field: "Fecha nacimiento",
       headerName: "BirthDate",
-      flex: 1,
-    },
-    {
-      field: "Phone Number",
-      headerName: "Phone Number",
       flex: 1,
     },
     {
@@ -71,7 +130,7 @@ const Users = () => {
       flex: 1,
     },
     {
-      field: "User Status",
+      field: "Userstatus",
       headerName: "User Status",
       flex: 1,
     },
@@ -95,7 +154,7 @@ const Users = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title="Remove this client">
-              <IconButton onClick={() => {handleDelete(row.id)}}>
+              <IconButton>
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -143,21 +202,44 @@ const Users = () => {
           },
         }}
       >
-        <Button
-          onClick={handleOpen}
+        <Box
           sx={{
-            background: `${colors.blueAccent[700]}`,
-            color: "#fff",
-            fontSize: "16px",
-            padding: "5px 30px 5px 30px",
-            textTransform: "capitalize",
-            "&:hover": {
-              background: `${colors.blueAccent[800]}`, // Here continues
-            },
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1em",
           }}
         >
-          Add Users
-        </Button>
+          <Button
+            onClick={handleOpen}
+            sx={{
+              background: `${colors.blueAccent[700]}`,
+              color: "#fff",
+              fontSize: "16px",
+              padding: "5px 30px 5px 30px",
+              textTransform: "capitalize",
+              "&:hover": {
+                background: `${colors.blueAccent[800]}`, // Here continues
+              },
+            }}
+          >
+            Add Users
+          </Button>
+          <Button
+            onClick={generatePDF}
+            sx={{
+              background: `${colors.blueAccent[700]}`,
+              color: "#fff",
+              fontSize: "16px",
+              padding: "5px 30px 5px 30px",
+              textTransform: "capitalize",
+              "&:hover": {
+                background: `${colors.blueAccent[800]}`, // Here continues
+              },
+            }}
+          >
+            Generate Report
+          </Button>
+        </Box>
         <Modal
           open={open}
           onClose={handleClose}

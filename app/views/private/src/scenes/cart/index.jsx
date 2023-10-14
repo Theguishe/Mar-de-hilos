@@ -1,11 +1,15 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Tooltip, useTheme, Button, Modal } from "@mui/material";
 import Header from "../../components/header";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
-import { mockDataInvoices } from "../../data/mockData";
-import React from "react";
-import Button from "@mui/material/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const Cart = () => {
   const [open, setOpen] = React.useState(false);
@@ -14,38 +18,132 @@ const Cart = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/cart")
+      .then((response) => response.json())
+      .then((data) => {
+        setRows(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const generatePDF = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/cart");
+      const data = await response.json();
+
+      //Crear un nuevo doc PDF
+      const doc = new jsPDF();
+      doc.text("Reporte de carrito - mardehilos", 15, 10);
+
+      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      doc.addImage(logo, "PNG", 175, 10, 20, 20);
+
+      const mainHeader = (data) => {
+        doc.setFontSize(8);
+        doc.setTextColor(170, 170, 170);
+        doc.text(new Date().toLocaleDateString(), 20, 20);
+
+        const currentTime = new Date().toLocaleTimeString();
+        doc.setTextColor("#444");
+        doc.setFontSize(8);
+        doc.text("Hora: " + currentTime, 20, 25);
+
+        // Footer
+        const pageNumber = data.pageNumber;
+        doc.setFontSize(12);
+        doc.setTextColor("#444");
+        doc.text("Página " + pageNumber, 100, 280);
+      };
+
+      //Definimos la posicion inicial de la tabla
+      let y = 40;
+
+      // Headers de la tabla
+      const headers = ["ID", "Cantidad", "Review", "Product desc"];
+
+      const tableHeight = function (data) {
+        return 100; // Ajusta la altura de la tabla según tus necesidades
+      };
+
+      // Crear la tabla con jsPDF-AutoTable
+      doc.autoTable({
+        head: [headers],
+        body: data.map((row) => Object.values(row)),
+        startY: y,
+        didDrawPage: mainHeader,
+        tableHeight: tableHeight(120),
+        headStyles: {
+          textColor: [255, 255, 255],
+          fontSize: 12,
+          fontStyle: "bold",
+          textAlign: "center",
+        },
+        styles: { fontSize: 10 },
+      });
+
+      // Guardamos el pdf y lo mostramos en una pestaña nueva
+      doc.save("carrito_reporte.pdf");
+    } catch (error) {
+      console.log("Error al generar el PDF", error);
+    }
+  };
+
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "ID", headerName: "ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "Cantidad",
+      headerName: "Cantidad",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "Review",
+      headerName: "Resenia",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "Product",
+      headerName: "Producto",
       flex: 1,
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "actions",
+      headerName: "Actions",
       flex: 1,
-      renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>
-          ${params.row.cost}
-        </Typography>
-      ),
-    },
-    {
-      field: "date",
-      headerName: "Date",
-      flex: 1,
+      headerAlign: "center",
+      renderCell: (row) => {
+        return (
+          <Box
+            width="100%"
+            m="0 auto"
+            p="5px"
+            display="flex"
+            justifyContent="space-around"
+          >
+            <Tooltip title="Edit this client">
+              <IconButton>
+                <SummarizeIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit this client">
+              <IconButton>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Remove this client">
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        );
+      },
     },
   ];
 
@@ -78,7 +176,8 @@ const Cart = () => {
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
-          },  "& .MuiDataGrid-toolbarContainer": {
+          },
+          "& .MuiDataGrid-toolbarContainer": {
             float: "right",
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
@@ -86,22 +185,50 @@ const Cart = () => {
           },
         }}
       >
-        <Button
-          onClick={handleOpen}
+        <Box
           sx={{
-            background: `${colors.blueAccent[700]}`,
-            color: "#fff",
-            fontSize: "16px",
-            padding: "5px 30px 5px 30px",
-            textTransform: "capitalize",
-            "&:hover": {
-              background: `${colors.blueAccent[800]}`, // Here continues
-            },
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1em",
           }}
         >
-          Add Shopping cart
-        </Button>
-        <DataGrid rows={mockDataInvoices} columns={columns} components={{ Toolbar: GridToolbar }} />
+          <Button
+            onClick={handleOpen}
+            sx={{
+              background: `${colors.blueAccent[700]}`,
+              color: "#fff",
+              fontSize: "16px",
+              padding: "5px 30px 5px 30px",
+              textTransform: "capitalize",
+              "&:hover": {
+                background: `${colors.blueAccent[800]}`, // Here continues
+              },
+            }}
+          >
+            Add Shopping cart
+          </Button>
+          <Button
+            onClick={generatePDF}
+            sx={{
+              background: `${colors.blueAccent[700]}`,
+              color: "#fff",
+              fontSize: "16px",
+              padding: "5px 30px 5px 30px",
+              textTransform: "capitalize",
+              "&:hover": {
+                background: `${colors.blueAccent[800]}`, // Here continues
+              },
+            }}
+          >
+            Generate Report
+          </Button>
+        </Box>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+          getRowId={(row) => row.ID}
+        />
       </Box>
     </Box>
   );

@@ -321,3 +321,5 @@ VALUES ('Quisiera un munieco de macrame con forma de JAKE  de hora de aventura',
 
 
 -- Vistas y Selects
+CREATE VIEW AS
+SELECT 

@@ -35,5 +35,8 @@ router.put('/productU/:id', updatingTask); // To update a register
 
 router.delete('/productD/:id', deletingTask); // To delete a register
 
+// Productos croche
+router.get('/croche', /*Funcion del controller */);
+
 // We export our  request variable
 module.exports = router;

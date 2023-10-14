@@ -8,6 +8,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import ModalData from "../../modals/client";
 import Modal from "@mui/material/Modal";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const Clients = () => {
   const [open, setOpen] = React.useState(false);
@@ -30,67 +32,114 @@ const Clients = () => {
       });
   }, []);
 
+  const generatePDF = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/clients");
+      const data = await response.json();
+
+      //Crear un nuevo doc PDF
+      const doc = new jsPDF();
+      doc.text("Reporte de clientes - mardehilos", 15, 10);
+
+      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      doc.addImage(logo, "PNG", 175, 10, 20, 20);
+
+      const mainHeader = (data) => {
+        doc.setFontSize(8);
+        doc.setTextColor(170, 170, 170);
+        doc.text(new Date().toLocaleDateString(), 20, 20);
+
+        const currentTime = new Date().toLocaleTimeString();
+        doc.setTextColor("#444");
+        doc.setFontSize(8);
+        doc.text("Hora: " + currentTime, 20, 25);
+
+        // Footer
+        const pageNumber = data.pageNumber;
+        doc.setFontSize(12);
+        doc.setTextColor("#444");
+        doc.text("Página " + pageNumber, 100, 280);
+      };
+
+      //Definimos la posicion inicial de la tabla
+      let y = 40;
+
+      // Headers de la tabla
+      const headers = [
+        "ID",
+        "Nombre",
+        "Email",
+        "DUI",
+        "Fecha nacimiento",
+        "Estado cliente",
+      ];
+
+      const tableHeight = function (data) {
+        return 100; // Ajusta la altura de la tabla según tus necesidades
+      };
+
+      // Crear la tabla con jsPDF-AutoTable
+      doc.autoTable({
+        head: [headers],
+        body: data.map((row) => Object.values(row)),
+        startY: y,
+        didDrawPage: mainHeader,
+        tableHeight: tableHeight(120),
+        headStyles: {
+          textColor: [255, 255, 255],
+          fontSize: 12,
+          fontStyle: "bold",
+          textAlign: "center",
+        },
+        styles: { fontSize: 10 },
+      });
+
+      // Guardamos el pdf y lo mostramos en una pestaña nueva
+      doc.save("clientes_reporte.pdf");
+    } catch (error) {
+      console.log("Error al generar el PDF", error);
+    }
+  };
 
   const columns = [
     {
-      field: "id_cliente",
+      field: "ID",
       headerName: "ID",
       flex: 0.5,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "nombres",
-      headerName: "Nombres",
+      field: "Nombre",
+      headerName: "Names",
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "apellidos",
-      headerName: "Apellidos",
+      field: "Email",
+      headerName: "Email",
       flex: 1,
       cellClassName: "name-column--cell",
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "correo",
-      headerName: "Email",
+      field: "DUI",
+      headerName: "DUI",
       type: "email",
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "dui",
-      headerName: "DUI",
+      field: "Fecha nacimiento",
+      headerName: "BirthDate",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "direccion",
-      headerName: "Direccion",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "telefono",
-      headerName: "Telefono",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "fecha_nacimiento",
-      headerName: "Fecha Nacimiento",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "estadocliente",
-      headerName: "Estado Cliente",
+      field: "Estado cliente",
+      headerName: "Client Status",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -163,21 +212,45 @@ const Clients = () => {
           },
         }}
       >
-        <Button
-          onClick={handleOpen}
+        <Box
           sx={{
-            background: `${colors.blueAccent[700]}`,
-            color: "#fff",
-            fontSize: "16px",
-            padding: "5px 30px 5px 30px",
-            textTransform: "capitalize",
-            "&:hover": {
-              background: `${colors.blueAccent[800]}`, // Here continues
-            },
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1em",
           }}
         >
-          Add client
-        </Button>
+          <Button
+            onClick={handleOpen}
+            sx={{
+              background: `${colors.blueAccent[700]}`,
+              color: "#fff",
+              fontSize: "16px",
+              padding: "5px 30px 5px 30px",
+              textTransform: "capitalize",
+              "&:hover": {
+                background: `${colors.blueAccent[800]}`, // Here continues
+              },
+            }}
+          >
+            Add client
+          </Button>
+          <Button
+            onClick={generatePDF}
+            sx={{
+              background: `${colors.blueAccent[700]}`,
+              color: "#fff",
+              fontSize: "16px",
+              padding: "5px 30px 5px 30px",
+              textTransform: "capitalize",
+              "&:hover": {
+                background: `${colors.blueAccent[800]}`, // Here continues
+              },
+            }}
+          >
+            Generate Report
+          </Button>
+        </Box>
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -225,6 +298,7 @@ const Clients = () => {
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           pageSize={8}
+          getRowId={(row) => row.ID}
         />
       </Box>
     </Box>
