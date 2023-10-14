@@ -19,7 +19,7 @@ const {
 const router = Router();
 
 // We define the different urls destines for every task to attatch
-router.get('/pedidosC', getAllTasks); // To get all the registers
+router.get('/pedidos', getAllTasks); // To get all the registers
 
 router.get('/pedidosCList/:id', getSingleTask); // To get a register based on the ID
 

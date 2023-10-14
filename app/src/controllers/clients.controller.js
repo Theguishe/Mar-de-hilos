@@ -4,7 +4,7 @@ const pool = require("../db");
 // Function to get the list to show in MUI datagrid
 const getAllTasks = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT * FROM clientes");
+    const allTasks = await pool.query("SELECT * FROM clientesView");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
