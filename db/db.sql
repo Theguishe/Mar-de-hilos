@@ -321,5 +321,35 @@ VALUES ('Quisiera un munieco de macrame con forma de JAKE  de hora de aventura',
 
 
 -- Vistas y Selects
-CREATE VIEW AS
-SELECT 
+
+
+-- Ultimas actualizaciones
+
+-- Active: 1697258760984@@127.0.0.1@5432@mardehilos@public
+CREATE VIEW clientesView AS 
+SELECT a.id_cliente As "ID", concat(a.nombres || ' ' || a.apellidos) AS "Nombre", correo AS "Email", a.dui As "DUI", a.fecha_nacimiento AS "Fecha nacimiento", a.estadocliente AS "Estado cliente"
+FROM clientes a
+ORDER BY a.id_cliente ASC
+
+SELECT * FROM pedidosView
+
+DROP VIEW pedidosview
+SELECT * FROM carritoview WHERE ID = 1
+
+
+CREATE VIEW usuariosView AS
+SELECT a.id_usuario AS "ID", a.nombre_usuario AS "Username", a.dui AS "DUI", a.fecha_nacimiento AS "Fecha nacimiento", b.nivel_usuario AS "Userlevel", c.estado_usuario AS "Userstatus"
+FROM usuarios a, niveles_usuarios b, estados_usuarios c
+ORDER BY a.id_usuario ASC
+
+
+CREATE VIEW pedidosView AS
+SELECT a.id_pedido_c AS "ID", a.fecha AS "fecha", a.hora AS "hora", b.estado_pedido AS "Orderstatus", concat(c.nombres, ' ', c.apellidos) AS "Client"
+FROM pedidos_catalogo a, estados_pedidos b, clientes c
+ORDER BY a.id_pedido_c ASC
+
+
+CREATE VIEW carritoView AS
+SELECT a.id_carrito AS "ID", a.cantidad AS "Cantidad", b.resenia AS "Review", c.nombre AS "Product", c.descripcion AS "Product desc"
+FROM carrito a, resenia_detalles b, productos c
+ORDER BY a.id_carrito ASC

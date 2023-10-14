@@ -6,7 +6,7 @@ const getAllTasks = async (req, res, next) => {
   try {
     const allTasks = await pool.query("SELECT * FROM carritoView");
     res.json(allTasks.rows);
-  } catch (error) { 
+  } catch (error) {
     next(error);
     console.log(error);
   }
