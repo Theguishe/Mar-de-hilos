@@ -12,6 +12,7 @@ const {
     getOrderStatus,
     getProduct,
     getClient,
+    getCount,
 } = require('../controllers/cart.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -19,6 +20,8 @@ const router = Router();
 
 // We define the different urls destines for every task to attatch
 router.get('/cart', getAllTasks); // To get all the registers
+
+router.get('/countCart', getCount);
 
 router.get('/cartList/:id', getSingleTask); // To get a register based on the ID
 

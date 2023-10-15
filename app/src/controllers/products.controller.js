@@ -12,6 +12,25 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+const productosCategoriaChart = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    SELECT c.categoria, COUNT(p.id_producto) AS cantidad_productos
+    FROM categorias c
+    LEFT JOIN productos p ON c.id_categoria = p.id_categoria
+    WHERE p.id_producto IS NOT NULL
+    GROUP BY c.id_categoria, c.categoria
+    ORDER BY c.id_categoria;
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
 // Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
   try {
@@ -64,15 +83,32 @@ const getCategoriesTable = async (req, res, next) => {
   }
 };
 
-
 // Function to insert a product
 const creatingTask = async (req, res, next) => {
-  const { nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria } = req.body;
+  const {
+    nombre_producto,
+    imagen,
+    descripcion,
+    precio,
+    cantidad,
+    id_tipoproducto,
+    id_usuario,
+    id_categoria,
+  } = req.body;
 
   try {
     const result = await pool.query(
       "INSERT INTO productos(nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-      [nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria]
+      [
+        nombre_producto,
+        imagen,
+        descripcion,
+        precio,
+        cantidad,
+        id_tipoproducto,
+        id_usuario,
+        id_categoria,
+      ]
     );
 
     res.json(result.rows[0]);
@@ -85,11 +121,30 @@ const creatingTask = async (req, res, next) => {
 const updatingTask = async (req, res, next) => {
   try {
     const { id_producto } = req.params;
-    const { nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria } = req.body;
+    const {
+      nombre_producto,
+      imagen,
+      descripcion,
+      precio,
+      cantidad,
+      id_tipoproducto,
+      id_usuario,
+      id_categoria,
+    } = req.body;
 
     const result = await pool.query(
       "UPDATE productos SET nombre_producto = $1, imagen = $2, descripcion = $3, precio = $4, cantidad = $5, id_tipoproducto = $6, id_usuario = $7, id_categoria = $8 WHERE id_producto = $9 RETURNING *",
-      [nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria, id_producto]
+      [
+        nombre_producto,
+        imagen,
+        descripcion,
+        precio,
+        cantidad,
+        id_tipoproducto,
+        id_usuario,
+        id_categoria,
+        id_producto,
+      ]
     );
 
     if (result.rows.length === 0)
@@ -134,4 +189,5 @@ module.exports = {
   creatingTask,
   updatingTask,
   deletingTask,
+  productosCategoriaChart,
 };

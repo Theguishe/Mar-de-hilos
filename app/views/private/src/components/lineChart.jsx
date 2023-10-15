@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react';
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../themes";
@@ -6,6 +7,19 @@ import { mockLineData as data } from "../data/mockData";
 const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    // Realiza una solicitud al servidor para obtener los datos desde tu base de datos
+    fetch('http://localhost:5000/productoCategoria') // Ajusta la ruta según tu servidor
+      .then((response) => response.json())
+      .then((data) => {
+        setProductos(data); // Almacena los datos en el estado
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
 
   return (
     <ResponsiveLine

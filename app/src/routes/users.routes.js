@@ -11,6 +11,7 @@ const {
     getUserStatus,
     updatingTask, 
     deletingTask,
+    getCount
 } = require('../controllers/users.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -18,6 +19,8 @@ const router = Router();
 
 // We define the different urls destines for every task to attatch
 router.get('/users', getAllTasks); // To get all the registers
+
+router.get('/countUser', getCount);
 
 router.get('/usersList/:id', getSingleTask); // To get a register based on the ID
 

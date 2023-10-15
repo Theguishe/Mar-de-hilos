@@ -2,33 +2,81 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../themes";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Header from "../../components/header";
 import LineChart from "../../components/lineChart";
 import GeographyChart from "../../components/geography";
 import BarChart from "../../components/barChart";
 import StatBox from "../../components/statBox";
-import ProgressCircle from "../../components/progressCircle";
 import { useEffect, useState } from "react";
+import { Pie } from "react-chartjs-2";
+import "chart.js/auto";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [countUsers, setCountUsers] = useState([]);
+  const [countClients, setCountClients] = useState(0);
+  const [countUsers, setCountUsers] = useState(0);
+  const [countOrders, setCountOrders] = useState(0);
+  const [countCart, setCountCart] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5000/contadorUsuario")
+    fetch("http://localhost:5000/countClient")
       .then((response) => response.json())
       .then((data) => {
-        setCountUsers(data);
+        setCountClients(data.count);
       })
       .catch((error) => {
         console.log(error);
       });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/countUser")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountUsers(data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/countOrder")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountOrders(data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/countCart")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountCart(data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/productoCategoria")
+      .then((response) => response.json())
+      .then((data) => {
+        setProductos(data);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -69,12 +117,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title={countUsers}
+            subtitle="Users in total"
             progress="0.25"
             increase="+14%"
             icon={
-              <EmailIcon
+              <AdminPanelSettingsIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -88,8 +136,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title={countOrders}
+            subtitle="Orders Obtained"
             progress="0.50"
             increase="+21%"
             icon={
@@ -107,8 +155,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={countUsers}
-            subtitle="New Clients"
+            title={countClients}
+            subtitle="Clients in total"
             progress="0.30"
             increase="+5%"
             icon={
@@ -126,12 +174,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
+            title={countCart}
+            subtitle="New cart registers"
             progress="0.80"
             increase="+43%"
             icon={
-              <TrafficIcon
+              <ShoppingCartIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -237,24 +285,27 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
+          <Typography variant="h5" fontWeight="600" marginBottom="10px">
+            Grafico de productos por categoria
           </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+          <Box sx={{ height: "100%", marginLeft: "20px" }}>
+            <Pie
+              data={{
+                labels: productos.map((item) => item.categoria),
+                datasets: [
+                  {
+                    data: productos.map((item) => item.cantidad_productos),
+                    backgroundColor: [
+                      "rgba(255, 99, 132)",
+                      "rgba(54, 162, 235)",
+                      "rgba(255, 206, 86)",
+                      "rgba(75, 192, 192)",
+                      "rgba(153, 102, 255)"
+                    ],
+                  },
+                ],
+              }}
+            />
           </Box>
         </Box>
         <Box

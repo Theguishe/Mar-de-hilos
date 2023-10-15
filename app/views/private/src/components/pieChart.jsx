@@ -1,4 +1,5 @@
 import { ResponsivePie } from "@nivo/pie";
+import React, {useEffect, useState} from 'react';
 import { tokens } from "../themes";
 import { useTheme } from "@mui/material";
 import { mockPieData as data } from "../data/mockData";
@@ -6,6 +7,7 @@ import { mockPieData as data } from "../data/mockData";
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <ResponsivePie
       data={data}

@@ -12,6 +12,17 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+// Function to gte the count number of registers in the tables
+const getCount = async (req, res, next) => {
+  try {
+    const result = await pool.query("SELECT COUNT(*) FROM clientesView");
+    const count = result.rows[0].count;
+    res.json({ count });
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
 
 // Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
@@ -47,12 +58,28 @@ const getClientStatus = async (req, res, next) => {
 
 // Function to insert a client
 const creatingTask = async (req, res, next) => {
-  const { correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente } = req.body;
+  const {
+    correo,
+    contrasenia,
+    dui,
+    direccion,
+    telefono,
+    fecha_nacimiento,
+    id_estadocliente,
+  } = req.body;
 
   try {
     const result = await pool.query(
       "INSERT INTO clientes( correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [ correo, contrasenia, dui, direccion, telefono, fecha_nacimiento, id_estadocliente ]
+      [
+        correo,
+        contrasenia,
+        dui,
+        direccion,
+        telefono,
+        fecha_nacimiento,
+        id_estadocliente,
+      ]
     );
 
     res.json(result.rows[0]);
@@ -65,11 +92,30 @@ const creatingTask = async (req, res, next) => {
 const updatingTask = async (req, res, next) => {
   try {
     const { id_producto } = req.params;
-    const { nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria } = req.body;
+    const {
+      nombre_producto,
+      imagen,
+      descripcion,
+      precio,
+      cantidad,
+      id_tipoproducto,
+      id_usuario,
+      id_categoria,
+    } = req.body;
 
     const result = await pool.query(
       "UPDATE productos SET nombre_producto = $1, imagen = $2, descripcion = $3, precio = $4, cantidad = $5, id_tipoproducto = $6, id_usuario = $7, id_categoria = $8 WHERE id_producto = $9 RETURNING *",
-      [nombre_producto, imagen, descripcion, precio, cantidad, id_tipoproducto, id_usuario, id_categoria, id_producto]
+      [
+        nombre_producto,
+        imagen,
+        descripcion,
+        precio,
+        cantidad,
+        id_tipoproducto,
+        id_usuario,
+        id_categoria,
+        id_producto,
+      ]
     );
 
     if (result.rows.length === 0)
@@ -113,4 +159,5 @@ module.exports = {
   creatingTask,
   updatingTask,
   deletingTask,
+  getCount,
 };

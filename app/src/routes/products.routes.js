@@ -11,7 +11,8 @@ const {
     deletingTask, 
     getProductTypeTable,
     getCategoriesTable,
-    getUsersTable
+    getUsersTable,
+    productosCategoriaChart
 } = require('../controllers/products.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -19,6 +20,8 @@ const router = Router();
 
 // We define the different urls destines for every task to attatch
 router.get('/products', getAllTasks); // To get all the registers
+
+router.get('/productoCategoria', productosCategoriaChart); // To get all the registers
 
 router.get('/productsList/:id', getSingleTask); // To get a register based on the ID
 

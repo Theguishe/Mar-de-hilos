@@ -12,6 +12,18 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
+// Function to gte the count number of registers in the tables
+const getCount = async (req, res, next) => {
+  try {
+    const result = await pool.query("SELECT COUNT(*) FROM carrito");
+    const count = result.rows[0].count;
+    res.json({ count });
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
 // Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
   try {
@@ -171,4 +183,5 @@ module.exports = {
   creatingTask,
   updatingTask,
   deletingTask,
+  getCount
 };
