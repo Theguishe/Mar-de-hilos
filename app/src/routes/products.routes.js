@@ -12,7 +12,12 @@ const {
     getProductTypeTable,
     getCategoriesTable,
     getUsersTable,
-    productosCategoriaChart
+    productosCategoriaChart,
+    productosTipoChart,
+    productosPedidosPorMesChart,
+    countTotalProducts,
+    topTenProductosChart,
+    usuariosNivelChart
 } = require('../controllers/products.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -20,8 +25,6 @@ const router = Router();
 
 // We define the different urls destines for every task to attatch
 router.get('/products', getAllTasks); // To get all the registers
-
-router.get('/productoCategoria', productosCategoriaChart); // To get all the registers
 
 router.get('/productsList/:id', getSingleTask); // To get a register based on the ID
 
@@ -40,6 +43,19 @@ router.delete('/productD/:id', deletingTask); // To delete a register
 
 // Productos croche
 router.get('/croche', /*Funcion del controller */);
+
+// Usados para graficas
+router.get('/productoCategoria', productosCategoriaChart); // To get all the registers
+
+router.get('/productoTipo', productosTipoChart); // To get all the registers
+
+router.get('/productoPorMes', productosPedidosPorMesChart); // To get all the registers
+
+router.get('/countTotal', countTotalProducts); // To get all the registers
+
+router.get('/topTenProductos', topTenProductosChart);
+
+router.get('/usuariosPorNivel', usuariosNivelChart);
 
 // We export our  request variable
 module.exports = router;

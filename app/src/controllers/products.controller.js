@@ -12,25 +12,6 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
-const productosCategoriaChart = async (req, res, next) => {
-  try {
-    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
-    const result = await pool.query(`
-    SELECT c.categoria, COUNT(p.id_producto) AS cantidad_productos
-    FROM categorias c
-    LEFT JOIN productos p ON c.id_categoria = p.id_categoria
-    WHERE p.id_producto IS NOT NULL
-    GROUP BY c.id_categoria, c.categoria
-    ORDER BY c.id_categoria;
-        `);
-
-    res.json(result.rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al obtener los datos" });
-  }
-};
-
 // Function to get just a single row using the id
 const getSingleTask = async (req, res, next) => {
   try {
@@ -180,6 +161,115 @@ const deletingTask = async (req, res, next) => {
   }
 };
 
+// USADOS PARA LAS GRAFICAS
+const productosCategoriaChart = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    SELECT c.categoria, COUNT(p.id_producto) AS cantidad_productos
+    FROM categorias c
+    LEFT JOIN productos p ON c.id_categoria = p.id_categoria
+    WHERE p.id_producto IS NOT NULL
+    GROUP BY c.id_categoria, c.categoria
+    ORDER BY c.id_categoria;
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
+const productosTipoChart = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    SELECT c.tipo_producto, COUNT(p.id_producto) AS cantidad_productos
+    FROM tipos_productos c
+    LEFT JOIN productos p ON c.id_tipoproducto = p.id_tipoproducto
+    WHERE p.id_producto IS NOT NULL
+    GROUP BY c.id_tipoproducto, c.tipo_producto
+    ORDER BY c.id_tipoproducto;
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
+const productosPedidosPorMesChart = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+          SELECT
+          EXTRACT(MONTH FROM fecha) AS mes,
+          COUNT(*) AS cantidad_pedidos
+          FROM pedidos_catalogo
+          GROUP BY mes
+          ORDER BY mes;
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
+const countTotalProducts = async (req, res, next) => {
+  try {
+    const result = await pool.query(`
+    SELECT SUM(p.precio) AS total_productos_vendidos
+    FROM pedidos_catalogo pc
+    JOIN carrito c ON pc.id_pedido_c = c.id_pedido_c
+    JOIN productos p ON c.id_producto = p.id_producto
+    WHERE pc.id_estadopedido = 3;`);
+    res.json(result.rows);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
+const topTenProductosChart = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+          SELECT p.nombre, SUM(c.cantidad) AS cantidad_vendida
+          FROM productos p
+          JOIN carrito c ON p.id_producto = c.id_producto
+          GROUP BY p.nombre
+          ORDER BY cantidad_vendida DESC
+          LIMIT 10;
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
+const usuariosNivelChart = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+          SELECT nu.nivel_usuario, COUNT(*) AS cantidad_clientes
+          FROM usuarios u
+          JOIN niveles_usuarios nu ON u.id_nivelusuario = nu.id_nivelusuario
+          GROUP BY nu.nivel_usuario;
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
 module.exports = {
   getAllTasks,
   getSingleTask,
@@ -190,4 +280,9 @@ module.exports = {
   updatingTask,
   deletingTask,
   productosCategoriaChart,
+  productosTipoChart,
+  productosPedidosPorMesChart,
+  countTotalProducts,
+  topTenProductosChart,
+  usuariosNivelChart
 };

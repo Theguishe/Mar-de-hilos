@@ -12,7 +12,7 @@ import GeographyChart from "../../components/geography";
 import BarChart from "../../components/barChart";
 import StatBox from "../../components/statBox";
 import { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { Pie, Bar, Doughnut, Bubble, Radar } from "react-chartjs-2";
 import "chart.js/auto";
 
 const Dashboard = () => {
@@ -23,6 +23,7 @@ const Dashboard = () => {
   const [countUsers, setCountUsers] = useState(0);
   const [countOrders, setCountOrders] = useState(0);
   const [countCart, setCountCart] = useState(0);
+  const [countTotal, setCountTotal] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:5000/countClient")
@@ -68,6 +69,17 @@ const Dashboard = () => {
       });
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:5000/countTotal")
+      .then((response) => response.json())
+      .then((data) => {
+        setCountTotal(data.total_productos_vendidos);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
@@ -75,6 +87,84 @@ const Dashboard = () => {
       .then((response) => response.json())
       .then((data) => {
         setProductos(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const [productos1, setProductos1] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/productoTipo")
+      .then((response) => response.json())
+      .then((data) => {
+        setProductos1(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const [productos2, setProductos2] = useState([]);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1); // Array de números de mes del 1 al 12
+
+  useEffect(() => {
+    fetch("http://localhost:5000/productoPorMes")
+      .then((response) => response.json())
+      .then((result) => {
+        // Organiza los datos en un objeto para facilitar la manipulación
+        const dataObject = {};
+        result.forEach((item) => {
+          dataObject[item.mes] = item.cantidad_pedidos;
+        });
+
+        // Llena los datos para cada mes (asegurando que todos los meses estén presentes)
+        const formattedData = months.map((month) => ({
+          mes: month,
+          cantidad_pedidos: dataObject[month] || 0,
+        }));
+
+        setProductos2(formattedData);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  // Función para obtener el nombre del mes a partir de su numero
+  const getMonthName = (monthNumber) => {
+    const monthNames = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ];
+    return monthNames[monthNumber - 1]; // Restamos 1 porque los índices comienzan desde 0
+  };
+
+  const chartWidth = 40 * months.length;
+
+  const [productos3, setProductos3] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/topTenProductos")
+      .then((response) => response.json())
+      .then((data) => {
+        setProductos3(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  const [productos4, setProductos4] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/usuariosPorNivel")
+      .then((response) => response.json())
+      .then((data) => {
+        setProductos4(data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -205,14 +295,14 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Total vendido y cantidad de pedidos por mes
               </Typography>
               <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
-                $59,342.32
+                <span>$</span> {countTotal}
               </Typography>
             </Box>
             <Box>
@@ -223,8 +313,30 @@ const Dashboard = () => {
               </IconButton>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+          <Box height="225px" m="-20px 0 0 0" margin="3px" width="100%">
+            <Bar
+              data={{
+                labels: productos2.map((item) => getMonthName(item.mes)),
+                datasets: [
+                  {
+                    label: "Cantidad de Pedidos",
+                    data: productos2.map((item) => item.cantidad_pedidos),
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1,
+                  },
+                ],
+              }}
+              options={{
+                scales: {
+                  x: {
+                    min: 0,
+                    max: chartWidth, // Ancho del gráfico
+                  },
+                },
+              }}
+              width={chartWidth}
+            />
           </Box>
         </Box>
         <Box
@@ -242,10 +354,29 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Distribucion de usuarios por nivel
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          <Radar
+            data={{
+              labels: productos4.map((item) => item.nivel_usuario),
+              datasets: [
+                {
+                  label: "Distribución de usuarios por Nivel",
+                  data: productos4.map((item) => item.cantidad_clientes),
+                  backgroundColor: "rgba(255, 255, 255, 0.3)",
+                },
+              ],
+            }}
+            options={{
+              elements: {
+                point: {
+                  pointStyle: "triangle", // Puedes cambiar el estilo de los puntos si lo deseas
+                },
+              },
+            }}
+          />
+          {/* {mockTransactions.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"
@@ -275,7 +406,7 @@ const Dashboard = () => {
                 ${transaction.cost}
               </Box>
             </Box>
-          ))}
+          ))} */}
         </Box>
 
         {/* ROW 3 */}
@@ -300,7 +431,7 @@ const Dashboard = () => {
                       "rgba(54, 162, 235)",
                       "rgba(255, 206, 86)",
                       "rgba(75, 192, 192)",
-                      "rgba(153, 102, 255)"
+                      "rgba(153, 102, 255)",
                     ],
                   },
                 ],
@@ -312,16 +443,39 @@ const Dashboard = () => {
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
+          width="400px"
         >
           <Typography
             variant="h5"
             fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
+            sx={{ padding: "30px 30px 0 30px", textAlign: "center" }}
           >
-            Sales Quantity
+            Productos por Tipo
           </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
+          <Box
+            height="250px"
+            width="230px"
+            mt="-20px"
+            sx={{ marginLeft: "90px", marginTop: "10px" }}
+          >
+            <Doughnut
+              data={{
+                labels: productos1.map((item) => item.tipo_producto),
+                datasets: [
+                  {
+                    data: productos1.map((item) => item.cantidad_productos),
+                    backgroundColor: [
+                      "rgba(255, 99, 132, 0.7)",
+                      "rgba(75, 192, 192, 0.7)",
+                      "rgba(255, 205, 86, 0.7)",
+                      "rgba(54, 162, 235, 0.7)",
+                      // Agrega más colores según sea necesario
+                    ],
+                    hoverOffset: 4, // Espaciado al hacer hover
+                  },
+                ],
+              }}
+            />
           </Box>
         </Box>
         <Box
@@ -335,10 +489,42 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ marginBottom: "15px" }}
           >
-            Geography Based Traffic
+            Top 10 productos mas vendidos
           </Typography>
           <Box height="200px">
-            <GeographyChart isDashboard={true} />
+            <Bubble
+              data={{
+                datasets: [
+                  {
+                    data: productos3.map((item) => ({
+                      x: item.cantidad_vendida,
+                      y: item.cantidad_vendida,
+                      r: 10, // Ajusta este valor según tus datos
+                      nombre: item.nombre,
+                      cantidad_vendida: item.cantidad_vendida,
+                    })),
+                    backgroundColor: "rgba(255, 255, 255, 0.6",
+                    label: "Productos mas vendidos",
+                  },
+                ],
+              }}
+              options={{
+                scales: {
+                  y: { beginAtZero: true },
+                  x: { beginAtZero: true },
+                },
+                plugins: {
+                  tooltip: {
+                    callbacks: {
+                      label: function (context) {
+                        const data = context.raw;
+                        return `${data.nombre}: ${data.cantidad_vendida} veces vendido`;
+                      },
+                    },
+                  },
+                },
+              }}
+            />
           </Box>
         </Box>
       </Box>
