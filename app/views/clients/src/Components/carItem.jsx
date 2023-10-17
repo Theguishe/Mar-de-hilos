@@ -137,6 +137,13 @@ const CarItem = () => {
       doc.setFontSize(12);
       doc.text("Total: $" + TOTAL_PRODUCTO.toFixed(2), 150, 160);
 
+
+      doc.setFontSize(10);
+      doc.text("mardehilos", 20, 250)
+
+      doc.setFontSize(10);
+      doc.text("@eamguille", 20, 260)
+
       // Guardamos el pdf y lo mostramos en una pestaña nueva
       doc.save("factura.pdf");
     } catch (error) {
