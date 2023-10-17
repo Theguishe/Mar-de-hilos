@@ -17,7 +17,9 @@ const {
     productosPedidosPorMesChart,
     countTotalProducts,
     topTenProductosChart,
-    usuariosNivelChart
+    usuariosNivelChart,
+    getProductCard,
+    getSingleProduct
 } = require('../controllers/products.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -44,6 +46,8 @@ router.delete('/productD/:id', deletingTask); // To delete a register
 // Productos croche
 router.get('/croche', /*Funcion del controller */);
 
+
+
 // Usados para graficas
 router.get('/productoCategoria', productosCategoriaChart); // To get all the registers
 
@@ -56,6 +60,12 @@ router.get('/countTotal', countTotalProducts); // To get all the registers
 router.get('/topTenProductos', topTenProductosChart);
 
 router.get('/usuariosPorNivel', usuariosNivelChart);
+
+
+
+// Para cargar las cards de productos de la pagina publica
+router.get('/productCard', getProductCard);
+router.get('/singleProduct/:id' ,getSingleProduct);
 
 // We export our  request variable
 module.exports = router;

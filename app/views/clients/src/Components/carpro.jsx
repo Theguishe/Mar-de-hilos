@@ -82,13 +82,13 @@ function Carpro(product) {
         title: "Products",
         products: productData.map((product) => ({
           id: product.id_producto,
-          name: product.nombre_producto,
+          name: product.nombre,
           href: "#",
           imageSrc: img,
           imageAlt: "Front of men's Basic Tee in black.",
           price: `$${product.precio}`,
-          color: product.descripcion_producto,
-          rating: product.valoracion_producto,
+          color: product.descripcion,
+          rating: product.valoracion,
         })),
         currentPage: 0, // Agrega la propiedad currentPage a cada sección
       },

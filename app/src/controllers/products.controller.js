@@ -270,6 +270,34 @@ const usuariosNivelChart = async (req, res, next) => {
   }
 };
 
+// Para la pagina publica, carga de cards
+const getProductCard = async (req, res, next) => {
+  try {
+    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, precio, descripcion, valoracion FROM productos ORDER BY id_producto ASC");
+    res.json(allTasks.rows);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
+// Para la pagina publica, carga de cards
+const getSingleProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query("SELECT id_producto, nombre, imagen, precio, descripcion, valoracion FROM productos WHERE id_producto = $1", [id]);
+    if (result.rows.length === 0)
+      return res.status(404).json({
+        message: "Task not found",
+      });
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
 module.exports = {
   getAllTasks,
   getSingleTask,
@@ -284,5 +312,7 @@ module.exports = {
   productosPedidosPorMesChart,
   countTotalProducts,
   topTenProductosChart,
-  usuariosNivelChart
+  usuariosNivelChart,
+  getProductCard,
+  getSingleProduct
 };
