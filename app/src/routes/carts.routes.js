@@ -13,6 +13,8 @@ const {
     getProduct,
     getClient,
     getCount,
+    facturaData,
+    facturaSubTotal
 } = require('../controllers/cart.controller');
 
 // We  create a variable that will help us to make the http request using the routes
@@ -38,6 +40,9 @@ router.put('/pedidosCU/:id', updatingTask); // To update a register
 
 router.delete('/pedidosCD/:id', deletingTask); // To delete a register
 
+// Para la factura
+router.get('/cartFactura', facturaData); // To get all the registers
+router.get('/cartSubTotal', facturaSubTotal);
 
 // We export our  request variable
 module.exports = router;

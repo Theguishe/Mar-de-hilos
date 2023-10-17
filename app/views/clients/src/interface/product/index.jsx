@@ -217,7 +217,7 @@ const ProductPage = () => {
                 >
                   <Box className="flex items-center justify-start">
                     <div className="relative bottom-0 left-0 mt-8">
-                      <RatingStars rating={product.valoracion} />
+                      <RatingStars rating={product.rating} />
                     </div>
                   </Box>
                   <p>({product.quantity})</p>

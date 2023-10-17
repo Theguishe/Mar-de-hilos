@@ -45,7 +45,6 @@ const getSingleTask = async (req, res, next) => {
   // res.send("Retrieving a single task");
 };
 
-
 // Functions to populate the comboboxes
 const getOrderStatus = async (req, res, next) => {
   try {
@@ -76,7 +75,6 @@ const getClient = async (req, res, next) => {
     console.log(error);
   }
 };
-
 
 // Function to insert a cart
 const creatingTask = async (req, res, next) => {
@@ -152,7 +150,7 @@ const updatingTask = async (req, res, next) => {
   }
 };
 
-// Function to delete a cart 
+// Function to delete a cart
 const deletingTask = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -173,6 +171,28 @@ const deletingTask = async (req, res, next) => {
   }
 };
 
+// Para la impresion de la factura general del carrito
+const facturaData = async (req, res, next) => {
+  try {
+    const allTasks = await pool.query(`SELECT nombre_producto, precio_producto, desc_producto, cantidad_producto, SUM(total_producto) AS "total_producto" FROM carritoView GROUP BY nombre_producto, precio_producto, desc_producto, cantidad_producto`);
+    res.json(allTasks.rows);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
+// Para la impresion de la factura general del carrito
+const facturaSubTotal = async (req, res, next) => {
+  try {
+    const allTasks = await pool.query(`SELECT SUM(total_producto) AS "Subtotal"FROM carritoView;`);
+    res.json(allTasks.rows);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
 // We export here the functions to be used
 module.exports = {
   getAllTasks,
@@ -183,5 +203,7 @@ module.exports = {
   creatingTask,
   updatingTask,
   deletingTask,
-  getCount
+  getCount,
+  facturaData,
+  facturaSubTotal
 };
