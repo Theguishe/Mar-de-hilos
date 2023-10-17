@@ -1,3 +1,6 @@
+CREATE DATABASE mardehilos;
+USE mardehilos;
+
 CREATE TYPE nivel_usuario AS ENUM('root','administrador','secretario','programador','vendedor','proveedor');
 CREATE TYPE estado_usuario AS ENUM('activo','inactivo','bloqueado');
 

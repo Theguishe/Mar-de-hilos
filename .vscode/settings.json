@@ -7,6 +7,7 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "app/node_modules": true,
-        "app/.env": true
+        "app/.env": false
+        
     }
 }

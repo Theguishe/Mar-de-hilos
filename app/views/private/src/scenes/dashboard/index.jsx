@@ -126,6 +126,15 @@ const Dashboard = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:5000/productoTipo")
+      .then((response) => response.json())
+      .then((data) => {
+        setProductos1(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   // Función para obtener el nombre del mes a partir de su numero
   const getMonthName = (monthNumber) => {
     const monthNames = [
@@ -526,6 +535,16 @@ const Dashboard = () => {
               }}
             />
           </Box>
+        </Box>
+        {/* ROW 4 */}
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          p="30px"
+        >
+          
+
         </Box>
       </Box>
     </Box>
