@@ -41,10 +41,17 @@ const Cart = () => {
       const doc = new jsPDF();
       doc.text("Reporte de carrito - mardehilos", 15, 10);
 
-      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      const logo = require("../../assets/imgs/hilos.jpeg");
       doc.addImage(logo, "PNG", 175, 10, 20, 20);
 
       const mainHeader = (data) => {
+        doc.setTextColor("#444");
+        doc.setFontSize(8);
+        doc.text(
+          "Reporte de todo lo que contiene el carrito, los productos, cantidad, y total",
+          20,
+          15
+        );
         doc.setFontSize(8);
         doc.setTextColor(170, 170, 170);
         doc.text(new Date().toLocaleDateString(), 20, 20);
@@ -65,7 +72,15 @@ const Cart = () => {
       let y = 40;
 
       // Headers de la tabla
-      const headers = ["ID", "Cantidad", "Review", "Product desc"];
+      const headers = [
+        "ID",
+        "Imagen",
+        "Producto",
+        "Precio",
+        "Cantidad",
+        "Descripción",
+        "Total",
+      ];
 
       const tableHeight = function (data) {
         return 100; // Ajusta la altura de la tabla según tus necesidades
@@ -76,15 +91,19 @@ const Cart = () => {
         head: [headers],
         body: data.map((row) => Object.values(row)),
         startY: y,
+        margin: { top: 20 },
+        theme: "grid",
         didDrawPage: mainHeader,
         tableHeight: tableHeight(120),
         headStyles: {
-          textColor: [255, 255, 255],
+          theme: "grid",
+          textColor: [44, 44, 44],
           fontSize: 12,
-          fontStyle: "bold",
+          fontStyle: "normal",
           textAlign: "center",
         },
-        styles: { fontSize: 10 },
+        styles: { fillColor: [255, 255, 255] },
+        columnStyles: { 0: { halign: "center", fillColor: [255, 204, 204] } },
       });
 
       // Guardamos el pdf y lo mostramos en una pestaña nueva

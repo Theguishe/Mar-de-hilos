@@ -36,6 +36,9 @@ FROM
     pedidos_catalogo a,
     estados_pedidos b,
     clientes c
+WHERE
+    a.id_cliente = c.id_cliente
+    AND a.id_estado_pedido = b.id_estado_pedido
 ORDER BY a.id_pedido_catalogo ASC
 
 CREATE VIEW carritoView AS
@@ -145,12 +148,11 @@ SELECT * FROM carritoview drop view carritoView
 CREATE VIEW carritoView AS
 SELECT
     a.id_carrito AS "ID",
-    b.imagen AS "img",
-    b.nombre AS "nombre_producto",
+    b.imagen_producto AS "img",
+    b.nombre_producto AS "nombre_producto",
     b.precio AS "precio_producto",
-    b.cantidad AS "cantidad_producto",
-    b.descripcion AS "desc_producto",
-    a.id_pedido_c AS "ID_PEDIDO"
+    a.cantidad AS "cantidad_producto",
+    b.descripcion_producto AS "desc_producto", (a.cantidad * b.precio) AS "total"
 FROM carrito a, productos b
 ORDER BY id_carrito ASC
 LIMIT 8

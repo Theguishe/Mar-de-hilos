@@ -46,6 +46,14 @@ const Orders = () => {
 
       const mainHeader = (data) => {
         doc.setFontSize(8);
+        doc.setTextColor("#444");
+        doc.text(
+          "Reporte de el total de ordenes generados por Mar de Hilos",
+          20,
+          15
+        );
+
+        doc.setFontSize(8);
         doc.setTextColor(170, 170, 170);
         doc.text(new Date().toLocaleDateString(), 20, 20);
 
@@ -76,15 +84,19 @@ const Orders = () => {
         head: [headers],
         body: data.map((row) => Object.values(row)),
         startY: y,
+        margin: { top: 20 },
+        theme: "grid",
         didDrawPage: mainHeader,
         tableHeight: tableHeight(120),
         headStyles: {
-          textColor: [255, 255, 255],
+          theme: "grid",
+          textColor: [44, 44, 44],
           fontSize: 12,
-          fontStyle: "bold",
+          fontStyle: "normal",
           textAlign: "center",
         },
-        styles: { fontSize: 10 },
+        styles: { fillColor: [255, 255, 255] },
+        columnStyles: { 0: { halign: "center", fillColor: [255, 204, 204] } },
       });
 
       // Guardamos el pdf y lo mostramos en una pestaña nueva

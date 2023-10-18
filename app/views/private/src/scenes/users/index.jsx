@@ -39,19 +39,28 @@ const Users = () => {
 
   const generatePDF = async () => {
     try {
+      // Mandar a llamar los datos
       const response = await fetch("http://localhost:5000/users");
       const data = await response.json();
 
       //Crear un nuevo doc PDF
       const doc = new jsPDF();
-      doc.text("Reporte de usuarios - mardehilos", 15, 10);
+      doc.text("Reporte de usuarios - Mar de Hilos", 15, 10);
 
-      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      const logo = require("../../assets/imgs/hilos.jpeg");
       doc.addImage(logo, "PNG", 175, 10, 20, 20);
 
       const mainHeader = (data) => {
         doc.setFontSize(8);
-        doc.setTextColor(170, 170, 170);
+        doc.setTextColor("#444");
+        doc.text(
+          "Reporte de todos los usuarios dentro de Mar de Hilos con todos los datos del usuario",
+          20,
+          15
+        );
+
+        doc.setFontSize(8);
+        doc.setTextColor(255, 102, 102);
         doc.text(new Date().toLocaleDateString(), 20, 20);
 
         const currentTime = new Date().toLocaleTimeString();
@@ -72,11 +81,11 @@ const Users = () => {
       // Headers de la tabla
       const headers = [
         "ID",
-        "Username",
+        "Usuario",
         "DUI",
-        "Fecha nacimiento",
-        "Userlevel",
-        "Userstatus"
+        "F. Nacimiento",
+        "Nivel",
+        "Estatus",
       ];
 
       const tableHeight = function (data) {
@@ -88,19 +97,23 @@ const Users = () => {
         head: [headers],
         body: data.map((row) => Object.values(row)),
         startY: y,
+        margin: { top: 20 },
+        theme: "grid",
         didDrawPage: mainHeader,
         tableHeight: tableHeight(120),
         headStyles: {
-          textColor: [255, 255, 255],
+          theme: "grid",
+          textColor: [44, 44, 44],
           fontSize: 12,
-          fontStyle: "bold",
+          fontStyle: "normal",
           textAlign: "center",
         },
-        styles: { fontSize: 10 },
+        styles: { fillColor: [255, 255, 255] },
+        columnStyles: { 0: { halign: "center", fillColor: [255, 204, 204] } },
       });
 
       // Guardamos el pdf y lo mostramos en una pestaña nueva
-      doc.save("usuarios_reporte.pdf");
+      doc.save("reporte_usuarios.pdf");
     } catch (error) {
       console.log("Error al generar el PDF", error);
     }

@@ -47,6 +47,7 @@ const Dashboard = () => {
     fetch("http://localhost:5000/productos/fav")
       .then((response) => response.json())
       .then((data) => {
+        // Bara 1
         setBara(data);
       })
       .catch((error) => console.error(error));
@@ -57,6 +58,7 @@ const Dashboard = () => {
     fetch("http://localhost:5000/productos/cliente")
       .then((response) => response.json())
       .then((data) => {
+        // Bara 2
         setBara2(data);
       })
       .catch((error) => console.error(error));
@@ -67,12 +69,13 @@ const Dashboard = () => {
     fetch("http://localhost:5000/productos/categoria")
       .then((response) => response.json())
       .then((data) => {
+        // Bara 3
         setBara3(data);
       })
       .catch((error) => console.error(error));
   }, []);
 
-  // Cantidad de productos por categoria ✂️
+  // Cantidad de reseñas por producto  😇
   useEffect(() => {
     fetch("http://localhost:5000/productos/resenas")
       .then((response) => response.json())
@@ -81,6 +84,50 @@ const Dashboard = () => {
       })
       .catch((error) => console.error(error));
   }, []);
+
+  const months = Array.from({ length: 12 }, (_, i) => i + 1); // Array de números de mes del 1 al 12
+
+  useEffect(() => {
+    fetch("http://localhost:5000/productoPorMes")
+      .then((response) => response.json())
+      .then((result) => {
+        // Organiza los datos en un objeto para facilitar la manipulación
+        const dataObject = {};
+        result.forEach((item) => {
+          dataObject[item.mes] = item.cantidad_pedidos;
+        });
+
+        // Llena los datos para cada mes (asegurando que todos los meses estén presentes)
+        const formattedData = months.map((month) => ({
+          mes: month,
+          cantidad_pedidos: dataObject[month] || 0,
+        }));
+
+        setDavid2(formattedData);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  // Función para obtener el nombre del mes a partir de su numero
+  const getMonthName = (monthNumber) => {
+    const monthNames = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ];
+    return monthNames[monthNumber - 1]; // Restamos 1 porque los índices comienzan desde 0
+  };
+
+  const chartWidth = 40 * months.length;
 
   useEffect(() => {
     fetch("http://localhost:5000/countClient")
@@ -159,30 +206,6 @@ const Dashboard = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  const [productos2, setProductos2] = useState([]);
-  const months = Array.from({ length: 12 }, (_, i) => i + 1); // Array de números de mes del 1 al 12
-
-  useEffect(() => {
-    fetch("http://localhost:5000/productoPorMes")
-      .then((response) => response.json())
-      .then((result) => {
-        // Organiza los datos en un objeto para facilitar la manipulación
-        const dataObject = {};
-        result.forEach((item) => {
-          dataObject[item.mes] = item.cantidad_pedidos;
-        });
-
-        // Llena los datos para cada mes (asegurando que todos los meses estén presentes)
-        const formattedData = months.map((month) => ({
-          mes: month,
-          cantidad_pedidos: dataObject[month] || 0,
-        }));
-
-        setDavid2(formattedData);
-      })
-      .catch((error) => console.error(error));
-  }, []);
-
   useEffect(() => {
     fetch("http://localhost:5000/productoTipo")
       .then((response) => response.json())
@@ -191,27 +214,6 @@ const Dashboard = () => {
       })
       .catch((error) => console.error(error));
   }, []);
-
-  // Función para obtener el nombre del mes a partir de su numero
-  const getMonthName = (monthNumber) => {
-    const monthNames = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-    return monthNames[monthNumber - 1]; // Restamos 1 porque los índices comienzan desde 0
-  };
-
-  const chartWidth = 40 * months.length;
 
   const [productos3, setProductos3] = useState([]);
 
@@ -423,18 +425,6 @@ const Dashboard = () => {
           <Bar
             data={{
               labels: bara3.map((item) => item.nombre_categoria),
-              // datasets: [
-              //   {
-              //     data: bara3.map((item) => item.count),
-              //     backgroundColor: [
-              //       "rgba(255, 99, 132)",
-              //       "rgba(54, 162, 235)",
-              //       "rgba(255, 206, 86)",
-              //       "rgba(75, 192, 192)",
-              //       "rgba(153, 102, 255)",
-              //     ],
-              //   },
-              // ],
               datasets: [
                 {
                   label: "Cantidad",

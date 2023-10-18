@@ -43,12 +43,20 @@ const Products = () => {
 
       //Crear un nuevo doc PDF
       const doc = new jsPDF();
-      doc.text("Reporte de productos - mardehilos", 15, 10);
+      doc.text("Reporte de productos - Mar de hilos", 15, 10);
 
-      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      const logo = require("../../assets/imgs/hilos.jpeg");
       doc.addImage(logo, "PNG", 175, 10, 20, 20);
 
       const mainHeader = (data) => {
+        doc.setFontSize(8);
+        doc.setTextColor(170, 170, 170);
+        doc.text(
+          "Reporte de todos los produtos dentro de Mar de Hilos con todas sus carácteristicas",
+          20,
+          15
+        );
+
         doc.setFontSize(8);
         doc.setTextColor(170, 170, 170);
         doc.text(new Date().toLocaleDateString(), 20, 20);
@@ -71,13 +79,13 @@ const Products = () => {
       // Headers de la tabla
       const headers = [
         "ID",
-        "Product Name",
+        "Nombre del producto",
         "Image",
-        "Description",
-        "Price",
-        "Quantity",
-        "Product Type",
-        "Category",
+        "Descripción",
+        "Precio",
+        "Cantidad",
+        "Tipo",
+        "Categoria",
       ];
 
       const tableHeight = function (data) {
@@ -89,15 +97,19 @@ const Products = () => {
         head: [headers],
         body: data.map((row) => Object.values(row)),
         startY: y,
+        margin: { top: 10 },
+        theme: "grid",
         didDrawPage: mainHeader,
         tableHeight: tableHeight(120),
         headStyles: {
-          textColor: [255, 255, 255],
+          theme: "grid",
+          textColor: [44, 44, 44],
           fontSize: 12,
-          fontStyle: "bold",
+          fontStyle: "normal",
           textAlign: "center",
         },
-        styles: { fontSize: 10 },
+        styles: { fillColor: [255, 255, 255] },
+        columnStyles: { 0: { halign: "center", fillColor: [255, 204, 204] } },
       });
 
       // Guardamos el pdf y lo mostramos en una pestaña nueva
