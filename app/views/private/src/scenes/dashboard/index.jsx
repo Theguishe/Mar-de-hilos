@@ -178,7 +178,7 @@ const Dashboard = () => {
           cantidad_pedidos: dataObject[month] || 0,
         }));
 
-        setProductos2(formattedData);
+        setDavid2(formattedData);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -467,7 +467,13 @@ const Dashboard = () => {
               datasets: [
                 {
                   data: david.map((item) => item.count),
-
+                  backgroundColor: [
+                    "rgba(255, 99, 132)",
+                    "rgba(54, 162, 235)",
+                    "rgba(255, 206, 86)",
+                    "rgba(75, 192, 192)",
+                    "rgba(153, 102, 255)",
+                  ],
                   hoverOffset: 4, // Espaciado al hacer hover
                 },
               ],
@@ -491,11 +497,11 @@ const Dashboard = () => {
             PEDIDOS POR MES
             <Line
               data={{
-                labels: productos2.map((item) => getMonthName(item.mes)),
+                labels: david2.map((item) => getMonthName(item.mes)),
                 datasets: [
                   {
                     label: "Cantidad de Pedidos",
-                    data: productos2.map((item) => item.cantidad_pedidos),
+                    data: david2.map((item) => item.cantidad_pedidos),
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",
                     borderWidth: 1,
