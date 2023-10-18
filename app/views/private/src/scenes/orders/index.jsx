@@ -39,9 +39,9 @@ const Orders = () => {
 
       //Crear un nuevo doc PDF
       const doc = new jsPDF();
-      doc.text("Reporte de pedidos - mardehilos", 15, 10);
+      doc.text("Reporte de pedidos - Mar de Hilos", 15, 10);
 
-      const logo = require("../../assets/imgs/logo_ejemplo.png");
+      const logo = require("../../assets/imgs/hilos.jpeg");
       doc.addImage(logo, "PNG", 175, 10, 20, 20);
 
       const mainHeader = (data) => {

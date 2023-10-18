@@ -39,7 +39,7 @@ const Cart = () => {
 
       //Crear un nuevo doc PDF
       const doc = new jsPDF();
-      doc.text("Reporte de carrito - mardehilos", 15, 10);
+      doc.text("Reporte de carrito - Mar de Hilos", 15, 10);
 
       const logo = require("../../assets/imgs/hilos.jpeg");
       doc.addImage(logo, "PNG", 175, 10, 20, 20);
