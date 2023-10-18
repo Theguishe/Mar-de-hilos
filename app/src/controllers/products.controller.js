@@ -271,10 +271,95 @@ const usuariosNivelChart = async (req, res, next) => {
   }
 };
 
+const productosFav = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    SELECT b.nombre_producto, SUM(cantidad) FROM carrito a, productos b GROUP BY b.nombre_producto LIMIT 10 OFFSET 0 
+        `);
 
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
 
+const pedidosCliente = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    
+SELECT
+b.apellido_cliente,
+SUM(a.cantidad)
+FROM
+carrito as a,
+clientes as b,
+productos as c,
+pedidos_catalogo as d
+WHERE
+a.id_producto = c.id_producto
+AND a.id_pedido_catalogo = d.id_pedido_catalogo
+AND d.id_cliente = b.id_cliente
+GROUP BY b.apellido_cliente
+ORDER BY sum
+        `);
 
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
 
+const productosCategoria = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    
+    SELECT b.nombre_categoria, COUNT(*) FROM productos a, categorias b WHERE a.id_categoria = b.id_categoria GROUP BY b.nombre_categoria
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
+const ultimosPedidos = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    
+    SELECT a.nombre_producto, c.cantidad, b.nombre_categoria, d.fecha_pedido
+FROM productos a, categorias b, carrito c, pedidos_catalogo d WHERE a.id_categoria = b.id_categoria AND c.id_producto = a.id_producto  AND c.id_pedido_catalogo = d.id_pedido_catalogo ORDER BY d.fecha_pedido LIMIT 5 OFFSET 0
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
+
+const productosMasResenas = async (req, res, next) => {
+  try {
+    // Realiza una consulta SQL para obtener la cantidad de productos por categoría
+    const result = await pool.query(`
+    SELECT a.nombre_producto, COUNT(*)
+FROM productos a, resenias_detalles b
+WHERE a.id_producto = b.id_producto
+GROUP BY a.nombre_producto ORDER BY count DESC LIMIT 5
+        `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener los datos" });
+  }
+};
 
 module.exports = {
   getAllTasks,
@@ -291,4 +376,9 @@ module.exports = {
   countTotalProducts,
   topTenProductosChart,
   usuariosNivelChart,
+  productosFav,
+  pedidosCliente,
+  productosCategoria,
+  ultimosPedidos,
+  productosMasResenas,
 };
