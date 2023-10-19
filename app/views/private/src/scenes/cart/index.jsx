@@ -116,19 +116,26 @@ const Cart = () => {
   const columns = [
     { field: "ID", headerName: "ID" },
     {
-      field: "Cantidad",
+      field: "img",
+      headerName: "Imagen",
+      flex: 1,
+    },
+    {
+      field: "nombre_producto",
+      headerName: "nombre",
+      flex: 1,
+    },
+    {
+      field: "precio_producto",
+      headerName: "Precio",
+      flex: 1,
+    },{
+      field: "cantidad_producto",
       headerName: "Cantidad",
       flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "Review",
-      headerName: "Resenia",
-      flex: 1,
-    },
-    {
-      field: "Product",
-      headerName: "Producto",
+    },{
+      field: "total",
+      headerName: "total",
       flex: 1,
     },
     {

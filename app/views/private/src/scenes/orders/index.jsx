@@ -109,23 +109,23 @@ const Orders = () => {
   const columns = [
     { field: "ID", headerName: "ID" },
     {
-      field: "fecha",
+      field: "Fecha",
       headerName: "Order Date",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "hora",
+      field: "Hora",
       headerName: "Order Time",
       flex: 1,
     },
     {
-      field: "Orderstatus",
+      field: "Estado",
       headerName: "Estado",
       flex: 1,
     },
     {
-      field: "Client",
+      field: "Cliente",
       headerName: "Cliente",
       flex: 1,
     },
