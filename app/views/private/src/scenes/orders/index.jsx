@@ -73,7 +73,7 @@ const Orders = () => {
       let y = 40;
 
       // Headers de la tabla
-      const headers = ["ID", "fecha", "hora", "Orderstatus", "Client"];
+      const headers = ["ID", "fecha", "hora", "Estado", "Cliente"];
 
       const tableHeight = function (data) {
         return 100; // Ajusta la altura de la tabla según tus necesidades
@@ -121,12 +121,12 @@ const Orders = () => {
     },
     {
       field: "Orderstatus",
-      headerName: "Order status",
+      headerName: "Estado",
       flex: 1,
     },
     {
       field: "Client",
-      headerName: "Client",
+      headerName: "Cliente",
       flex: 1,
     },
     {

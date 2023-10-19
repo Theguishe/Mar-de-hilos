@@ -79,13 +79,14 @@ const Products = () => {
       // Headers de la tabla
       const headers = [
         "ID",
-        "Nombre del producto",
-        "Image",
+        "Producto",
+        "Usuario",
+        "Imagen",
         "Descripción",
         "Precio",
         "Cantidad",
         "Tipo",
-        "Categoria",
+        "categoría",
       ];
 
       const tableHeight = function (data) {
@@ -151,33 +152,43 @@ const Products = () => {
       cellClassName: "name-column--cell",
     },
     {
+      field: "User",
+      headerName: "Usuario",
+      flex: 1,
+    },
+    {
       field: "Image",
       headerName: "Imagen",
       flex: 1,
     },
     {
       field: "Description",
-      headerName: "Description",
+      headerName: "Descripcion",
       flex: 1,
     },
     {
       field: "Price",
-      headerName: "Price",
+      headerName: "Precio",
       flex: 1,
     },
     {
       field: "Quantity",
-      headerName: "Quantity",
+      headerName: "Stock",
+      flex: 1,
+    },
+    {
+      field: "Ranking",
+      headerName: "Valoracion",
       flex: 1,
     },
     {
       field: "Product type",
-      headerName: "Product Type",
+      headerName: "Tipo",
       flex: 1,
     },
     {
       field: "Category",
-      headerName: "Category",
+      headerName: "categoría",
       flex: 1,
     },
     {

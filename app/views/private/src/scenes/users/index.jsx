@@ -83,9 +83,9 @@ const Users = () => {
         "ID",
         "Usuario",
         "DUI",
-        "F. Nacimiento",
-        "Nivel",
-        "Estatus",
+        "Fecha de Nacimiento",
+        "Nivel de usuario",
+        "Rango",
       ];
 
       const tableHeight = function (data) {

@@ -1,3 +1,23 @@
+ 
+    CREATE VIEW productosView AS
+    SELECT
+    p.id_producto AS "ID",
+    p.nombre_producto AS "Product Name",
+    u.nombre_usuario AS "User",
+    p.imagen_producto AS "Image",
+    p.descripcion_producto AS "Description",
+    p.precio AS "Price",
+    p.cantidad_stock AS "Quantity",
+    p.valoracion_producto AS "Ranking",
+    tp.tipo_producto AS "Product type",
+    
+    c.nombre_categoria AS "Category"
+FROM
+    productos p
+    LEFT JOIN tipos_productos tp ON p.id_tipo_producto = tp.id_tipo_producto
+    LEFT JOIN usuarios u ON p.id_usuario = u.id_usuario
+    LEFT JOIN categorias c ON p.id_categoria = c.id_categoria;
+
 CREATE VIEW clientesView AS
 SELECT
     a.id_cliente As "ID",
@@ -11,17 +31,38 @@ SELECT
 FROM clientes a
 ORDER BY a.id_cliente ASC
 
+SELECT * FROM usuariosView
+
+CREATE VIEW vista_productos AS
+    SELECT
+    p.id_producto AS "ID",
+    p.nombre_producto AS "Nombre del Producto",
+    p.imagen_producto AS "Imagen del Producto",
+    p.descripcion_producto AS "Descripción del Producto",
+    p.precio AS "Precio",
+    p.cantidad_stock AS "Cantidad en Stock",
+    p.valoracion_producto AS "Valoración del Producto",
+    tp.tipo_producto AS "Tipo de Producto",
+    u.nombre_usuario AS "Nombre del Usuario",
+    c.nombre_categoria AS "Nombre de la Categoría"
+FROM
+    productos p
+    LEFT JOIN tipos_productos tp ON p.id_tipo_producto = tp.id_tipo_producto
+    LEFT JOIN usuarios u ON p.id_usuario = u.id_usuario
+    LEFT JOIN categorias c ON p.id_categoria = c.id_categoria;
 CREATE VIEW usuariosView AS
 SELECT
     a.id_usuario AS "ID",
     a.nombre_usuario AS "Username",
     a.dui AS "DUI",
-    a.fecha_nacimiento_usuario AS "Fecha nacimiento",
+    CAST(a.fecha_nacimiento_usuario AS DATE) AS "Fecha nacimiento",
     a.estado_usuario AS "Estado",
     a.nivel_usuario AS "Nivel"
-FROM usuarios as a
+FROM usuarios as a;
 
-CREATE VIEW pedidosView AS
+SELECT * FROM carritoView
+
+ AS
 SELECT
     a.id_pedido_catalogo AS "ID",
     a.fecha_pedido AS "fecha",

@@ -76,10 +76,10 @@ const Clients = () => {
       const headers = [
         "ID",
         "Nombre",
-        "Email",
+        "Correo",
         "DUI",
-        "Fecha nacimiento",
-        "Estado cliente",
+        "Fecha de nacimiento",
+        "Estado del cliente",
       ];
 
       const tableHeight = function (data) {
@@ -128,7 +128,7 @@ const Clients = () => {
       align: "center",
     },
     {
-      field: "Email",
+      field: "Correo",
       headerName: "Email",
       flex: 1,
       cellClassName: "name-column--cell",
@@ -143,14 +143,14 @@ const Clients = () => {
       align: "center",
     },
     {
-      field: "Fecha nacimiento",
+      field: "Fecha de nacimiento",
       headerName: "BirthDate",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "Estado cliente",
+      field: "Estado del cliente",
       headerName: "Client Status",
       flex: 1,
       headerAlign: "center",
