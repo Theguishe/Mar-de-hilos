@@ -161,21 +161,25 @@ const deletingTask = async (req, res, next) => {
   }
 };
 
-// USADOS PARA LAS GRAFICAS
+// USADOS PARA LAS GRAFICAS ⏺
+
+//✅✅✅
 const productosCategoriaChart = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
-    const result = await pool.query(
-      `SELECT
-      c.nombre_categoria,
-      COUNT(p.id_producto) AS cantidad_productos
-  FROM categorias as c
-      LEFT JOIN productos p ON c.id_categoria = p.id_categoria
-  WHERE p.id_producto IS NOT NULL
-  GROUP BY
-      c.id_categoria,
-      c.nombre_categoria
-  ORDER BY c.id_categoria`
+    const result = await pool.query(`
+    SELECT
+  c.nombre_categoria,
+  COUNT(p.id_producto) AS cantidad_productos
+FROM
+  categorias as c
+INNER JOIN productos p ON c.id_categoria = p.id_categoria
+GROUP BY
+  c.id_categoria,
+  c.nombre_categoria
+ORDER BY cantidad_productos DESC
+LIMIT 5;
+  `
     );
     res.json(result.rows);
   } catch (error) {
@@ -184,6 +188,7 @@ const productosCategoriaChart = async (req, res, next) => {
   }
 };
 
+//✅✅✅
 const productosTipoChart = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
@@ -194,6 +199,7 @@ const productosTipoChart = async (req, res, next) => {
     WHERE p.id_producto IS NOT NULL
     GROUP BY c.id_tipo_producto, c.tipo_producto
     ORDER BY c.id_tipo_producto
+    LIMIT 5
         `);
 
     res.json(result.rows);
@@ -202,17 +208,23 @@ const productosTipoChart = async (req, res, next) => {
     res.status(500).json({ error: "Error al obtener los datos" });
   }
 };
+
+
+//✅✅✅
 
 const productosPedidosPorMesChart = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
     const result = await pool.query(`
-          SELECT
-          EXTRACT(MONTH FROM fecha_pedido) AS mes,
-          COUNT(*) AS cantidad_pedidos
-          FROM pedidos_catalogo
-          GROUP BY mes
-          ORDER BY mes;
+    SELECT
+    EXTRACT(MONTH FROM fecha_pedido) AS mes,
+    COUNT(*) AS cantidad_pedidos
+  FROM
+    pedidos_catalogo
+  WHERE
+    EXTRACT(YEAR FROM fecha_pedido) = 2023
+  GROUP BY mes
+  ORDER BY mes;
         `);
 
     res.json(result.rows);
@@ -221,6 +233,9 @@ const productosPedidosPorMesChart = async (req, res, next) => {
     res.status(500).json({ error: "Error al obtener los datos" });
   }
 };
+
+
+//✅✅✅
 
 const countTotalProducts = async (req, res, next) => {
   try {
@@ -229,7 +244,8 @@ const countTotalProducts = async (req, res, next) => {
     FROM pedidos_catalogo pc
     JOIN carrito c ON pc.id_pedido_catalogo = c.id_pedido_catalogo
     JOIN productos p ON c.id_producto = p.id_producto
-    WHERE pc.id_estado_pedido = 3 `);
+    WHERE pc.id_estado_pedido = 3
+     `);
     res.json(result.rows);
   } catch (error) {
     next(error);
@@ -237,6 +253,8 @@ const countTotalProducts = async (req, res, next) => {
   }
 };
 
+
+//✅✅✅
 const topTenProductosChart = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
@@ -255,6 +273,8 @@ const topTenProductosChart = async (req, res, next) => {
   }
 };
 
+
+//✅✅✅
 const usuariosNivelChart = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
@@ -271,12 +291,20 @@ const usuariosNivelChart = async (req, res, next) => {
   }
 };
 
+//✅✅✅
 const productosFav = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
     const result = await pool.query(`
-    SELECT b.nombre_producto, SUM(cantidad) FROM carrito a, productos b GROUP BY b.nombre_producto LIMIT 10 OFFSET 0 
-        `);
+    SELECT
+    b.nombre_producto,
+    SUM(a.cantidad)
+  FROM
+    carrito a
+  INNER JOIN productos b ON a.id_producto = b.id_producto
+  GROUP BY b.nombre_producto
+  LIMIT 5
+          `);
 
     res.json(result.rows);
   } catch (error) {
@@ -284,26 +312,24 @@ const productosFav = async (req, res, next) => {
     res.status(500).json({ error: "Error al obtener los datos" });
   }
 };
+
+//✅✅✅✅
 
 const pedidosCliente = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
     const result = await pool.query(`
-    
-SELECT
-b.apellido_cliente,
-SUM(a.cantidad)
+    SELECT
+  b.apellido_cliente,
+  SUM(a.cantidad) 
 FROM
-carrito as a,
-clientes as b,
-productos as c,
-pedidos_catalogo as d
-WHERE
-a.id_producto = c.id_producto
-AND a.id_pedido_catalogo = d.id_pedido_catalogo
-AND d.id_cliente = b.id_cliente
+  carrito as a
+INNER JOIN pedidos_catalogo as d ON a.id_pedido_catalogo = d.id_pedido_catalogo
+INNER JOIN clientes as b ON d.id_cliente = b.id_cliente
+INNER JOIN productos as c ON a.id_producto = c.id_producto
 GROUP BY b.apellido_cliente
-ORDER BY sum
+ORDER BY sum ASC
+LIMIT 3;
         `);
 
     res.json(result.rows);
@@ -312,14 +338,18 @@ ORDER BY sum
     res.status(500).json({ error: "Error al obtener los datos" });
   }
 };
+
+//✅✅✅
 
 const productosCategoria = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
     const result = await pool.query(`
     
-    SELECT b.nombre_categoria, COUNT(*) FROM productos a, categorias b WHERE a.id_categoria = b.id_categoria GROUP BY b.nombre_categoria
-        `);
+    SELECT b.nombre_categoria, COUNT(*)
+    FROM categorias b
+    INNER JOIN productos a ON a.id_categoria = b.id_categoria
+    GROUP BY b.nombre_categoria;        `);
 
     res.json(result.rows);
   } catch (error) {
@@ -327,6 +357,7 @@ const productosCategoria = async (req, res, next) => {
     res.status(500).json({ error: "Error al obtener los datos" });
   }
 };
+
 
 const ultimosPedidos = async (req, res, next) => {
   try {
@@ -334,8 +365,13 @@ const ultimosPedidos = async (req, res, next) => {
     const result = await pool.query(`
     
     SELECT a.nombre_producto, c.cantidad, b.nombre_categoria, d.fecha_pedido
-FROM productos a, categorias b, carrito c, pedidos_catalogo d WHERE a.id_categoria = b.id_categoria AND c.id_producto = a.id_producto  AND c.id_pedido_catalogo = d.id_pedido_catalogo ORDER BY d.fecha_pedido LIMIT 5 OFFSET 0
-        `);
+FROM productos a
+INNER JOIN categorias b ON a.id_categoria = b.id_categoria
+INNER JOIN carrito c ON a.id_producto = c.id_producto
+INNER JOIN pedidos_catalogo d ON c.id_pedido_catalogo = d.id_pedido_catalogo
+ORDER BY d.fecha_pedido
+LIMIT 5
+`);
 
     res.json(result.rows);
   } catch (error) {
@@ -344,14 +380,17 @@ FROM productos a, categorias b, carrito c, pedidos_catalogo d WHERE a.id_categor
   }
 };
 
+//✅✅✅
 const productosMasResenas = async (req, res, next) => {
   try {
     // Realiza una consulta SQL para obtener la cantidad de productos por categoría
     const result = await pool.query(`
-    SELECT a.nombre_producto, COUNT(*)
-FROM productos a, resenias_detalles b
-WHERE a.id_producto = b.id_producto
-GROUP BY a.nombre_producto ORDER BY count DESC LIMIT 5
+    SELECT a.nombre_producto, COUNT(*) 
+FROM productos a
+INNER JOIN resenias_detalles b ON a.id_producto = b.id_producto
+GROUP BY a.nombre_producto
+ORDER BY  COUNT DESC
+LIMIT 5;
         `);
 
     res.json(result.rows);
