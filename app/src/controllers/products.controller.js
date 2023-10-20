@@ -273,7 +273,7 @@ const usuariosNivelChart = async (req, res, next) => {
 // Para la pagina publica, carga de cards
 const getProductCard = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT id_producto, nombre, imagen, precio, descripcion, valoracion FROM productos ORDER BY id_producto ASC");
+    const allTasks = await pool.query("SELECT id_producto, nombre_producto, imagen_producto, precio, descripcion_producto, valoracion_producto FROM productos ORDER BY id_producto ASC");
     res.json(allTasks.rows);
   } catch (error) {
     next(error);
@@ -285,7 +285,7 @@ const getProductCard = async (req, res, next) => {
 const getSingleProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await pool.query("SELECT id_producto, nombre, imagen, precio, descripcion, valoracion FROM productos WHERE id_producto = $1", [id]);
+    const result = await pool.query("SELECT id_producto, nombre_producto, imagen_producto, precio, descripcion_producto, valoracion_producto FROM productos WHERE id_producto = $1", [id]);
     if (result.rows.length === 0)
       return res.status(404).json({
         message: "Task not found",

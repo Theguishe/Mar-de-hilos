@@ -144,7 +144,10 @@ const CarItem = () => {
       doc.text("mardehilos", 20, 250)
 
       doc.setFontSize(10);
-      doc.text("@eamguille", 20, 260)
+      doc.text("@barasex.v", 20, 260)
+
+      doc.setFontSize(10);
+      doc.text("#SomosPromo24", 20, 270)
 
       // Guardamos el pdf y lo mostramos en una pestaña nueva
       doc.save("factura.pdf");
