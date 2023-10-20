@@ -72,6 +72,8 @@ const CarItem = () => {
       doc.setTextColor("#000");
       doc.text("FACTURA", 15, 10);
 
+      doc.setPage("A4");
+
       const mainHeader = (data) => {
         doc.setFontSize(8);
         doc.setTextColor(170, 170, 170);

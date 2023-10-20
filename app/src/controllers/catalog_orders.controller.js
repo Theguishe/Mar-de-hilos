@@ -12,7 +12,7 @@ const getAllTasks = async (req, res, next) => {
   }
 };
 
-// Function to gte the count number of registers in the tables
+// Function to get the count number of registers in the tables
 const getCount = async (req, res, next) => {
   try {
     const result = await pool.query("SELECT COUNT(*) FROM pedidosView");

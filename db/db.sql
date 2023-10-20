@@ -353,3 +353,30 @@ CREATE VIEW carritoView AS
 SELECT a.id_carrito AS "ID", a.cantidad AS "Cantidad", b.resenia AS "Review", c.nombre AS "Product", c.descripcion AS "Product desc"
 FROM carrito a, resenia_detalles b, productos c
 ORDER BY a.id_carrito ASC
+
+
+
+
+
+
+-------------------------------------
+-- PARA LAS FACTURAS, DAVID Y BARA --
+-------------------------------------
+
+CREATE VIEW carritoView AS
+SELECT
+    a.id_carrito AS "ID",
+    b.imagen_producto AS "img",
+    b.nombre_producto AS "nombre_producto",
+    b.precio AS "precio_producto",
+    b.cantidad_stock AS "cantidad_producto",
+    b.descripcion_producto AS "desc_producto",
+    a.id_pedido_catalogo AS "ID_PEDIDO",
+    (b.precio * b.cantidad_stock) AS "total_producto"
+FROM carrito a
+JOIN productos b ON a.id_producto = b.id_producto
+ORDER BY a.id_carrito ASC
+LIMIT 8;
+
+
+SELECT nombre_producto, precio_producto, desc_producto, cantidad_producto, SUM(total_producto) AS "total_producto" FROM carritoView

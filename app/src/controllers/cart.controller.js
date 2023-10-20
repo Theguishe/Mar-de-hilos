@@ -4,8 +4,8 @@ const pool = require("../db");
 // Function to get the list to show in MUI datagrid
 const getAllTasks = async (req, res, next) => {
   try {
-    const allTasks = await pool.query("SELECT * FROM carritoView");
-    res.json(allTasks.rows);
+    const result = await pool.query("SELECT * FROM carritoView");
+    res.json(result.rows);
   } catch (error) {
     next(error);
     console.log(error);
@@ -170,6 +170,8 @@ const deletingTask = async (req, res, next) => {
     next(error);
   }
 };
+
+
 
 // Para la impresion de la factura general del carrito
 const facturaData = async (req, res, next) => {

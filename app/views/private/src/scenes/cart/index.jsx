@@ -83,6 +83,7 @@ const Cart = () => {
           fontSize: 12,
           fontStyle: "bold",
           textAlign: "center",
+          fillColor: "#000"
         },
         styles: { fontSize: 10 },
       });
